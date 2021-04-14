@@ -1,4 +1,4 @@
-# Arion Platform - A Blockchain based platform for Supply Chain Management[![version][version-badge]][changelog]
+# Arion - A Blockchain based platform for Supply Chain Management [![version][version-badge]][changelog]
 
 ## Terminal Commands
 
