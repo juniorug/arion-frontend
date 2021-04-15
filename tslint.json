@@ -1,4 +1,15 @@
 {
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
+  "cliOptions": {
+      "exclude": [
+          "bin",
+          "lib/*generated.js",
+          "node_modules/*"
+      ]
+  },
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
