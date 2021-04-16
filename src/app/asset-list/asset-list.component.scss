@@ -1,0 +1,10 @@
+.btn.btn-default {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: transparent;
+  border-color: transparent;
+  color: #a9afbb;
+}
+.btn.btn-default:first-child {
+  margin-left: 0px;
+}

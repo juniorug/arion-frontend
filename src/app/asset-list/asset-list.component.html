@@ -3,7 +3,7 @@
        <div class="row">
            <div class="col-md-12">
                <div class="card">
-                   <div class="card-header card-header-danger">
+                   <div class="card-header card-header-info">
                        <h4 class="card-title ">Asset List</h4>
                        <p class="card-category"> View and manage Assets</p>
                    </div>
@@ -25,10 +25,16 @@
                                    <td>{{asset.assetItems.length}}</td>
                                    <td>{{asset.actors.length}}</td>
                                    <td>{{asset.steps.length}}</td>
-                                   <td>
-                                      <button (click)="deleteAsset(asset.assetID)" class="btn btn-danger">Delete</button>
-                                      <button (click)="editAsset(asset.assetID)" class="btn btn-info" style="margin-left: 10px">Edit</button>
-                                      <button (click)="assetDetails(asset.assetID)" class="btn btn-info" style="margin-left: 10px">Details</button>
+                                   <td style="width: 200px;">
+                                       <button (click)="assetDetails(asset.assetID)" class="btn btn-default" st>
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                       <button (click)="editAsset(asset.assetID)" class="btn btn-default">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                       <button (click)="deleteAsset(asset.assetID)" class="btn btn-default">
+                                            <i class="material-icons">delete</i>
+                                        </button>
                                    </td>
                                  </tr>
                                </tbody>
