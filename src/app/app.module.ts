@@ -13,7 +13,7 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AssetListComponent } from './asset-list/asset-list.component';
+//import { AssetListComponent } from './asset-list/asset-list.component';
 
 @NgModule({
   imports: [
@@ -31,7 +31,6 @@ import { AssetListComponent } from './asset-list/asset-list.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AssetListComponent,
 
   ],
   providers: [],

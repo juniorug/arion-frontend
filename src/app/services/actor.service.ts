@@ -11,24 +11,25 @@ export class ActorService {
 
   constructor(private http: HttpClient) { }
 
-  getActor(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
-
   createActor(Actor: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, Actor);
   }
 
+  getActorList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
+
   updateActor(id: number, payload: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
+  }
+  
+  getActor(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   deleteActor(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getActorList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
-  }
 }
 

@@ -11,23 +11,32 @@ export class AssetItemService {
 
   constructor(private http: HttpClient) { }
 
-  getAssetItem(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
-
   createAssetItem(AssetItem: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, AssetItem);
+  }
+
+  getAssetItemList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
   }
 
   updateAssetItem(id: number, payload: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
   }
 
+  getAssetItem(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
   deleteAssetItem(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getAssetItemList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  moveAssetItem(id: number, AssetItem: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/${id}`, AssetItem);
   }
+  
+  trackAssetItem(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/track/${id}`);
+  }
+
 }
