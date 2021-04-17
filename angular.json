@@ -21,6 +21,8 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "src/assets/scss/material-dashboard.scss",
@@ -37,7 +39,7 @@
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js"
             ],
-            "allowedCommonJsDependencies" : [
+            "allowedCommonJsDependencies": [
               "rxjs/add/operator/filter",
               "jquery",
               "chartist"
@@ -98,6 +100,8 @@
               "node_modules/chartist/dist/chartist.js"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "src/assets/scss/material-dashboard.scss",
               "src/assets/css/demo.css"
@@ -121,7 +125,7 @@
       }
     },
     "material-dashboard-angular-e2e": {
-      "root": "",
+      "root": "e2e",
       "sourceRoot": "",
       "projectType": "application",
       "architect": {
