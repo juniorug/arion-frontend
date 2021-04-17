@@ -8,6 +8,9 @@ import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
+import { AssetDetailsComponent } from 'app/asset-details/asset-details.component';
+import { CreateAssetComponent } from 'app/create-asset/create-asset.component';
+import { EditAssetComponent } from 'app/edit-asset/edit-asset.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -52,12 +55,15 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'asset-list',     component: AssetListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'dashboard',          component: DashboardComponent },
+    { path: 'user-profile',       component: UserProfileComponent },
+    { path: 'table-list',         component: TableListComponent },
+    { path: 'assets',             component: AssetListComponent },
+    { path: 'create-asset',       component: CreateAssetComponent },
+    { path: 'asset-details/:id',  component: AssetDetailsComponent },
+    { path: 'edit-asset/:id',     component: EditAssetComponent },
+    { path: 'typography',         component: TypographyComponent },
+    { path: 'icons',              component: IconsComponent },
+    { path: 'maps',               component: MapsComponent },
+    { path: 'notifications',      component: NotificationsComponent },
 ];

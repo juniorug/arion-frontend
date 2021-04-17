@@ -12,7 +12,9 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-//import { AssetListComponent } from './asset-list/asset-list.component';
+import { AssetDetailsComponent } from './asset-details/asset-details.component';
+import { CreateAssetComponent } from './create-asset/create-asset.component';
+import { EditAssetComponent } from './edit-asset/edit-asset.component';
 
 @NgModule({
   imports: [
@@ -31,6 +33,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    AssetDetailsComponent,
+    CreateAssetComponent,
+    EditAssetComponent,
 
   ],
   providers: [],

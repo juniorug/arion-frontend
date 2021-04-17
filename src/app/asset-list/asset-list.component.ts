@@ -68,15 +68,15 @@ export class AssetListComponent implements OnInit {
   }
 
   createAsset() {
-    this.router.navigate(['create']);
+    this.router.navigate(['create-asset']);
   }
 
   assetDetails(id: number){
-    this.router.navigate(['details', id]);
+    this.router.navigate(['asset-details', id]);
   }
 
   editAsset(id: number){
-    this.router.navigate(['update', id]);
+    this.router.navigate(['edit-asset', id]);
   }
 
   showNotification(type, message) {
