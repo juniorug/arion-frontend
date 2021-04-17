@@ -29,6 +29,10 @@ export class AssetListComponent implements OnInit {
     console.log("assets: ", this.assets);
   }
 
+  createAsset() {
+    this.router.navigate(['create']);
+  }
+
   deleteAsset(id: number) {
     this.assetService.deleteAsset(id)
       .subscribe(
