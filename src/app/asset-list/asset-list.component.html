@@ -4,8 +4,15 @@
            <div class="col-md-12">
                <div class="card">
                    <div class="card-header card-header-info">
-                       <h4 class="card-title ">Asset List</h4>
-                       <p class="card-category"> View and manage Assets</p>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h4 class="card-title ">Asset List</h4>
+                            <p class="card-category"> View and manage Assets</p>
+                        </div>
+                        <div class="col-md-2 float-right">
+                            <button class="btn btn-primary float-right" (click)="createAsset()">Create</button>
+                        </div>
+                    </div>
                    </div>
                    <div class="card-body">
                        <div class="table-responsive">
