@@ -11,7 +11,7 @@ export class AssetService {
 
   constructor(private http: HttpClient) { }
 
-  getAsset(id: number): Observable<any> {
+  getAsset(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -19,11 +19,11 @@ export class AssetService {
     return this.http.post(`${this.baseUrl}`, Asset);
   }
 
-  updateAsset(id: number, payload: any): Observable<Object> {
+  updateAsset(id: string, payload: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
   }
 
-  deleteAsset(id: number): Observable<any> {
+  deleteAsset(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 

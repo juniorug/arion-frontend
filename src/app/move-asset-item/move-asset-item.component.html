@@ -1,0 +1,42 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Move Asset Items</h4>
+                <p class="card-category">Move Assets Items between Steps</p>
+              </div>
+              <div class="col-md-2 float-right">
+                <button class="btn btn-primary float-right" (click)="createAssetItem()">Create</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <span class="material-icons">error_outline</span>
+    <h2>Are you sure?</h2>
+    <p>Do you want to delete the asset item {{ selectedAssetItem.assetItemID }} ?</p>
+    <button type="button" class="btn btn-default" (click)="decline()" style="margin-right: 5px">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirm()" style="margin-left: 5px">Delete</button>
+  </div>
+</ng-template>

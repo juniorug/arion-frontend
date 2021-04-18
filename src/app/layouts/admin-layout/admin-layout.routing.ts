@@ -11,59 +11,27 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { AssetDetailsComponent } from 'app/asset-details/asset-details.component';
 import { CreateAssetComponent } from 'app/create-asset/create-asset.component';
 import { EditAssetComponent } from 'app/edit-asset/edit-asset.component';
+import { AssetItemDetailsComponent } from 'app/asset-item-details/asset-item-details.component';
+import { CreateAssetItemComponent } from 'app/create-asset-item/create-asset-item.component';
+import { EditAssetItemComponent } from 'app/edit-asset-item/edit-asset-item.component';
+import { MoveAssetItemComponent } from 'app/move-asset-item/move-asset-item.component';
+import { TrackAssetItemComponent } from 'app/track-asset-item/track-asset-item.component';
 
 export const AdminLayoutRoutes: Routes = [
-    // {
-    //   path: '',
-    //   children: [ {
-    //     path: 'dashboard',
-    //     component: DashboardComponent
-    // }]}, {
-    // path: '',
-    // children: [ {
-    //   path: 'userprofile',
-    //   component: UserProfileComponent
-    // }]
-    // }, {
-    //   path: '',
-    //   children: [ {
-    //     path: 'icons',
-    //     component: IconsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'notifications',
-    //         component: NotificationsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'maps',
-    //         component: MapsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'typography',
-    //         component: TypographyComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'upgrade',
-    //         component: UpgradeComponent
-    //     }]
-    // }
-    { path: 'dashboard',          component: DashboardComponent },
-    { path: 'user-profile',       component: UserProfileComponent },
-    { path: 'table-list',         component: TableListComponent },
-    { path: 'assets',             component: AssetListComponent },
-    { path: 'create-asset',       component: CreateAssetComponent },
-    { path: 'asset-details/:id',  component: AssetDetailsComponent },
-    { path: 'edit-asset/:id',     component: EditAssetComponent },
-    { path: 'typography',         component: TypographyComponent },
-    { path: 'icons',              component: IconsComponent },
-    { path: 'maps',               component: MapsComponent },
-    { path: 'notifications',      component: NotificationsComponent },
+    { path: 'dashboard',                component: DashboardComponent },
+    { path: 'user-profile',             component: UserProfileComponent },
+    { path: 'table-list',               component: TableListComponent },
+    { path: 'assets',                   component: AssetListComponent,          data: {title: 'Assets'} },
+    { path: 'create-asset',             component: CreateAssetComponent,        data: {title: 'Create Asset'} },
+    { path: 'asset-details/:id',        component: AssetDetailsComponent,       data: {title: 'Asset Details'} },
+    { path: 'edit-asset/:id',           component: EditAssetComponent,          data: {title: 'Edit Asset'} },
+    { path: 'create-asset-item',        component: CreateAssetItemComponent,    data: {title: 'Create Asset Item'} },
+    { path: 'asset-item-details/:id',   component: AssetItemDetailsComponent,   data: {title: 'Asset Item Details'} },
+    { path: 'edit-asset-item/:id',      component: EditAssetItemComponent,      data: {title: 'Edit Asset Item'} },
+    { path: 'move-asset-item/:id',      component: MoveAssetItemComponent,      data: {title: 'Move Asset Item'} },
+    { path: 'track-asset-item/:id',     component: TrackAssetItemComponent,     data: {title: 'track Asset Item'} },
+    { path: 'typography',               component: TypographyComponent },
+    { path: 'icons',                    component: IconsComponent },
+    { path: 'maps',                     component: MapsComponent },
+    { path: 'notifications',            component: NotificationsComponent },
 ];

@@ -1,0 +1,40 @@
+.bt-actions {
+  .btn.btn-default {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #a9afbb;
+  }
+  .btn.btn-default:first-child {
+    margin-left: 0px;
+  }
+}
+
+span.material-icons {
+  color: #f44336;
+  font-size: 75px;
+}
+
+th:last-child {
+  text-align: center;
+}
+.rotate-90 i {
+  -webkit-transform: rotate(90deg); /* Safari and Chrome */
+  -moz-transform: rotate(90deg); /* Firefox */
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -o-transform: rotate(90deg); /* Opera */
+  transform: rotate(90deg);
+}
+
+@media (min-width: 768px) {
+  .modal-confirm {
+    max-width: 500px;
+    width: 500px;
+
+    .btn-default {
+      background-color: #999999;
+      border-color: #999999;
+    }
+  }
+}

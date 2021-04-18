@@ -1,1 +1,62 @@
-<p>edit-asset works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Edit Asset</h4>
+              </div>
+              <div class="col-md-2 float-right"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Items</th>
+                  <th>Actors</th>
+                  <th>Steps</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let asset of assets">
+                    <!--<tr *ngFor="let asset of assets | async">-->
+                    <td>{{ asset.assetID }}</td>
+                    <td>{{ asset.assetName }}</td>
+                    <td>{{ asset.assetItems.length }}</td>
+                    <td>{{ asset.actors.length }}</td>
+                    <td>{{ asset.steps.length }}</td>
+                    <td style="width: 200px" class="bt-actions">
+                      <button (click)="assetDetails(asset.assetID)" class="btn btn-default" st>
+                        <i class="material-icons">visibility</i>
+                      </button>
+                      <button (click)="editAsset(asset.assetID)" class="btn btn-default">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button (click)="openModal(template, asset)" class="btn btn-default">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,9 @@ export class EditAssetComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    document.getElementsByClassName("asset-menu")[0].classList.add("active");
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.add("active");
+    });
   }
 
 }

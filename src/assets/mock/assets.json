@@ -12,7 +12,7 @@
             "deliveryDate":"2020-03-07T15:04:05",
             "orderPrice":"",
             "shippingPrice":"",
-            "status":"order initiated",
+            "status":"Sold",
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{

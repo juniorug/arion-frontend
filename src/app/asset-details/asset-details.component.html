@@ -1,1 +1,91 @@
-<p>asset-details works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Asset Items</h4>
+                <p class="card-category">View and manage Assets Items</p>
+              </div>
+              <div class="col-md-2 float-right">
+                <button class="btn btn-primary float-right" (click)="createAssetItem()">Create</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Owner ID</th>
+                  <th>Step ID</th>
+                  <th>Parent ID</th>
+                  <th>Process Date</th>
+                  <th>Delivery Date</th>
+                  <th>Order Price</th>
+                  <th>Shipping Price</th>
+                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let assetItem of asset.assetItems">
+                    <!--<tr *ngFor="let asset of assets | async">-->
+                    <td>{{ assetItem.assetItemID }}</td>
+                    <td>{{ assetItem.ownerID }}</td>
+                    <td>{{ assetItem.stepID }}</td>
+                    <td>{{ assetItem.parentID }}</td>
+                    <td>{{ assetItem.processDate }}</td>
+                    <td>{{ assetItem.deliveryDate }}</td>
+                    <td>{{ assetItem.orderPrice }}</td>
+                    <td>{{ assetItem.shippingPrice }}</td>
+                    <td>{{ assetItem.status }}</td>
+                    <td>{{ assetItem.quantity }}</td>
+
+                    <td style="width: 280px" class="bt-actions">
+                      <button (click)="assetItemDetails(assetItem.assetItemID)" class="btn btn-default" st>
+                        <i class="material-icons">visibility</i>
+                      </button>
+                      <button (click)="editAssetItem(assetItem.assetItemID)" class="btn btn-default">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button (click)="moveAssetItem(assetItem.assetItemID)" class="btn btn-default rotate-90">
+                        <i class="material-icons">alt_route</i>
+                      </button>
+                      <button (click)="trackAssetItem(assetItem.assetItemID)" class="btn btn-default">
+                        <i class="material-icons">timeline</i>
+                      </button>
+                      <button (click)="openModal(template, assetItem)" class="btn btn-default">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <span class="material-icons">error_outline</span>
+    <h2>Are you sure?</h2>
+    <p>Do you want to delete the asset item {{ selectedAssetItem.assetItemID }} ?</p>
+    <button type="button" class="btn btn-default" (click)="decline()" style="margin-right: 5px">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirm()" style="margin-left: 5px">Delete</button>
+  </div>
+</ng-template>

@@ -11,7 +11,7 @@ export class StepService {
 
   constructor(private http: HttpClient) { }
 
-  getStep(id: number): Observable<any> {
+  getStep(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -19,11 +19,11 @@ export class StepService {
     return this.http.post(`${this.baseUrl}`, Step);
   }
 
-  updateStep(id: number, payload: any): Observable<Object> {
+  updateStep(id: string, payload: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
   }
 
-  deleteStep(id: number): Observable<any> {
+  deleteStep(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 

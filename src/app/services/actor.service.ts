@@ -19,15 +19,15 @@ export class ActorService {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  updateActor(id: number, payload: any): Observable<Object> {
+  updateActor(id: string, payload: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
   }
   
-  getActor(id: number): Observable<any> {
+  getActor(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  deleteActor(id: number): Observable<any> {
+  deleteActor(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { AdminLayoutRoutes } from '../../../app/layouts/admin-layout/admin-layout.routing'
+import {Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
     private listTitles: any[];
+    private applicationTitles: any[];
     location: Location;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
@@ -22,6 +24,7 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(){
       this.listTitles = ROUTES.filter(listTitle => listTitle);
+      this.applicationTitles = AdminLayoutRoutes.filter(listTitle => listTitle.data?.title);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -94,13 +97,13 @@ export class NavbarComponent implements OnInit {
             }, 100);
 
             $layer.onclick = function() { //asign a function
-              body.classList.remove('nav-open');
-              this.mobile_menu_visible = 0;
-              $layer.classList.remove('visible');
-              setTimeout(function() {
-                  $layer.remove();
-                  $toggle.classList.remove('toggled');
-              }, 400);
+                body.classList.remove('nav-open');
+                this.mobile_menu_visible = 0;
+                $layer.classList.remove('visible');
+                setTimeout(function() {
+                    $layer.remove();
+                    $toggle.classList.remove('toggled');
+                }, 400);
             }.bind(this);
 
             body.classList.add('nav-open');
@@ -110,16 +113,20 @@ export class NavbarComponent implements OnInit {
     };
 
     getTitle(){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
-          titlee = titlee.slice( 1 );
-      }
-
-      for(var item = 0; item < this.listTitles.length; item++){
-          if(this.listTitles[item].path === titlee){
-              return this.listTitles[item].title;
-          }
-      }
-      return 'Dashboard';
+        var titlee = this.location.prepareExternalUrl(this.location.path());
+        if(titlee.charAt(0) === '#'){
+            titlee = titlee.slice( 1 ).split("/", 2)[1];
+        }
+        for(var item = 0; item < this.applicationTitles.length; item ++){
+            if(this.applicationTitles[item].path.split("/", 1)[0] === titlee){
+                return this.applicationTitles[item].data?.title;
+            }
+        }
+        for(item = 0; item < this.listTitles.length; item++){
+            if(this.listTitles[item].path.split("/", 2)[1] === titlee){
+                return this.listTitles[item].title;
+            }
+        }
+        return 'Dashboard';
     }
 }

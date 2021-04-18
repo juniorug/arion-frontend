@@ -15,6 +15,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AssetDetailsComponent } from './asset-details/asset-details.component';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { EditAssetComponent } from './edit-asset/edit-asset.component';
+import { CreateAssetItemComponent } from './create-asset-item/create-asset-item.component';
+import { EditAssetItemComponent } from './edit-asset-item/edit-asset-item.component';
+import { AssetItemDetailsComponent } from './asset-item-details/asset-item-details.component';
+import { MoveAssetItemComponent } from './move-asset-item/move-asset-item.component';
+import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.component';
 
 @NgModule({
   imports: [
@@ -36,6 +41,11 @@ import { EditAssetComponent } from './edit-asset/edit-asset.component';
     AssetDetailsComponent,
     CreateAssetComponent,
     EditAssetComponent,
+    CreateAssetItemComponent,
+    EditAssetItemComponent,
+    AssetItemDetailsComponent,
+    MoveAssetItemComponent,
+    TrackAssetItemComponent,
 
   ],
   providers: [],
