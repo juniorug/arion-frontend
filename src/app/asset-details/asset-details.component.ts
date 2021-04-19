@@ -1,5 +1,5 @@
-import { TemplateRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
@@ -97,5 +97,10 @@ export class AssetDetailsComponent implements OnInit {
     this.router.navigate(['track-asset-item', id]);
   }
 
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
+  }
 
 }

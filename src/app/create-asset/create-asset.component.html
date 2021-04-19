@@ -12,7 +12,102 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive"></div>
+            <mat-horizontal-stepper linear #stepper>
+              <!-- #docregion editable -->
+              <mat-step [stepControl]="assetFormGroup" [editable]="isEditable">
+                <!-- #enddocregion editable -->
+                <form [formGroup]="assetFormGroup">
+                  <!-- #docregion step-label -->
+                  <ng-template matStepLabel>Fill asset info</ng-template>
+                  <!-- #enddocregion step-label -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Asset Name</mat-label>
+                        <input matInput formControlName="assetName" placeholder="Asset name" required />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="description" placeholder="Description" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button class="btn btn-default" mat-button mat-raised-button matStepperNext>
+                        Next
+                        <i class="material-icons">arrow_forward_ios</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
+                <form [formGroup]="actorsFormGroup">
+                  <ng-template matStepLabel>Define Actors</ng-template>
+                  <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required />
+                  </mat-form-field>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button class="btn btn-default" mat-button mat-raised-button matStepperPrevious>
+                        Back
+                        <i class="material-icons">arrow_back_ios</i>
+                      </button>
+                      <button class="btn btn-default" mat-button mat-raised-button matStepperNext>
+                        Next
+                        <i class="material-icons">arrow_forward_ios</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
+                <form [formGroup]="thirdFormGroup">
+                  <ng-template matStepLabel>Define Steps</ng-template>
+                  <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY" required />
+                  </mat-form-field>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button class="btn btn-default" mat-button mat-raised-button matStepperPrevious>
+                        Back
+                        <i class="material-icons">arrow_back_ios</i>
+                      </button>
+                      <button class="btn btn-default" mat-button mat-raised-button matStepperNext>
+                        Next
+                        <i class="material-icons">arrow_forward_ios</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div class="row">
+                  <div class="col-md-10">
+                    <button class="btn btn-default" mat-button mat-raised-button matStepperPrevious>
+                      Back
+                      <i class="material-icons">arrow_back_ios</i>
+                    </button>
+                    <button class="btn btn-warning" mat-button mat-raised-button (click)="stepper.reset()">
+                      <i class="material-icons">replay</i>
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-primary float-right" (click)="createAsset()">
+                      <i class="material-icons">check</i>Create
+                    </button>
+                  </div>
+                </div>
+              </mat-step>
+            </mat-horizontal-stepper>
           </div>
         </div>
       </div>
