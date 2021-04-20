@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-create-asset',
@@ -13,25 +13,34 @@ export class CreateAssetComponent implements OnInit {
   thirdFormGroup: FormGroup;
   isEditable = true;
 
-  constructor(private _formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {
-    $(window).ready(()=>{
-      document.getElementsByClassName("asset-menu")[0].classList.add("active");
-    });
+  arrayActors: {
+    id: number;
+    name: string;
+    type: string;
+  }[];
 
+  constructor(private _formBuilder: FormBuilder) {
     this.assetFormGroup = this._formBuilder.group({
       assetName: ['', Validators.required],
       description: ['']
     });
     this.actorsFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      actorsFormArray: this._formBuilder.array([])
     });
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
   }
 
+  ngOnInit(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.add("active");
+    });
+
+    this.arrayActors = [];
+    this.addItem();
+  }
 
   ngOnDestroy(): void {
     $(window).ready(()=>{
@@ -39,4 +48,23 @@ export class CreateAssetComponent implements OnInit {
     });
   }
 
+  get actorsFormArray() {
+    return this.actorsFormGroup.get('actorsFormArray') as FormArray;
+  }
+
+  addItem() {
+    console.log("addItem called");
+    
+    let newActor = {
+      id: this.actorsFormArray.length + 1,
+      name:  "",
+      type: "",
+    }
+    this.arrayActors.push(newActor);
+    this.actorsFormArray.push(this._formBuilder.control(false));
+  }
+  removeItem() {
+    this.arrayActors.pop();
+    this.actorsFormArray.removeAt(this.actorsFormArray.length - 1);
+  }
 }
