@@ -51,16 +51,24 @@ export class CreateAssetComponent implements OnInit {
   }
 
   addActor(): void {
+    console.log("addActor called")
     this.actors = this.actorsFormGroup.get('actors') as FormArray;
     this.actors.push(this.createActor());
     this._ref.detectChanges();
   }
 
+  removeActor(id): void {
+    console.log("removeActor called with id: ", id);
+    this.actors = this.actorsFormGroup.get('actors') as FormArray;
+    this.actors.removeAt(id);
+    this._ref.detectChanges();
+  }
   createStep(): FormGroup {
     return this._formBuilder.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
-      type: ['', Validators.required]
+      order: [''],
+      actorType: ['', Validators.required]
     });
   }
 
@@ -68,11 +76,31 @@ export class CreateAssetComponent implements OnInit {
     this.steps = this.stepsFormGroup.get('steps') as FormArray;
     this.steps.push(this.createStep());
     this._ref.detectChanges();
+    for (let i = 0; i < this.steps.value.length; i++  ) {
+      this.steps.value[i]['order'] = i + 1;
+    }
+  }
+
+  removeStep(id): void {
+    this.steps = this.stepsFormGroup.get('steps') as FormArray;
+    this.steps.removeAt(id);
+    this._ref.detectChanges();
+  }
+
+  updateStepOrder() {
+    this.steps = this.stepsFormGroup.get('steps') as FormArray;
+    for (let i = 0; i < this.steps.value.length; i++  ) {
+      this.steps.value[i]['order'] = i + 1;
+    }
+    
   }
 
   resetForm() {
     this.actors.clear();
     this.steps.clear();
+    this.assetFormGroup.reset();
+    this.assetFormGroup.markAsPristine();
+    this.assetFormGroup.markAsUntouched();
     this.resetFormGroup(this.assetFormGroup);
     this.resetFormGroup(this.actorsFormGroup);
     this.resetFormGroup(this.stepsFormGroup);
@@ -84,6 +112,13 @@ export class CreateAssetComponent implements OnInit {
     form.reset(form.value);
     form.markAsPristine();
     form.markAsUntouched();
+  }
+
+  createAsset() {
+    this.updateStepOrder();
+    console.log("assetFormGroup", this.assetFormGroup.value);
+    console.log("actorsFormGroup", this.actorsFormGroup.value);
+    console.log("stepsFormGroup", this.stepsFormGroup.value);
   }
 
 }

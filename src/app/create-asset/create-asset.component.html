@@ -2,170 +2,286 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-info">
+        <!-- <div class="card"> -->
+        <!-- <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
                 <h4 class="card-title">Create Asset</h4>
               </div>
               <div class="col-md-2 float-right"></div>
             </div>
-          </div>
-          <div class="card-body">
-            <mat-horizontal-stepper linear #stepper>
-              <!-- #docregion editable -->
-              <mat-step [stepControl]="assetFormGroup" [editable]="isEditable">
-                <!-- #enddocregion editable -->
-                <form [formGroup]="assetFormGroup">
-                  <!-- #docregion step-label -->
-                  <ng-template matStepLabel>Fill asset info</ng-template>
-                  <!-- #enddocregion step-label -->
-                  <div class="row">
-                    <div class="col-md-6">
+          </div> -->
+        <!-- <div class="card-body"> -->
+        <mat-horizontal-stepper linear #stepper>
+          <!-- #docregion editable -->
+          <mat-step [stepControl]="assetFormGroup" [editable]="isEditable">
+            <!-- #enddocregion editable -->
+            <form [formGroup]="assetFormGroup">
+              <!-- #docregion step-label -->
+              <ng-template matStepLabel>Fill asset info</ng-template>
+              <!-- #enddocregion step-label -->
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Asset Name</mat-label>
+                    <input matInput formControlName="assetName" placeholder="Asset name" required />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="description" placeholder="Description" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-default float-left" type="button" mat-button mat-raised-button matStepperNext>
+                    Next
+                    <i class="material-icons">arrow_forward_ios</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
+            <form [formGroup]="actorsFormGroup">
+              <ng-template matStepLabel>Define Actors</ng-template>
+              <div class="row">
+                <div
+                  formArrayName="actors"
+                  *ngFor="let actor of actorsFormGroup.get('actors')['controls']; let i = index"
+                >
+                  <div [formGroupName]="i" class="card">
+                    <div class="card-body">
                       <mat-form-field>
-                        <mat-label>Asset Name</mat-label>
-                        <input matInput formControlName="assetName" placeholder="Asset name" required />
+                        <mat-label>Id</mat-label>
+                        <input matInput formControlName="id" placeholder="Actor ID" required />
                       </mat-form-field>
-                    </div>
-                    <div class="col-md-6">
                       <mat-form-field>
-                        <mat-label>Description</mat-label>
-                        <input matInput formControlName="description" placeholder="Description" />
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" placeholder="Name" required />
                       </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button class="btn btn-default float-right" mat-button mat-raised-button matStepperNext>
-                        Next
-                        <i class="material-icons">arrow_forward_ios</i>
+                      <mat-form-field>
+                        <mat-label>Type</mat-label>
+                        <input matInput formControlName="type" placeholder="Type" required />
+                      </mat-form-field>
+                      <button
+                        class="btn btn-default"
+                        mat-button
+                        mat-raised-button
+                        (click)="removeActor(i)"
+                        [disabled]="actorsFormGroup.get('actors').length < 2"
+                        type="button"
+                      >
+                        <i class="material-icons">highlight_off</i>
                       </button>
                     </div>
-                  </div>
-                </form>
-              </mat-step>
-              <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
-                <form [formGroup]="actorsFormGroup">
-                  <ng-template matStepLabel>Define Actors</ng-template>
-                  <div class="row">
-                    <div
-                      formArrayName="actors"
-                      *ngFor="let actor of actorsFormGroup.get('actors')['controls']; let i = index"
-                    >
-                      <div [formGroupName]="i" class="card">
-                        <div class="card-body">
-                          <mat-form-field>
-                            <mat-label>Id</mat-label>
-                            <input matInput formControlName="id" placeholder="Actor ID" required />
-                          </mat-form-field>
-                          <mat-form-field>
-                            <mat-label>Name</mat-label>
-                            <input matInput formControlName="name" placeholder="Name" required />
-                          </mat-form-field>
-                          <mat-form-field>
-                            <mat-label>Type</mat-label>
-                            <input matInput formControlName="type" placeholder="Type" required />
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <button class="btn btn-default" mat-button mat-raised-button (click)="addActor()" type="button">
-                        <i class="material-icons">add</i>
-                        Add Actor
-                      </button>
-                    </div>
-                    <div class="col-md-6">
-                      <button class="btn btn-default float-right" mat-button mat-raised-button matStepperNext>
-                        Next
-                        <i class="material-icons">arrow_forward_ios</i>
-                      </button>
-                      <button class="btn btn-default float-right" mat-button mat-raised-button matStepperPrevious>
-                        Back
-                        <i class="material-icons">arrow_back_ios</i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </mat-step>
-              <mat-step [stepControl]="stepsFormGroup" [editable]="isEditable">
-                <form [formGroup]="stepsFormGroup">
-                  <ng-template matStepLabel>Define Steps</ng-template>
-                  <div class="row">
-                    <div
-                      formArrayName="steps"
-                      *ngFor="let step of stepsFormGroup.get('steps')['controls']; let j = index"
-                    >
-                      <div [formGroupName]="j" class="card">
-                        <div class="card-body">
-                          <mat-form-field>
-                            <mat-label>Id</mat-label>
-                            <input matInput formControlName="id" placeholder="Step ID" required />
-                          </mat-form-field>
-                          <mat-form-field>
-                            <mat-label>Name</mat-label>
-                            <input matInput formControlName="name" placeholder="Name" required />
-                          </mat-form-field>
-                          <mat-form-field>
-                            <mat-label>Type</mat-label>
-                            <input matInput formControlName="type" placeholder="Type" required />
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <button class="btn btn-default" mat-button mat-raised-button (click)="addStep()" type="button">
-                        <i class="material-icons">add</i>
-                        Add Step
-                      </button>
-                    </div>
-                    <div class="col-md-6">
-                      <button class="btn btn-default float-right" mat-button mat-raised-button matStepperNext>
-                        Next
-                        <i class="material-icons">arrow_forward_ios</i>
-                      </button>
-                      <button class="btn btn-default float-right" mat-button mat-raised-button matStepperPrevious>
-                        Back
-                        <i class="material-icons">arrow_back_ios</i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </mat-step>
-              <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                <p>You are now done.</p>
-                <div class="row">
-                  <div class="col-md-10">
-                    <button class="btn btn-default" mat-button mat-raised-button matStepperPrevious>
-                      Back
-                      <i class="material-icons">arrow_back_ios</i>
-                    </button>
-                    <button
-                      class="btn btn-warning"
-                      mat-button
-                      mat-raised-button
-                      (click)="stepper.reset(); resetForm()"
-                      type="reset"
-                    >
-                      <i class="material-icons">replay</i>
-                      Reset
-                    </button>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-primary float-right" (click)="createAsset()">
-                      <i class="material-icons">check</i>Create
-                    </button>
                   </div>
                 </div>
-              </mat-step>
-            </mat-horizontal-stepper>
-          </div>
-        </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
+                    Back
+                    <i class="material-icons">arrow_back_ios</i>
+                  </button>
+                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperNext>
+                    Next
+                    <i class="material-icons">arrow_forward_ios</i>
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button
+                    class="btn btn-default float-right"
+                    mat-button
+                    mat-raised-button
+                    (click)="addActor()"
+                    type="button"
+                  >
+                    <i class="material-icons">add</i>
+                    Add Actor
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="stepsFormGroup" [editable]="isEditable">
+            <form [formGroup]="stepsFormGroup">
+              <ng-template matStepLabel>Define Steps</ng-template>
+              <div class="row">
+                <div formArrayName="steps" *ngFor="let step of stepsFormGroup.get('steps')['controls']; let j = index">
+                  <div [formGroupName]="j" class="card">
+                    <div class="card-body">
+                      <mat-form-field>
+                        <mat-label>Id</mat-label>
+                        <input matInput formControlName="id" placeholder="Step ID" required />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" placeholder="Name" required />
+                      </mat-form-field>
+                      <mat-form-field class="invisible">
+                        <mat-label>order</mat-label>
+                        <input matInput formControlName="order" value="{{ j }}" />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Actor Type</mat-label>
+                        <input matInput formControlName="actorType" placeholder="Type" required />
+                      </mat-form-field>
+                      <button
+                        class="btn btn-default"
+                        mat-button
+                        mat-raised-button
+                        (click)="removeStep(j)"
+                        [disabled]="stepsFormGroup.get('steps').length < 2"
+                        type="button"
+                      >
+                        <i class="material-icons">highlight_off</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
+                    Back
+                    <i class="material-icons">arrow_back_ios</i>
+                  </button>
+                  <button
+                    class="btn btn-default"
+                    type="button"
+                    mat-button
+                    mat-raised-button
+                    matStepperNext
+                    (click)="updateStepOrder()"
+                  >
+                    Next
+                    <i class="material-icons">arrow_forward_ios</i>
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button
+                    class="btn btn-default float-right"
+                    mat-button
+                    mat-raised-button
+                    (click)="addStep()"
+                    type="button"
+                  >
+                    <i class="material-icons">add</i>
+                    Add Step
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h2>Review Asset details:</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-info">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h4 class="card-title">Asset:</h4>
+                      </div>
+                      <div class="col-md-2 float-right"></div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <p><strong>Name: </strong>{{ assetFormGroup.get('assetName')?.value }}</p>
+                    <p><strong>Description: </strong>{{ assetFormGroup.get('description')?.value }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header card-header-info">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4 class="card-title">Actors:</h4>
+                  </div>
+                  <div class="col-md-2 float-right"></div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div
+                      *ngFor="let actor of actorsFormGroup.get('actors').value; let i = index"
+                      class="col-md-3 float-left"
+                    >
+                      <div class="card">
+                        <p><strong>Id: </strong>{{ actor['id'] }}</p>
+                        <p><strong>Name: </strong>{{ actor['name'] }}</p>
+                        <p><strong>Type: </strong>{{ actor['type'] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header card-header-info">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4 class="card-title">Steps:</h4>
+                  </div>
+                  <div class="col-md-2 float-right"></div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div
+                      *ngFor="let step of stepsFormGroup.get('steps').value; let i = index"
+                      class="col-md-3 float-left"
+                    >
+                      <div class="card">
+                        <p><strong>Id: </strong>{{ step['id'] }}</p>
+                        <p><strong>Name: </strong>{{ step['name'] }}</p>
+                        <p><strong>Order: </strong>{{ step['order'] }}</p>
+                        <p><strong>Type: </strong>{{ step['actorType'] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10">
+                <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
+                  Back
+                  <i class="material-icons">arrow_back_ios</i>
+                </button>
+                <button
+                  class="btn btn-warning"
+                  mat-button
+                  mat-raised-button
+                  (click)="stepper.reset(); resetForm()"
+                  type="button"
+                >
+                  <i class="material-icons">replay</i>
+                  Reset
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary float-right" (click)="createAsset()">
+                  <i class="material-icons">check</i>Create
+                </button>
+              </div>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+        <!--  </div> -->
+        <!--  </div> -->
       </div>
     </div>
   </div>
