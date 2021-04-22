@@ -12,6 +12,7 @@ import * as assetsJson from "../../assets/mock/assets.json";
 })
 export class AssetItemDetailsComponent implements OnInit {
 
+  assetId: string;
   id: string;
   assetItem: AssetItem;
 
@@ -28,9 +29,9 @@ export class AssetItemDetailsComponent implements OnInit {
     });
 
     this.assetItem = new AssetItem();
+    this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("AssetItemDetailsComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
-    console.log("AssetItemDetailsComponent called with id= ", this.id);
+    console.log("AssetItemDetailsComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.assetItemService.getAssetItem(this.id)
       .subscribe(data => {
@@ -42,7 +43,7 @@ export class AssetItemDetailsComponent implements OnInit {
 
   reloadData() {
     //this.assets = this.assetService.getAssetList();
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.id);
+    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
     console.log("asset: ", asset);
     this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);

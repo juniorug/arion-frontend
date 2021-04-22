@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-info">
+          <div class="card-header card-header-primary">
             <div class="row">
               <div class="col-md-12">
                 <h4 class="card-title">Actors</h4>
@@ -13,7 +13,31 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let actor of asset.actors">
+                <div class="card card-stats">
+                  <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title">{{ actor.actorName }}</h4>
+                    <p class="card-category">{{ actor.actorType }}</p>
+                  </div>
+                  <div class="card-footer" style="justify-content: center">
+                    <button (click)="actorDetails(asset.assetID, actor.actorID)" class="btn btn-default" st>
+                      <i class="material-icons">visibility</i>
+                    </button>
+                    <button (click)="editActor(asset.assetID, actor.actorID)" class="btn btn-default">
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <button (click)="openModal(template, 'Actor', actor.actorID)" class="btn btn-default">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="table-responsive">
               <table class="table">
                 <thead class="text-primary">
                   <th>ID</th>
@@ -23,7 +47,6 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let actor of asset.actors">
-                    <!--<tr *ngFor="let actor of asset.actors | async">-->
                     <td>{{ actor.actorID }}</td>
                     <td>{{ actor.actorName }}</td>
                     <td>{{ actor.actorType }}</td>
@@ -42,7 +65,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -94,19 +117,29 @@
                     <td>{{ assetItem.quantity }}</td>
 
                     <td style="width: 280px" class="bt-actions">
-                      <button (click)="assetItemDetails(assetItem.assetItemID)" class="btn btn-default" st>
+                      <button
+                        (click)="assetItemDetails(asset.assetID, assetItem.assetItemID)"
+                        class="btn btn-default"
+                        st
+                      >
                         <i class="material-icons">visibility</i>
                       </button>
-                      <button (click)="editAssetItem(assetItem.assetItemID)" class="btn btn-default">
+                      <button (click)="editAssetItem(asset.assetID, assetItem.assetItemID)" class="btn btn-default">
                         <i class="material-icons">edit</i>
                       </button>
-                      <button (click)="moveAssetItem(assetItem.assetItemID)" class="btn btn-default rotate-90">
+                      <button
+                        (click)="moveAssetItem(asset.assetID, assetItem.assetItemID)"
+                        class="btn btn-default rotate-90"
+                      >
                         <i class="material-icons">alt_route</i>
                       </button>
-                      <button (click)="trackAssetItem(assetItem.assetItemID)" class="btn btn-default">
+                      <button (click)="trackAssetItem(asset.assetID, assetItem.assetItemID)" class="btn btn-default">
                         <i class="material-icons">timeline</i>
                       </button>
-                      <button (click)="openModal(template, assetItem)" class="btn btn-default">
+                      <button
+                        (click)="openModal(template, 'Asset Item', assetItem.assetItemID)"
+                        class="btn btn-default"
+                      >
                         <i class="material-icons">delete</i>
                       </button>
                     </td>
@@ -133,7 +166,7 @@
   <div class="modal-body text-center">
     <span class="material-icons">error_outline</span>
     <h2>Are you sure?</h2>
-    <p>Do you want to delete the asset item {{ selectedAssetItem.assetItemID }} ?</p>
+    <p>Do you want to delete the {{ selectedObjectType }} {{ selectedObjectID }} ?</p>
     <button type="button" class="btn btn-default" (click)="decline()" style="margin-right: 5px">Cancel</button>
     <button type="button" class="btn btn-danger" (click)="confirm()" style="margin-left: 5px">Delete</button>
   </div>

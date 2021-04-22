@@ -12,6 +12,7 @@ import * as assetsJson from "../../assets/mock/assets.json";
 })
 export class ActorDetailsComponent implements OnInit {
 
+  assetId: string;
   id: string;
   actor: Actor;
 
@@ -28,9 +29,9 @@ export class ActorDetailsComponent implements OnInit {
     });
 
     this.actor = new Actor();
+    this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("ActorDetailsComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
-    console.log("ActorDetailsComponent called with id= ", this.id);
+    console.log("ActorDetailsComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.actorService.getActor(this.id)
       .subscribe(data => {
@@ -42,7 +43,7 @@ export class ActorDetailsComponent implements OnInit {
 
   reloadData() {
     //this.assets = this.assetService.getAssetList();
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.id);
+    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
     console.log("asset: ", asset);
     this.actor =  asset.actors.find(actor => actor.actorID === this.id);
     console.log("actor: ", this.actor);

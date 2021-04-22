@@ -3,9 +3,11 @@ import { TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
+import { ActorService } from 'app/services/actor.service';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { AssetService } from 'app/services/asset.service';
 import { NotificationService } from 'app/services/notification.service';
+import { StepService } from 'app/services/step.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import * as assetsJson from "../../assets/mock/assets.json";
 
@@ -20,12 +22,15 @@ export class AssetDetailsComponent implements OnInit {
   message: string;
   id: number;
   asset: Asset;
-  selectedAssetItem: AssetItem;
+  selectedObjectID: string;
+  selectedObjectType: string;
   
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private assetService: AssetService,
+    private actorService: ActorService,
+    private stepService: StepService,
     private assetItemService: AssetItemService,
     private modalService: BsModalService,
     private notificationServiceService: NotificationService,
@@ -47,15 +52,26 @@ export class AssetDetailsComponent implements OnInit {
     console.log("asset: ", this.asset);
   }
 
-  openModal(template: TemplateRef<any>, assetItem: any) {
-    console.log("open modal called with assetItem: ", assetItem.assetItemID);
-    this.selectedAssetItem = assetItem
+  openModal(template: TemplateRef<any>, selectedObjectType: any, selectedObjectId: any) {
+    console.log("open modal called with id: ", selectedObjectId);
+    this.selectedObjectType = selectedObjectType;
+    this.selectedObjectID = selectedObjectId;
     this.modalRef = this.modalService.show(template, {class: 'modal-confirm'});
   }
  
   confirm(): void {
+    if (this.selectedObjectType === "Asset Item") {
+      this.deleteAssetItem();
+    } else if (this.selectedObjectType === "Actor") {
+      this.deleteActor();
+    } else if (this.selectedObjectType === "Step") {
+      this.deleteStep();
+    }
+  }
+
+  deleteAssetItem(): void {
     this.message = 'Confirmed!';
-    this.assetItemService.deleteAssetItem(this.selectedAssetItem.assetItemID)
+    this.assetItemService.deleteAssetItem(this.selectedObjectID)
         .subscribe(
           data => {
             console.log(data);
@@ -68,51 +84,92 @@ export class AssetDetailsComponent implements OnInit {
           }
         );
     this.modalRef.hide();
-    this.selectedAssetItem = new AssetItem();
+    this.clearSelected();
   }
  
+  deleteActor() {
+    this.message = 'Confirmed!';
+    this.actorService.deleteActor(this.selectedObjectID)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.reloadData();
+            this.notificationServiceService.showNotification('success', 'Actor succesfully deleted')
+          },
+          error => {
+            console.log(error)
+            this.notificationServiceService.showNotification('danger', 'Delete Actor. Please try again.')
+          }
+        );
+    this.modalRef.hide();
+    this.clearSelected();
+  }
+
+  deleteStep() {
+    this.message = 'Confirmed!';
+    this.stepService.deleteStep(this.selectedObjectID)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.reloadData();
+            this.notificationServiceService.showNotification('success', 'Step succesfully deleted')
+          },
+          error => {
+            console.log(error)
+            this.notificationServiceService.showNotification('danger', 'Delete Step. Please try again.')
+          }
+        );
+    this.modalRef.hide();
+    this.clearSelected();
+  }
+
   decline(): void {
     this.message = 'Declined!';
     this.modalRef.hide();
-    this.selectedAssetItem = new AssetItem();
+    this.clearSelected();
   }
 
+  clearSelected(): void {
+    this.selectedObjectID = "";
+    this.selectedObjectType = "";
+  }
+  
   createAssetItem() {
     this.router.navigate(['create-asset-item']);
   }
 
-  assetItemDetails(id: number){
+  assetItemDetails(assetId: number, id: number){
     console.log("will call asset-item-details with id: ", id);
     
-    this.router.navigate(['asset-item-details', id]);
+    this.router.navigate(['asset-item-details', assetId, id]);
   }
 
-  editAssetItem(id: number){
-    this.router.navigate(['edit-asset-item', id]);
+  editAssetItem(assetId: number, id: number){
+    this.router.navigate(['edit-asset-item', assetId, id]);
   }
 
-  moveAssetItem(id: number){
-    this.router.navigate(['move-asset-item', id]);
+  moveAssetItem(assetId: number, id: number){
+    this.router.navigate(['move-asset-item', assetId, id]);
   }
 
-  trackAssetItem(id: number){
-    this.router.navigate(['track-asset-item', id]);
+  trackAssetItem(assetId: number, id: number){
+    this.router.navigate(['track-asset-item', assetId, id]);
   }
 
-  actorDetails(id: number){
-    this.router.navigate(['actor-details', id]);
+  actorDetails(assetId: number, id: number){
+    this.router.navigate(['actor-details', assetId, id]);
   }
 
-  editActor(id: number){
-    this.router.navigate(['edit-actor', id]);
+  editActor(assetId: number, id: number){
+    this.router.navigate(['edit-actor', assetId, id]);
   }
 
-  stepDetails(id: number){
-    this.router.navigate(['step-details', id]);
+  stepDetails(assetId: number, id: number){
+    this.router.navigate(['step-details', assetId, id]);
   }
 
-  editStep(id: number){
-    this.router.navigate(['edit-step', id]);
+  editStep(assetId: number, id: number){
+    this.router.navigate(['edit-step', assetId, id]);
   }
 
   ngOnDestroy(): void {

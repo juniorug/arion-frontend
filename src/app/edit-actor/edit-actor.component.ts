@@ -13,6 +13,7 @@ import * as assetsJson from "../../assets/mock/assets.json";
 })
 export class EditActorComponent implements OnInit {
 
+  assetId: string;
   id: string;
   actor: Actor;
 
@@ -30,9 +31,9 @@ export class EditActorComponent implements OnInit {
     });
 
     this.actor = new Actor();
+    this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("EditActorComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
-    console.log("EditActorComponent called with id= ", this.id);
+    console.log("EditActorComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.actorService.getactor(this.id)
       .subscribe(data => {
@@ -44,7 +45,7 @@ export class EditActorComponent implements OnInit {
 
   reloadData() {
     //this.assets = this.assetService.getAssetList();
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.id);
+    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
     console.log("asset: ", asset);
     this.actor =  asset.actors.find(actor => actor.actorID === this.id);
     console.log("actor: ", this.actor);

@@ -29,16 +29,18 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'create-asset',             component: CreateAssetComponent,        data: {title: 'Create Asset'} },
     { path: 'asset-details/:id',        component: AssetDetailsComponent,       data: {title: 'Asset Details'} },
     { path: 'edit-asset/:id',           component: EditAssetComponent,          data: {title: 'Edit Asset'} },
-    { path: 'create-asset-item',        component: CreateAssetItemComponent,    data: {title: 'Create Asset Item'} },
-    { path: 'asset-item-details/:id',   component: AssetItemDetailsComponent,   data: {title: 'Asset Item Details'} },
-    { path: 'edit-asset-item/:id',      component: EditAssetItemComponent,      data: {title: 'Edit Asset Item'} },
-    { path: 'move-asset-item/:id',      component: MoveAssetItemComponent,      data: {title: 'Move Asset Item'} },
-    { path: 'track-asset-item/:id',     component: TrackAssetItemComponent,     data: {title: 'track Asset Item'} },
 
-    { path: 'actor-details/:id',        component: ActorDetailsComponent,       data: {title: 'Actor Details'} },
-    { path: 'edit-actor/:id',           component: EditActorComponent,          data: {title: 'Edit Actor'} },
-    { path: 'step-details/:id',         component: StepDetailsComponent,        data: {title: 'Step Details'} },
-    { path: 'edit-step/:id',            component: EditStepComponent,           data: {title: 'Edit Step'} },
+    { path: 'create-asset-item',                component: CreateAssetItemComponent,    data: {title: 'Create Asset Item'} },
+    { path: 'asset-item-details/:assetId/:id',  component: AssetItemDetailsComponent,   data: {title: 'Asset Item Details'} },
+    { path: 'edit-asset-item/:assetId/:id',     component: EditAssetItemComponent,      data: {title: 'Edit Asset Item'} },
+    { path: 'move-asset-item/:assetId/:id',     component: MoveAssetItemComponent,      data: {title: 'Move Asset Item'} },
+    { path: 'track-asset-item/:assetId/:id',    component: TrackAssetItemComponent,     data: {title: 'track Asset Item'} },
+
+    { path: 'actor-details/:assetId/:id',       component: ActorDetailsComponent,       data: {title: 'Actor Details'} },
+    { path: 'edit-actor/:assetId/:id',          component: EditActorComponent,          data: {title: 'Edit Actor'} },
+
+    { path: 'step-details/:assetId/:id',        component: StepDetailsComponent,        data: {title: 'Step Details'} },
+    { path: 'edit-step/:assetId/:id',           component: EditStepComponent,           data: {title: 'Edit Step'} },
 
     { path: 'typography',               component: TypographyComponent },
     { path: 'icons',                    component: IconsComponent },
