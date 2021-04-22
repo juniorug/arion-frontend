@@ -23,6 +23,10 @@ import { EditAssetItemComponent } from './edit-asset-item/edit-asset-item.compon
 import { AssetItemDetailsComponent } from './asset-item-details/asset-item-details.component';
 import { MoveAssetItemComponent } from './move-asset-item/move-asset-item.component';
 import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.component';
+import { ActorDetailsComponent } from './actor-details/actor-details.component';
+import { EditActorComponent } from './edit-actor/edit-actor.component';
+import { StepDetailsComponent } from './step-details/step-details.component';
+import { EditStepComponent } from './edit-step/edit-step.component';
 
 @NgModule({
   exports: [
@@ -60,6 +64,10 @@ import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.com
     AssetItemDetailsComponent,
     MoveAssetItemComponent,
     TrackAssetItemComponent,
+    ActorDetailsComponent,
+    EditActorComponent,
+    StepDetailsComponent,
+    EditStepComponent,
 
   ],
   providers: [],

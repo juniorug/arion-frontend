@@ -16,6 +16,10 @@ import { CreateAssetItemComponent } from 'app/create-asset-item/create-asset-ite
 import { EditAssetItemComponent } from 'app/edit-asset-item/edit-asset-item.component';
 import { MoveAssetItemComponent } from 'app/move-asset-item/move-asset-item.component';
 import { TrackAssetItemComponent } from 'app/track-asset-item/track-asset-item.component';
+import { ActorDetailsComponent } from 'app/actor-details/actor-details.component';
+import { EditActorComponent } from 'app/edit-actor/edit-actor.component';
+import { EditStepComponent } from 'app/edit-step/edit-step.component';
+import { StepDetailsComponent } from 'app/step-details/step-details.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',                component: DashboardComponent },
@@ -30,6 +34,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'edit-asset-item/:id',      component: EditAssetItemComponent,      data: {title: 'Edit Asset Item'} },
     { path: 'move-asset-item/:id',      component: MoveAssetItemComponent,      data: {title: 'Move Asset Item'} },
     { path: 'track-asset-item/:id',     component: TrackAssetItemComponent,     data: {title: 'track Asset Item'} },
+
+    { path: 'actor-details/:id',        component: ActorDetailsComponent,       data: {title: 'Actor Details'} },
+    { path: 'edit-actor/:id',           component: EditActorComponent,          data: {title: 'Edit Actor'} },
+    { path: 'step-details/:id',         component: StepDetailsComponent,        data: {title: 'Step Details'} },
+    { path: 'edit-step/:id',            component: EditStepComponent,           data: {title: 'Edit Step'} },
+
     { path: 'typography',               component: TypographyComponent },
     { path: 'icons',                    component: IconsComponent },
     { path: 'maps',                     component: MapsComponent },

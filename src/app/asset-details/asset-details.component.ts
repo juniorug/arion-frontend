@@ -82,6 +82,8 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   assetItemDetails(id: number){
+    console.log("will call asset-item-details with id: ", id);
+    
     this.router.navigate(['asset-item-details', id]);
   }
 
@@ -95,6 +97,22 @@ export class AssetDetailsComponent implements OnInit {
 
   trackAssetItem(id: number){
     this.router.navigate(['track-asset-item', id]);
+  }
+
+  actorDetails(id: number){
+    this.router.navigate(['actor-details', id]);
+  }
+
+  editActor(id: number){
+    this.router.navigate(['edit-actor', id]);
+  }
+
+  stepDetails(id: number){
+    this.router.navigate(['step-details', id]);
+  }
+
+  editStep(id: number){
+    this.router.navigate(['edit-step', id]);
   }
 
   ngOnDestroy(): void {

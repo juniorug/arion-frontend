@@ -1,5 +1,54 @@
 <div class="main-content">
   <div class="container-fluid">
+    <!-- ACTORS LIST-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">Actors</h4>
+                <p class="card-category">View and manage Actors</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let actor of asset.actors">
+                    <!--<tr *ngFor="let actor of asset.actors | async">-->
+                    <td>{{ actor.actorID }}</td>
+                    <td>{{ actor.actorName }}</td>
+                    <td>{{ actor.actorType }}</td>
+
+                    <td style="width: 165px" class="bt-actions">
+                      <button (click)="actorDetails(actor.actorID)" class="btn btn-default" st>
+                        <i class="material-icons">visibility</i>
+                      </button>
+                      <button (click)="editActor(actor.actorID)" class="btn btn-default">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button (click)="openModal(actor, actorID)" class="btn btn-default">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASSET ITEMS LIST-->
     <div class="row">
       <div class="col-md-12">
         <div class="card">

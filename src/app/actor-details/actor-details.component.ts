@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
-import { AssetItem } from 'app/models/asset-item';
-import { AssetItemService } from 'app/services/asset-item.service';
+import { ActorService } from 'app/services/actor.service';
 import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
-  selector: 'app-asset-item-details',
-  templateUrl: './asset-item-details.component.html',
-  styleUrls: ['./asset-item-details.component.scss']
+  selector: 'app-actor-details',
+  templateUrl: './actor-details.component.html',
+  styleUrls: ['./actor-details.component.scss']
 })
-export class AssetItemDetailsComponent implements OnInit {
+export class ActorDetailsComponent implements OnInit {
 
   id: string;
-  assetItem: AssetItem;
+  actor: Actor;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private assetItemService: AssetItemService
+    private actorService: ActorService
   ) { }
 
   ngOnInit(): void {
@@ -27,15 +27,15 @@ export class AssetItemDetailsComponent implements OnInit {
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
 
-    this.assetItem = new AssetItem();
+    this.actor = new Actor();
     this.id = this.route.snapshot.params['id'];
-    console.log("AssetItemDetailsComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
-    console.log("AssetItemDetailsComponent called with id= ", this.id);
+    console.log("ActorDetailsComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
+    console.log("ActorDetailsComponent called with id= ", this.id);
     
-    /* this.assetItemService.getAssetItem(this.id)
+    /* this.actorService.getActor(this.id)
       .subscribe(data => {
         console.log(data)
-        this.assetItem = data;
+        this.actor = data;
       }, error => console.log(error)); */
     this.reloadData();
   }
@@ -44,8 +44,8 @@ export class AssetItemDetailsComponent implements OnInit {
     //this.assets = this.assetService.getAssetList();
     let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.id);
     console.log("asset: ", asset);
-    this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-    console.log("assetItem: ", this.assetItem);
+    this.actor =  asset.actors.find(actor => actor.actorID === this.id);
+    console.log("actor: ", this.actor);
   }
 
 }

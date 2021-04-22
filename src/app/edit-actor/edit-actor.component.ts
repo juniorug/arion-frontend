@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
-import { AssetItem } from 'app/models/asset-item';
-import { AssetItemService } from 'app/services/asset-item.service';
+import { ActorService } from 'app/services/actor.service';
 import { NotificationService } from 'app/services/notification.service';
 import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
-  selector: 'app-edit-asset-item',
-  templateUrl: './edit-asset-item.component.html',
-  styleUrls: ['./edit-asset-item.component.scss']
+  selector: 'app-edit-actor',
+  templateUrl: './edit-actor.component.html',
+  styleUrls: ['./edit-actor.component.scss']
 })
-export class EditAssetItemComponent implements OnInit {
+export class EditActorComponent implements OnInit {
 
   id: string;
-  assetItem: AssetItem;
+  actor: Actor;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private assetItemService: AssetItemService,
+    private actorService: ActorService,
     private notificationServiceService: NotificationService
   ) { }
 
@@ -29,15 +29,15 @@ export class EditAssetItemComponent implements OnInit {
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
 
-    this.assetItem = new AssetItem();
+    this.actor = new Actor();
     this.id = this.route.snapshot.params['id'];
-    console.log("EditAssetItemComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
-    console.log("EditAssetItemComponent called with id= ", this.id);
+    console.log("EditActorComponent called with this.route.snapshot.params= ", this.route.snapshot.params);
+    console.log("EditActorComponent called with id= ", this.id);
     
-    /* this.assetItemService.getAssetItem(this.id)
+    /* this.actorService.getactor(this.id)
       .subscribe(data => {
         console.log(data)
-        this.assetItem = data;
+        this.actor = data;
       }, error => console.log(error)); */
     this.reloadData();
   }
@@ -46,24 +46,24 @@ export class EditAssetItemComponent implements OnInit {
     //this.assets = this.assetService.getAssetList();
     let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.id);
     console.log("asset: ", asset);
-    this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-    console.log("assetItem: ", this.assetItem);
+    this.actor =  asset.actors.find(actor => actor.actorID === this.id);
+    console.log("actor: ", this.actor);
   }
 
   onSubmit() {
-    /* this.assetItemService.updateAssetItem(this.id, this.assetItem)
+    /* this.actorService.updateActor(this.id, this.actor)
       .subscribe(data => {
         console.log(data);
-        this.assetItem = new AssetItem();
+        this.actor = new Actor();
         this.gotoList();
       }, error => console.log(error)); */
-      this.notificationServiceService.showNotification('success', 'AssetItem succesfully edited');
-      this.gotoAssetItemList();
+      this.notificationServiceService.showNotification('success', 'Actor succesfully edited');
+      this.gotoActorList();
 
   }
 
 
-  gotoAssetItemList() {
+  gotoActorList() {
     history.back();
   }
 

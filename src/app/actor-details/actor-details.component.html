@@ -1,0 +1,40 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Actor Details</h4>
+              </div>
+              <div class="col-md-2 float-right"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div *ngIf="actor" class="row">
+              <div class="col-md-4">
+                <p><strong>Id: </strong>{{ actor['actorID'] }}</p>
+              </div>
+              <div class="col-md-4">
+                <p><strong>Name: </strong>{{ actor['actorName'] }}</p>
+              </div>
+              <div class="col-md-4">
+                <p><strong>Type: </strong>{{ actor['actorType'] }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,222 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Edit Asset Item</h4>
+              </div>
+              <div class="col-md-2 float-right"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div [hidden]="submitted">
+              <form (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Id</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="id"
+                          placeholder="Asset Item ID"
+                          required
+                          [(ngModel)]="assetItem.assetItemID"
+                          name="assetItemID"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Parent ID</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="parentID"
+                          placeholder="Parent ID"
+                          required
+                          [(ngModel)]="assetItem.parentID"
+                          name="parentID"
+                          disabled
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Owner</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="ownerID"
+                          placeholder="Owner ID"
+                          required
+                          [(ngModel)]="assetItem.ownerID"
+                          name="ownerID"
+                          disabled
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Step</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="stepID"
+                          placeholder="Step ID"
+                          required
+                          [(ngModel)]="assetItem.stepID"
+                          name="stepID"
+                          disabled
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Process Date</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="processDate"
+                          placeholder="Process Date"
+                          required
+                          [(ngModel)]="assetItem.processDate"
+                          name="processDate"
+                          disabled
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Delivery Date</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="deliveryDate"
+                          placeholder="Delivery Date"
+                          required
+                          [(ngModel)]="assetItem.deliveryDate"
+                          name="deliveryDate"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Order Price</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="orderPrice"
+                          placeholder="order Price"
+                          required
+                          [(ngModel)]="assetItem.orderPrice"
+                          name="orderPrice"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Shipping Price</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="shippingPrice"
+                          placeholder="Shipping Price"
+                          required
+                          [(ngModel)]="assetItem.shippingPrice"
+                          name="shippingPrice"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Status</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="status"
+                          placeholder="Status"
+                          required
+                          [(ngModel)]="assetItem.status"
+                          name="status"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Quantity</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          class="form-control"
+                          id="quantity"
+                          placeholder="Quantity"
+                          required
+                          [(ngModel)]="assetItem.quantity"
+                          name="quantity"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>
+            </div>
+
+            <div [hidden]="!submitted">
+              <h4>You submitted successfully!</h4>
+              <button (click)="list()" class="btn btn-primary">Back to Craft Beer List</button><br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
