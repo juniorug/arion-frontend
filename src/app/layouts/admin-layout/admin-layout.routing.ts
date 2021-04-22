@@ -30,7 +30,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'asset-details/:id',        component: AssetDetailsComponent,       data: {title: 'Asset Details'} },
     { path: 'edit-asset/:id',           component: EditAssetComponent,          data: {title: 'Edit Asset'} },
 
-    { path: 'create-asset-item',                component: CreateAssetItemComponent,    data: {title: 'Create Asset Item'} },
+    { path: 'create-asset-item/:assetId',       component: CreateAssetItemComponent,    data: {title: 'Create Asset Item'} },
     { path: 'asset-item-details/:assetId/:id',  component: AssetItemDetailsComponent,   data: {title: 'Asset Item Details'} },
     { path: 'edit-asset-item/:assetId/:id',     component: EditAssetItemComponent,      data: {title: 'Edit Asset Item'} },
     { path: 'move-asset-item/:assetId/:id',     component: MoveAssetItemComponent,      data: {title: 'Move Asset Item'} },

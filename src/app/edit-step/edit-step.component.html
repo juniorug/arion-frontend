@@ -1,1 +1,79 @@
-<p>edit-step works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Edit Step</h4>
+              </div>
+              <div class="col-md-2 float-right"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <form (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="stepID"
+                        placeholder="Step ID"
+                        [(ngModel)]="step.stepID"
+                        name="stepID"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input matInput id="stepName" placeholder="Name" [(ngModel)]="step.stepName" name="stepName" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="stepOrder"
+                        placeholder="Step Order"
+                        [(ngModel)]="step.stepOrder"
+                        name="stepOrder"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="actorType"
+                        placeholder="Actor Type"
+                        [(ngModel)]="step.actorType"
+                        name="actorType"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button type="submit" class="btn btn-info pull-right">Submit</button>
+                <button mat-raised-button type="button" class="btn btn-default pull-right" onclick="history.back()">
+                  Cancel
+                </button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="history.back()">
+          <i class="material-icons">arrow_back_ios</i>Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

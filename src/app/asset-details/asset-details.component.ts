@@ -134,8 +134,8 @@ export class AssetDetailsComponent implements OnInit {
     this.selectedObjectType = "";
   }
   
-  createAssetItem() {
-    this.router.navigate(['create-asset-item']);
+  createAssetItem(assetId: number) {
+    this.router.navigate(['create-asset-item', assetId,]);
   }
 
   assetItemDetails(assetId: number, id: number){

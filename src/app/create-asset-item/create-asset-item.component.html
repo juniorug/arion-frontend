@@ -12,7 +12,130 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive"></div>
+            <div>
+              <form (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="id"
+                        placeholder="Asset Item ID"
+                        [(ngModel)]="assetItem.assetItemID"
+                        name="assetItemID"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="parentID"
+                        placeholder="Parent ID"
+                        [(ngModel)]="assetItem.parentID"
+                        name="parentID"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="ownerID"
+                        placeholder="Owner ID"
+                        [(ngModel)]="assetItem.ownerID"
+                        name="ownerID"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="stepID"
+                        placeholder="Step ID"
+                        [(ngModel)]="assetItem.stepID"
+                        name="stepID"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="processDate"
+                        placeholder="Process Date"
+                        [(ngModel)]="assetItem.processDate"
+                        name="processDate"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="deliveryDate"
+                        placeholder="Delivery Date"
+                        [(ngModel)]="assetItem.deliveryDate"
+                        name="deliveryDate"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="orderPrice"
+                        placeholder="Order Price"
+                        [(ngModel)]="assetItem.orderPrice"
+                        name="orderPrice"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="shippingPrice"
+                        placeholder="Shipping Price"
+                        [(ngModel)]="assetItem.shippingPrice"
+                        name="shippingPrice"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input matInput id="status" placeholder="Status" [(ngModel)]="assetItem.status" name="status" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="quantity"
+                        placeholder="Quantity"
+                        [(ngModel)]="assetItem.quantity"
+                        name="quantity"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button type="submit" class="btn btn-info pull-right">Submit</button>
+                <button mat-raised-button type="button" class="btn btn-default pull-right" onclick="history.back()">
+                  Cancel
+                </button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
