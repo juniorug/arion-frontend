@@ -49,4 +49,10 @@ export class AssetItemDetailsComponent implements OnInit {
     console.log("assetItem: ", this.assetItem);
   }
 
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
+  }
+
 }

@@ -1,7 +1,165 @@
 <div class="main-content">
   <div class="container-fluid">
-    <!-- ACTORS LIST-->
     <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-info">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Asset Details:</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link active" href="#actors" data-toggle="tab">
+                      <i class="material-icons">person</i> Actors
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#steps" data-toggle="tab">
+                      <i class="material-icons">double_arrow</i> Steps
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#asset-items" data-toggle="tab">
+                      <i class="material-icons">list</i> Asset Items
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="actors">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let actor of asset.actors">
+                    <div class="card card-stats">
+                      <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                          <i class="material-icons">person</i>
+                        </div>
+                        <h4 class="card-title">{{ actor.actorName }}</h4>
+                        <p class="card-category">{{ actor.actorType }}</p>
+                      </div>
+                      <div class="card-footer" style="justify-content: center">
+                        <button (click)="actorDetails(asset.assetID, actor.actorID)" class="btn btn-default" st>
+                          <i class="material-icons">visibility</i>
+                        </button>
+                        <button (click)="editActor(asset.assetID, actor.actorID)" class="btn btn-default">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button (click)="openModal(template, 'Actor', actor.actorID)" class="btn btn-default">
+                          <i class="material-icons">delete</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="steps">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let step of asset.steps">
+                    <div class="card card-stats">
+                      <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                          <i class="material-icons">double_arrow</i>
+                        </div>
+                        <h4 class="card-title">{{ step.stepName }}</h4>
+                        <p class="card-category">
+                          <strong>Step Order: </strong>
+                          {{ step.stepOrder }}
+                        </p>
+                      </div>
+                      <div class="card-footer" style="justify-content: center">
+                        <button (click)="stepDetails(asset.assetID, step.stepID)" class="btn btn-default" st>
+                          <i class="material-icons">visibility</i>
+                        </button>
+                        <button (click)="editStep(asset.assetID, step.stepID)" class="btn btn-default">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button (click)="openModal(template, 'Step', step.stepID)" class="btn btn-default">
+                          <i class="material-icons">delete</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="asset-items">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <th>ID</th>
+                      <th>Owner ID</th>
+                      <th>Step ID</th>
+                      <th>Parent ID</th>
+                      <th>Process Date</th>
+                      <th>Delivery Date</th>
+                      <th>Order Price</th>
+                      <th>Shipping Price</th>
+                      <th>Status</th>
+                      <th>Quantity</th>
+                      <th>Actions</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let assetItem of asset.assetItems">
+                        <!--<tr *ngFor="let asset of assets | async">-->
+                        <td>{{ assetItem.assetItemID }}</td>
+                        <td>{{ assetItem.ownerID }}</td>
+                        <td>{{ assetItem.stepID }}</td>
+                        <td>{{ assetItem.parentID }}</td>
+                        <td>{{ assetItem.processDate }}</td>
+                        <td>{{ assetItem.deliveryDate }}</td>
+                        <td>{{ assetItem.orderPrice }}</td>
+                        <td>{{ assetItem.shippingPrice }}</td>
+                        <td>{{ assetItem.status }}</td>
+                        <td>{{ assetItem.quantity }}</td>
+
+                        <td style="width: 280px" class="bt-actions">
+                          <button
+                            (click)="assetItemDetails(asset.assetID, assetItem.assetItemID)"
+                            class="btn btn-default"
+                            st
+                          >
+                            <i class="material-icons">visibility</i>
+                          </button>
+                          <button (click)="editAssetItem(asset.assetID, assetItem.assetItemID)" class="btn btn-default">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button
+                            (click)="moveAssetItem(asset.assetID, assetItem.assetItemID)"
+                            class="btn btn-default rotate-90"
+                          >
+                            <i class="material-icons">alt_route</i>
+                          </button>
+                          <button
+                            (click)="trackAssetItem(asset.assetID, assetItem.assetItemID)"
+                            class="btn btn-default"
+                          >
+                            <i class="material-icons">timeline</i>
+                          </button>
+                          <button
+                            (click)="openModal(template, 'Asset Item', assetItem.assetItemID)"
+                            class="btn btn-default"
+                          >
+                            <i class="material-icons">delete</i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTORS LIST-->
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
@@ -37,42 +195,13 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="table-responsive">
-              <table class="table">
-                <thead class="text-primary">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Actions</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let actor of asset.actors">
-                    <td>{{ actor.actorID }}</td>
-                    <td>{{ actor.actorName }}</td>
-                    <td>{{ actor.actorType }}</td>
-
-                    <td style="width: 165px" class="bt-actions">
-                      <button (click)="actorDetails(actor.actorID)" class="btn btn-default" st>
-                        <i class="material-icons">visibility</i>
-                      </button>
-                      <button (click)="editActor(actor.actorID)" class="btn btn-default">
-                        <i class="material-icons">edit</i>
-                      </button>
-                      <button (click)="openModal(actor, actorID)" class="btn btn-default">
-                        <i class="material-icons">delete</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> -->
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- STEPS LIST-->
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-warning">
@@ -111,42 +240,13 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="table-responsive">
-              <table class="table">
-                <thead class="text-primary">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Actions</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let actor of asset.actors">
-                    <td>{{ actor.actorID }}</td>
-                    <td>{{ actor.actorName }}</td>
-                    <td>{{ actor.actorType }}</td>
-
-                    <td style="width: 165px" class="bt-actions">
-                      <button (click)="actorDetails(actor.actorID)" class="btn btn-default" st>
-                        <i class="material-icons">visibility</i>
-                      </button>
-                      <button (click)="editActor(actor.actorID)" class="btn btn-default">
-                        <i class="material-icons">edit</i>
-                      </button>
-                      <button (click)="openModal(actor, actorID)" class="btn btn-default">
-                        <i class="material-icons">delete</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> -->
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- ASSET ITEMS LIST-->
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
@@ -178,7 +278,6 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let assetItem of asset.assetItems">
-                    <!--<tr *ngFor="let asset of assets | async">-->
                     <td>{{ assetItem.assetItemID }}</td>
                     <td>{{ assetItem.ownerID }}</td>
                     <td>{{ assetItem.stepID }}</td>
@@ -224,7 +323,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="container-fluid">
     <div class="row">

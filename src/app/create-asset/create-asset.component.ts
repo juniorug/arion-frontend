@@ -36,12 +36,6 @@ export class CreateAssetComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    $(window).ready(()=>{
-      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
-    });
-  }
-
   createActor(): FormGroup {
     return this._formBuilder.group({
       id: [''],
@@ -121,4 +115,10 @@ export class CreateAssetComponent implements OnInit {
     console.log("stepsFormGroup", this.stepsFormGroup.value);
   }
 
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
+  }
+  
 }

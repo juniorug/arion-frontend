@@ -13,35 +13,45 @@
           </div>
           <div class="card-body">
             <div *ngIf="assetItem">
-              <div>
-                <p><strong>Id: </strong>{{ assetItem['assetItemID'] }}</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Id: </strong>{{ assetItem['assetItemID'] }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Parent ID: </strong>{{ assetItem['parentID'] }}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>Owner: </strong>{{ assetItem['ownerID'] }}</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Owner: </strong>{{ assetItem['ownerID'] }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Current step: </strong>{{ assetItem['stepID'] }}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>Current step: </strong>{{ assetItem['stepID'] }}</p>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Process Date: </strong>{{ assetItem['processDate'] }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Delivery Date: </strong>{{ assetItem['deliveryDate'] }}</p>
+                </div>
               </div>
-              <div>
-                <p><strong>Parent ID: </strong>{{ assetItem['parentID'] }}</p>
-              </div>
-              <div>
-                <p><strong>Process Date: </strong>{{ assetItem['processDate'] }}</p>
-              </div>
-              <div>
-                <p><strong>Delivery Date: </strong>{{ assetItem['deliveryDate'] }}</p>
-              </div>
-              <div>
-                <p><strong>Order Price: </strong>{{ assetItem['orderPrice'] }}</p>
-              </div>
-              <div>
-                <p><strong>Shipping Price: </strong>{{ assetItem['shippingPrice'] }}</p>
-              </div>
-              <div>
-                <p><strong>Status: </strong>{{ assetItem['status'] }}</p>
-              </div>
-              <div>
-                <p><strong>Quantity: </strong>{{ assetItem['quantity'] }}</p>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <p><strong>Order Price: </strong>{{ assetItem['orderPrice'] }}</p>
+                </div>
+                <div class="col-md-3">
+                  <p><strong>Shipping Price: </strong>{{ assetItem['shippingPrice'] }}</p>
+                </div>
+                <div class="col-md-3">
+                  <p><strong>Status: </strong>{{ assetItem['status'] }}</p>
+                </div>
+                <div class="col-md-3">
+                  <p><strong>Quantity: </strong>{{ assetItem['quantity'] }}</p>
+                </div>
               </div>
             </div>
           </div>

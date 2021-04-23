@@ -63,9 +63,14 @@ export class EditAssetItemComponent implements OnInit {
 
   }
 
-
   gotoAssetItemList() {
     history.back();
+  }
+
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
   }
 
 }

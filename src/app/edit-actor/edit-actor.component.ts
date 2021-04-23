@@ -68,4 +68,10 @@ export class EditActorComponent implements OnInit {
     history.back();
   }
 
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
+  }
+
 }

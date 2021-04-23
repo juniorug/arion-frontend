@@ -49,4 +49,9 @@ export class ActorDetailsComponent implements OnInit {
     console.log("actor: ", this.actor);
   }
 
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
+  }
 }

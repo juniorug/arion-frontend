@@ -30,6 +30,9 @@ export class AssetListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.add("active");
+    });
     this.reloadData();
   }
 
@@ -79,6 +82,12 @@ export class AssetListComponent implements OnInit {
 
   editAsset(id: number){
     this.router.navigate(['edit-asset', id]);
+  }
+
+  ngOnDestroy(): void {
+    $(window).ready(()=>{
+      document.getElementsByClassName("asset-menu")[0].classList.remove("active");
+    });
   }
 
 }

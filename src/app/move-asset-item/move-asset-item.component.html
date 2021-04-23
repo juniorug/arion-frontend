@@ -5,17 +5,284 @@
         <div class="card">
           <div class="card-header card-header-info">
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-12">
                 <h4 class="card-title">Move Asset Items</h4>
                 <p class="card-category">Move Assets Items between Steps</p>
-              </div>
-              <div class="col-md-2 float-right">
-                <button class="btn btn-primary float-right" (click)="createAssetItem()">Create</button>
               </div>
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive"></div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="id"
+                            placeholder="Asset Item ID"
+                            [(ngModel)]="assetItem.assetItemID"
+                            name="assetItemID"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="parentID"
+                            placeholder="Parent ID"
+                            [(ngModel)]="assetItem.parentID"
+                            name="parentID"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="stepID"
+                            placeholder="Step"
+                            [(ngModel)]="currentStep.stepName"
+                            name="stepID"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="ownerID"
+                            placeholder="Owner ID"
+                            [(ngModel)]="assetItem.ownerID"
+                            name="ownerID"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="processDate"
+                            placeholder="Process Date"
+                            [(ngModel)]="assetItem.processDate"
+                            name="processDate"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="deliveryDate"
+                            placeholder="Delivery Date"
+                            [(ngModel)]="assetItem.deliveryDate"
+                            name="deliveryDate"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="orderPrice"
+                            placeholder="Order Price"
+                            [(ngModel)]="assetItem.orderPrice"
+                            name="orderPrice"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="shippingPrice"
+                            placeholder="Shipping Price"
+                            [(ngModel)]="assetItem.shippingPrice"
+                            name="shippingPrice"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="status"
+                            placeholder="Status"
+                            [(ngModel)]="assetItem.status"
+                            name="status"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="quantity"
+                            placeholder="Quantity"
+                            [(ngModel)]="assetItem.quantity"
+                            name="quantity"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 arrows">
+                <div class="row">
+                  <div class="col-md-12">
+                    <i class="material-icons">double_arrow</i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Asset Item ID</mat-label>
+                          <input
+                            matInput
+                            id="idNew"
+                            placeholder="A new ID will be generated if not provided"
+                            [(ngModel)]="newAssetItem.assetItemID"
+                            name="assetItemID"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="parentIDNew"
+                            placeholder="Parent ID"
+                            [(ngModel)]="newAssetItem.parentID"
+                            name="parentID"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <!-- <input
+                            matInput
+                            id="stepIDNew"
+                            placeholder="Step ID"
+                            [(ngModel)]="newAssetItem.stepID"
+                            name="stepID"
+                          /> -->
+                          <mat-label>Step</mat-label>
+                          <mat-select>
+                            <mat-option *ngFor="let step of allowedSteps" [value]="step.stepOrder">
+                              <span>
+                                <i class="material-icons" *ngIf="step.stepOrder <= newAssetItem.stepID">arrow_back</i>
+                              </span>
+                              <span>{{ step.stepName }}</span>
+                              <span>
+                                <i class="material-icons" *ngIf="step.stepOrder > newAssetItem.stepID">arrow_forward</i>
+                              </span>
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="ownerIDNew"
+                            placeholder="Owner ID"
+                            [(ngModel)]="newAssetItem.ownerID"
+                            name="ownerID"
+                          />
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="processDateNew"
+                            placeholder="Process Date"
+                            [(ngModel)]="newAssetItem.processDate"
+                            name="processDate"
+                            disabled
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="deliveryDateNew"
+                            placeholder="Delivery Date"
+                            [(ngModel)]="newAssetItem.deliveryDate"
+                            name="deliveryDate"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="orderPriceNew"
+                            placeholder="Order Price"
+                            [(ngModel)]="newAssetItem.orderPrice"
+                            name="orderPrice"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="shippingPriceNew"
+                            placeholder="Shipping Price"
+                            [(ngModel)]="newAssetItem.shippingPrice"
+                            name="shippingPrice"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="statusNew"
+                            placeholder="Status"
+                            [(ngModel)]="newAssetItem.status"
+                            name="status"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            id="quantityNew"
+                            placeholder="Quantity"
+                            [(ngModel)]="newAssetItem.quantity"
+                            name="quantity"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
