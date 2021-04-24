@@ -4,30 +4,73 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-tabs card-header-info">
-            <div class="nav-tabs-navigation">
-              <div class="nav-tabs-wrapper">
-                <span class="nav-tabs-title">Asset Details:</span>
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                  <li class="nav-item">
-                    <a mat-button class="nav-link active" href="#actors" data-toggle="tab">
-                      <i class="material-icons">person</i> Actors
-                      <div class="ripple-container"></div>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a mat-button class="nav-link" href="#steps" data-toggle="tab">
-                      <i class="material-icons">double_arrow</i> Steps
-                      <div class="ripple-container"></div>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a mat-button class="nav-link" href="#asset-items" data-toggle="tab">
-                      <i class="material-icons">list</i> Asset Items
-                      <div class="ripple-container"></div>
-                    </a>
-                  </li>
-                </ul>
+            <div class="row">
+              <div class="nav-tabs-navigation col-md-10">
+                <div class="nav-tabs-wrapper">
+                  <span class="nav-tabs-title">Asset Details:</span>
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link active"
+                        href="#actors"
+                        data-toggle="tab"
+                        (click)="mustHideCreateAssetItemButton()"
+                      >
+                        <i class="material-icons">person</i> Actors
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link"
+                        href="#steps"
+                        data-toggle="tab"
+                        (click)="mustHideCreateAssetItemButton()"
+                      >
+                        <i class="material-icons">double_arrow</i> Steps
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link"
+                        href="#asset-items"
+                        data-toggle="tab"
+                        (click)="mustShowCreateAssetItemButton()"
+                      >
+                        <i class="material-icons">list</i> Asset Items
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
+
+              <div class="nav-tabs-navigation col-md-2">
+                <div class="nav-tabs-wrapper float-right" *ngIf="showCreateAssetItemButton">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item fake-primary-button">
+                      <a
+                        mat-button
+                        class="nav-link"
+                        [routerLink]=""
+                        data-toggle="tab"
+                        (click)="createAssetItem(asset.assetID)"
+                      >
+                        Create Asset Item
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- <div class="col-md-2 float-right" *ngIf="showCreateAssetItemButton">
+                <button class="btn btn-primary float-right" (click)="createAssetItem(asset.assetID)">Create</button>
+              </div> -->
             </div>
           </div>
           <div class="card-body">

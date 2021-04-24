@@ -24,7 +24,8 @@ export class AssetDetailsComponent implements OnInit {
   asset: Asset;
   selectedObjectID: string;
   selectedObjectType: string;
-  
+  showCreateAssetItemButton: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -40,7 +41,7 @@ export class AssetDetailsComponent implements OnInit {
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
-
+    this.showCreateAssetItemButton = false;
     this.asset = new Asset();
     this.id = this.route.snapshot.params['id'];
     this.reloadData();
@@ -170,6 +171,13 @@ export class AssetDetailsComponent implements OnInit {
 
   editStep(assetId: number, id: number){
     this.router.navigate(['edit-step', assetId, id]);
+  }
+
+  mustShowCreateAssetItemButton() {
+    this.showCreateAssetItemButton = true;
+  }
+  mustHideCreateAssetItemButton() {
+    this.showCreateAssetItemButton = false;
   }
 
   ngOnDestroy(): void {

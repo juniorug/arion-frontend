@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
+import { Step } from 'app/models/step';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
-import * as assetsJson from "../../assets/mock/assets.json";
 import * as cloneDeep from 'lodash/cloneDeep';
-import { Step } from 'app/models/step';
+import * as moment from 'moment';
+import * as assetsJson from "../../assets/mock/assets.json";
 @Component({
   selector: 'app-move-asset-item',
   templateUrl: './move-asset-item.component.html',
@@ -16,10 +19,13 @@ export class MoveAssetItemComponent implements OnInit {
 
   assetId: string;
   id: string;
+  asset: Asset;
   assetItem: AssetItem;
   newAssetItem: AssetItem;
-  allowedSteps: Step[];
   currentStep: Step;
+  allowedSteps: Step[];
+  allowedActors: Actor[];
+  currentActor: Actor;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,13 +56,14 @@ export class MoveAssetItemComponent implements OnInit {
 
   reloadData() {
     //this.assets = this.assetService.getAssetList();
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("asset: ", asset);
-    this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+    this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
+    console.log("asset: ", this.asset);
+    this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
     let currentStepId = Number(this.assetItem.stepID);
-    this.currentStep = asset.steps.find( step => step.stepOrder === currentStepId);
-    this.allowedSteps =  asset.steps.filter( step => step.stepOrder === (currentStepId - 1) || step.stepOrder === (currentStepId + 1) );
+    this.currentStep = this.asset.steps.find( step => step.stepOrder === currentStepId);
+    this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (currentStepId - 1) || step.stepOrder === (currentStepId + 1) );
+    this.currentActor =  this.asset.actors.find(actor => actor.actorType ===  this.currentStep.actorType);
     this.startNewAssetItem();
   }
 
@@ -64,7 +71,7 @@ export class MoveAssetItemComponent implements OnInit {
     this.newAssetItem = cloneDeep(this.assetItem);
     this.newAssetItem.parentID = this.assetItem.assetItemID;
     this.newAssetItem.assetItemID = "";
-    this.newAssetItem.processDate = new Date().toLocaleString();
+    this.newAssetItem.processDate = moment().format('YYYY-MM-DD HH:mm:ss') ;
   }
 
   onSubmit() {
@@ -77,6 +84,15 @@ export class MoveAssetItemComponent implements OnInit {
       this.notificationServiceService.showNotification('success', 'AssetItem succesfully moved');
       this.gotoAssetItemList();
 
+  }
+
+  getStepSelected(event: MatSelectChange): void {
+    console.log(event.value); // get selected value
+    console.log(event.source); // get all source options
+    let selectedStep: Step =  this.asset.steps.find(step => step.stepOrder === event.value);
+    console.log("selectedStep= ", selectedStep);
+    this.allowedActors =  this.asset.actors.filter( actor => actor.actorType ===  selectedStep.actorType);
+    console.log("allowedActors= ", this.allowedActors);
   }
 
   gotoAssetItemList() {

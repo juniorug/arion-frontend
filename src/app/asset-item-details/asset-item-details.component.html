@@ -23,19 +23,19 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <p><strong>Owner: </strong>{{ assetItem['ownerID'] }}</p>
+                  <p><strong>Owner: </strong>{{ currentActor['actorName'] }}</p>
                 </div>
                 <div class="col-md-6">
-                  <p><strong>Current step: </strong>{{ assetItem['stepID'] }}</p>
+                  <p><strong>Current step: </strong>{{ currentStep['stepName'] }}</p>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6">
-                  <p><strong>Process Date: </strong>{{ assetItem['processDate'] }}</p>
+                  <p><strong>Process Date: </strong>{{ assetItem['processDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
                 </div>
                 <div class="col-md-6">
-                  <p><strong>Delivery Date: </strong>{{ assetItem['deliveryDate'] }}</p>
+                  <p><strong>Delivery Date: </strong>{{ assetItem['deliveryDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
                 </div>
               </div>
 

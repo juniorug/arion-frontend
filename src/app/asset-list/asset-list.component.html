@@ -33,14 +33,14 @@
                     <td>{{ asset.assetItems.length }}</td>
                     <td>{{ asset.actors.length }}</td>
                     <td>{{ asset.steps.length }}</td>
-                    <td style="width: 200px" class="bt-actions">
-                      <button (click)="assetDetails(asset.assetID)" class="btn btn-default" st>
+                    <td class="bt-actions">
+                      <button (click)="assetDetails(asset.assetID)" class="btn btn-default btn-small" st>
                         <i class="material-icons">visibility</i>
                       </button>
-                      <button (click)="editAsset(asset.assetID)" class="btn btn-default">
+                      <button (click)="editAsset(asset.assetID)" class="btn btn-default btn-small">
                         <i class="material-icons">edit</i>
                       </button>
-                      <button (click)="openModal(template, asset)" class="btn btn-default">
+                      <button (click)="openModal(template, asset)" class="btn btn-default btn-small">
                         <i class="material-icons">delete</i>
                       </button>
                     </td>

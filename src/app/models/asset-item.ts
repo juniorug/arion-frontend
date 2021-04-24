@@ -1,7 +1,7 @@
 export class AssetItem {
    assetItemID: string;
+   stepID: string;
    ownerID: string;
-   stepID: number;
    parentID: string;
    processDate: string;
    deliveryDate: string;

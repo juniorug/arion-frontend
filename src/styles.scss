@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.btn:hover {
+  -webkit-box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;
+  box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;
+  border-color: transparent !important;
+}
+
 .btn {
   border: 0;
   -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 30%) !important;
@@ -7,3 +13,25 @@
   -o-transition: all 0.2s !important;
   transition: all 0.2s !important;
 }
+
+.btn-small {
+  /* box-shadow: none !important; */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  background-image: none;
+  padding: 0;
+  text-align: center;
+  line-height: 0px;
+  position: relative;
+  margin: 5px 0 0;
+}
+
+.btn-small:hover {
+  background-color: #eee !important;
+}
+
+/* .btn-primary {
+  color: #673ab7;
+} */

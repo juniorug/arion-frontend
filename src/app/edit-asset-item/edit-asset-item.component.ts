@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
+import { Step } from 'app/models/step';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
 import * as assetsJson from "../../assets/mock/assets.json";
@@ -16,6 +18,8 @@ export class EditAssetItemComponent implements OnInit {
   assetId: string;
   id: string;
   assetItem: AssetItem;
+  currentStep: Step;
+  currentActor: Actor;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +53,10 @@ export class EditAssetItemComponent implements OnInit {
     console.log("asset: ", asset);
     this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
+    this.currentStep = asset.steps.find( step => step.stepID === this.assetItem.stepID);
+    console.log("currentStep: ", this.currentStep);
+    this.currentActor = asset.actors.find( actor => actor.actorID === this.assetItem.ownerID);
+    console.log("currentActor: ", this.currentActor);
   }
 
   onSubmit() {
@@ -58,6 +66,8 @@ export class EditAssetItemComponent implements OnInit {
         this.assetItem = new AssetItem();
         this.gotoList();
       }, error => console.log(error)); */
+      console.log("SUBMITED. assetItem: ", this.assetItem);
+      
       this.notificationServiceService.showNotification('success', 'AssetItem succesfully edited');
       this.gotoAssetItemList();
 

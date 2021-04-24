@@ -17,10 +17,11 @@
                 <div class="row">
                   <div class="col-md-6">
                     <mat-form-field class="example-full-width">
+                      <mat-label>Asset Item ID</mat-label>
                       <input
                         matInput
                         id="id"
-                        placeholder="Asset Item ID"
+                        placeholder="A new ID will be generated if not provided"
                         [(ngModel)]="assetItem.assetItemID"
                         name="assetItemID"
                       />
@@ -42,13 +43,12 @@
                 <div class="row">
                   <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                      <input
-                        matInput
-                        id="ownerID"
-                        placeholder="Owner ID"
-                        [(ngModel)]="assetItem.ownerID"
-                        name="ownerID"
-                      />
+                      <mat-label>Owner</mat-label>
+                      <mat-select>
+                        <mat-option *ngFor="let actor of allowedActors" [value]="actor.actorID">
+                          <span>{{ actor.actorName }}</span>
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
@@ -69,11 +69,10 @@
                     <mat-form-field class="example-full-width">
                       <input
                         matInput
-                        id="processDate"
-                        placeholder="Process Date"
-                        [(ngModel)]="assetItem.processDate"
-                        name="processDate"
-                        disabled
+                        id="deliveryDate"
+                        placeholder="Delivery Date"
+                        [(ngModel)]="assetItem.deliveryDate"
+                        name="deliveryDate"
                       />
                     </mat-form-field>
                   </div>
@@ -81,10 +80,11 @@
                     <mat-form-field class="example-full-width">
                       <input
                         matInput
-                        id="deliveryDate"
-                        placeholder="Delivery Date"
-                        [(ngModel)]="assetItem.deliveryDate"
-                        name="deliveryDate"
+                        id="processDate"
+                        placeholder="Process Date"
+                        [(ngModel)]="assetItem.processDate"
+                        name="processDate"
+                        disabled
                       />
                     </mat-form-field>
                   </div>

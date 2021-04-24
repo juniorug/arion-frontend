@@ -58,8 +58,8 @@
                           <input
                             matInput
                             id="ownerID"
-                            placeholder="Owner ID"
-                            [(ngModel)]="assetItem.ownerID"
+                            placeholder="Owner"
+                            [(ngModel)]="currentActor.actorName"
                             name="ownerID"
                             disabled
                           />
@@ -71,7 +71,7 @@
                             matInput
                             id="processDate"
                             placeholder="Process Date"
-                            [(ngModel)]="assetItem.processDate"
+                            [ngModel]="assetItem.processDate | date: 'MM-dd-yyyy HH:mm:ss'"
                             name="processDate"
                             disabled
                           />
@@ -178,15 +178,9 @@
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="example-full-width">
-                          <!-- <input
-                            matInput
-                            id="stepIDNew"
-                            placeholder="Step ID"
-                            [(ngModel)]="newAssetItem.stepID"
-                            name="stepID"
-                          /> -->
                           <mat-label>Step</mat-label>
-                          <mat-select>
+                          <mat-select (selectionChange)="getStepSelected($event)">
+                            <!-- [(ngModel)]="stepSelected" -->
                             <mat-option *ngFor="let step of allowedSteps" [value]="step.stepOrder">
                               <span>
                                 <i class="material-icons" *ngIf="step.stepOrder <= newAssetItem.stepID">arrow_back</i>
@@ -201,13 +195,12 @@
                       </div>
                       <div class="col-md-12">
                         <mat-form-field class="example-full-width">
-                          <input
-                            matInput
-                            id="ownerIDNew"
-                            placeholder="Owner ID"
-                            [(ngModel)]="newAssetItem.ownerID"
-                            name="ownerID"
-                          />
+                          <mat-label>Owner</mat-label>
+                          <mat-select [disabled]="!allowedActors">
+                            <mat-option *ngFor="let actor of allowedActors" [value]="actor.actorID">
+                              <span>{{ actor.actorName }}</span>
+                            </mat-option>
+                          </mat-select>
                         </mat-form-field>
                       </div>
 
@@ -217,7 +210,7 @@
                             matInput
                             id="processDateNew"
                             placeholder="Process Date"
-                            [(ngModel)]="newAssetItem.processDate"
+                            [ngModel]="newAssetItem.processDate | date: 'MM-dd-yyyy HH:mm:ss'"
                             name="processDate"
                             disabled
                           />

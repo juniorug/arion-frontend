@@ -17,6 +17,26 @@ th {
   }
 }
 
+.fake-primary-button:hover {
+  -webkit-box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;
+  box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;
+  border-color: transparent !important;
+}
+
+.fake-primary-button {
+  border: 0;
+  -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 30%) !important;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 30%) !important;
+  -webkit-transition: all 0.2s !important;
+  -o-transition: all 0.2s !important;
+  transition: all 0.2s !important;
+
+  a {
+    background-color: #673ab7;
+    width: 150px;
+  }
+}
+
 .card-footer {
   .btn.btn-default {
     background-color: #fff;
