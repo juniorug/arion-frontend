@@ -68,8 +68,9 @@ export class MoveAssetItemComponent implements OnInit {
   }
 
   startNewAssetItem() {
-    this.newAssetItem = cloneDeep(this.assetItem);
+    //this.newAssetItem = cloneDeep(this.assetItem);
     this.newAssetItem.parentID = this.assetItem.assetItemID;
+    this.newAssetItem.stepID = this.assetItem.stepID;
     this.newAssetItem.assetItemID = "";
     this.newAssetItem.processDate = moment().format('YYYY-MM-DD HH:mm:ss') ;
   }
@@ -87,9 +88,10 @@ export class MoveAssetItemComponent implements OnInit {
   }
 
   getStepSelected(event: MatSelectChange): void {
-    console.log(event.value); // get selected value
-    console.log(event.source); // get all source options
-    let selectedStep: Step =  this.asset.steps.find(step => step.stepOrder === event.value);
+    console.log("event.value: ", event.value); // get selected value
+    //console.log("event.source: ", event.source); // get all source options
+    console.log("event.value.stepID: ", event.value.stepID);
+    let selectedStep: Step =  this.asset.steps.find(step => step.stepOrder === event.value.stepOrder);
     console.log("selectedStep= ", selectedStep);
     this.allowedActors =  this.asset.actors.filter( actor => actor.actorType ===  selectedStep.actorType);
     console.log("allowedActors= ", this.allowedActors);

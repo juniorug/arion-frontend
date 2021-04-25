@@ -13,6 +13,18 @@
                       <a
                         mat-button
                         class="nav-link active"
+                        href="#asset-items"
+                        data-toggle="tab"
+                        (click)="mustShowCreateAssetItemButton()"
+                      >
+                        <i class="material-icons">list</i> Asset Items
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        mat-button
+                        class="nav-link"
                         href="#actors"
                         data-toggle="tab"
                         (click)="mustHideCreateAssetItemButton()"
@@ -30,18 +42,6 @@
                         (click)="mustHideCreateAssetItemButton()"
                       >
                         <i class="material-icons">double_arrow</i> Steps
-                        <div class="ripple-container"></div>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        mat-button
-                        class="nav-link"
-                        href="#asset-items"
-                        data-toggle="tab"
-                        (click)="mustShowCreateAssetItemButton()"
-                      >
-                        <i class="material-icons">list</i> Asset Items
                         <div class="ripple-container"></div>
                       </a>
                     </li>
@@ -67,70 +67,11 @@
                   </ul>
                 </div>
               </div>
-
-              <!-- <div class="col-md-2 float-right" *ngIf="showCreateAssetItemButton">
-                <button class="btn btn-primary float-right" (click)="createAssetItem(asset.assetID)">Create</button>
-              </div> -->
             </div>
           </div>
           <div class="card-body">
             <div class="tab-content">
-              <div class="tab-pane active" id="actors">
-                <div class="row">
-                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let actor of asset.actors">
-                    <div class="card card-stats">
-                      <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                          <i class="material-icons">person</i>
-                        </div>
-                        <h4 class="card-title">{{ actor.actorName }}</h4>
-                        <p class="card-category">{{ actor.actorType }}</p>
-                      </div>
-                      <div class="card-footer" style="justify-content: center">
-                        <button (click)="actorDetails(asset.assetID, actor.actorID)" class="btn btn-default" st>
-                          <i class="material-icons">visibility</i>
-                        </button>
-                        <button (click)="editActor(asset.assetID, actor.actorID)" class="btn btn-default">
-                          <i class="material-icons">edit</i>
-                        </button>
-                        <button (click)="openModal(template, 'Actor', actor.actorID)" class="btn btn-default">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="steps">
-                <div class="row">
-                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let step of asset.steps">
-                    <div class="card card-stats">
-                      <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                          <i class="material-icons">double_arrow</i>
-                        </div>
-                        <h4 class="card-title">{{ step.stepName }}</h4>
-                        <p class="card-category">
-                          <strong>Step Order: </strong>
-                          {{ step.stepOrder }}
-                        </p>
-                      </div>
-                      <div class="card-footer" style="justify-content: center">
-                        <button (click)="stepDetails(asset.assetID, step.stepID)" class="btn btn-default" st>
-                          <i class="material-icons">visibility</i>
-                        </button>
-                        <button (click)="editStep(asset.assetID, step.stepID)" class="btn btn-default">
-                          <i class="material-icons">edit</i>
-                        </button>
-                        <button (click)="openModal(template, 'Step', step.stepID)" class="btn btn-default">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="asset-items">
+              <div class="tab-pane active" id="asset-items">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
@@ -193,6 +134,61 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="actors">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let actor of asset.actors">
+                    <div class="card card-stats">
+                      <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                          <i class="material-icons">person</i>
+                        </div>
+                        <h4 class="card-title">{{ actor.actorName }}</h4>
+                        <p class="card-category">{{ actor.actorType }}</p>
+                      </div>
+                      <div class="card-footer" style="justify-content: center">
+                        <button (click)="actorDetails(asset.assetID, actor.actorID)" class="btn btn-default" st>
+                          <i class="material-icons">visibility</i>
+                        </button>
+                        <button (click)="editActor(asset.assetID, actor.actorID)" class="btn btn-default">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button (click)="openModal(template, 'Actor', actor.actorID)" class="btn btn-default">
+                          <i class="material-icons">delete</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="steps">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let step of asset.steps">
+                    <div class="card card-stats">
+                      <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                          <i class="material-icons">double_arrow</i>
+                        </div>
+                        <h4 class="card-title">{{ step.stepName }}</h4>
+                        <p class="card-category">
+                          <strong>Step Order: </strong>
+                          {{ step.stepOrder }}
+                        </p>
+                      </div>
+                      <div class="card-footer" style="justify-content: center">
+                        <button (click)="stepDetails(asset.assetID, step.stepID)" class="btn btn-default" st>
+                          <i class="material-icons">visibility</i>
+                        </button>
+                        <button (click)="editStep(asset.assetID, step.stepID)" class="btn btn-default">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button (click)="openModal(template, 'Step', step.stepID)" class="btn btn-default">
+                          <i class="material-icons">delete</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

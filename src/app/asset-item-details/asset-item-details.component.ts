@@ -35,7 +35,7 @@ export class AssetItemDetailsComponent implements OnInit {
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("AssetItemDetailsComponent called with assetId= ", this.assetId, " and id= ", this.id, );
+    console.log("AssetItemDetailsComponent called with assetId= ", this.assetId, " and id= ", this.id );
     
     /* this.assetItemService.getAssetItem(this.id)
       .subscribe(data => {
@@ -51,7 +51,7 @@ export class AssetItemDetailsComponent implements OnInit {
     console.log("asset: ", asset);
     this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
-    this.currentStep = asset.steps.find( step => step.stepID === this.assetItem.stepID);
+    this.currentStep = asset.steps.find(step => step.stepID === this.assetItem.stepID);
     console.log("currentStep: ", this.currentStep);
     this.currentActor = asset.actors.find( actor => actor.actorID === this.assetItem.ownerID);
     console.log("currentActor: ", this.currentActor);

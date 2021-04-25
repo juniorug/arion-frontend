@@ -17,10 +17,11 @@
 
 ::ng-deep {
   .mat-horizontal-stepper-header .mat-step-icon {
-    background-color: #ae84b2;
+    background-color: #ae84b2; //ae84b2
+    background-color: #b39ddb; //ae84b2
   }
   .mat-step-header .mat-step-icon-selected {
-    background-color: #9c27b0;
+    background-color: #673ab7; //9c27b0
     color: white;
   }
 }

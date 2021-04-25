@@ -1,19 +1,19 @@
 [
    {
       "assetID":"1",
-      "assetName":"Gravel",
+      "assetName":"Coffee",
       "assetItems":[
          {
             "assetItemID":"1",
             "ownerID":"1",
             "stepID":"1",
             "parentID":"0",
-            "processDate":"2021-04-11 21:49:49",
+            "processDate":"2021-04-11T21:49:49",
             "deliveryDate":"2020-03-07T07:04:05",
             "orderPrice":"",
             "shippingPrice":"",
             "status":"Sold",
-            "quantity":"2",
+            "quantity":"4",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -24,11 +24,11 @@
             "ownerID":"1",
             "stepID":"1",
             "parentID":"0",
-            "processDate":"2021-04-11 21:49:58",
-            "deliveryDate":"2020-03-07T15:04:05",
+            "processDate":"2021-04-11T21:49:58",
+            "deliveryDate":"",
             "orderPrice":"",
             "shippingPrice":"",
-            "status":"order initiated",
+            "status":"Order initiated",
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
@@ -40,12 +40,12 @@
             "ownerID":"2",
             "stepID":"2",
             "parentID":"1",
-            "processDate":"2021-04-11 21:51:26",
-            "deliveryDate":"",
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"2021-05-11T15:06:54",
             "orderPrice":"50",
             "shippingPrice":"5",
-            "status":"producing",
-            "quantity":"1",
+            "status":"Sold",
+            "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -56,12 +56,28 @@
             "ownerID":"2",
             "stepID":"2",
             "parentID":"1",
-            "processDate":"2021-04-11 21:51:38",
+            "processDate":"2021-04-11T21:51:38",
             "deliveryDate":"",
             "orderPrice":"50",
             "shippingPrice":"5",
-            "status":"producing",
-            "quantity":"1",
+            "status":"Processing",
+            "quantity":"2",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "assetItemID":"5",
+            "ownerID":"3",
+            "stepID":"3",
+            "parentID":"3",
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"",
+            "orderPrice":"70",
+            "shippingPrice":"20",
+            "status":"Exported",
+            "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -71,7 +87,7 @@
       "actors":[
          {
             "actorID":"1",
-            "actorType":"rawMaterial",
+            "actorType":"Extractor",
             "actorName":"James JohnsonX9",
             "deleted":false,
             "aditionalInfoMap":{
@@ -80,8 +96,26 @@
          },
          {
             "actorID":"2",
-            "actorType":"manufacturer",
+            "actorType":"Manufacturer",
             "actorName":"Donald Jackson",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "actorID":"3",
+            "actorType":"Distributor",
+            "actorName":"Elizabeth Taylor",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "actorID":"4",
+            "actorType":"Distributor",
+            "actorName":"Charlotte O'Neill",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -91,9 +125,9 @@
       "steps":[
          {
             "stepID":"1",
-            "stepName":"exploration",
+            "stepName":"Extraction",
             "stepOrder":1,
-            "actorType":"rawMaterial",
+            "actorType":"Extractor",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -101,9 +135,19 @@
          },
          {
             "stepID":"2",
-            "stepName":"production",
+            "stepName":"Processing",
             "stepOrder":2,
-            "actorType":"manufacturer",
+            "actorType":"Manufacturer",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "stepID":"3",
+            "stepName":"Distribution",
+            "stepOrder":3,
+            "actorType":"Distributor",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -117,13 +161,29 @@
    },
    {
       "assetID":"2",
-      "assetName":"Coffee",
+      "assetName":"Gold",
       "assetItems":[
+         {
+            "assetItemID":"1",
+            "ownerID":"1",
+            "stepID":"1",
+            "parentID":"0",
+            "processDate":"2021-04-11T21:49:49",
+            "deliveryDate":"2020-03-07T07:04:05",
+            "orderPrice":"",
+            "shippingPrice":"",
+            "status":"Order initiated",
+            "quantity":"100",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         }
       ],
       "actors":[
          {
-            "actorID":"3",
-            "actorType":"coffee grower",
+            "actorID":"1",
+            "actorType":"Raw Material",
             "actorName":"Andrew O'connell",
             "deleted":false,
             "aditionalInfoMap":{
@@ -131,8 +191,8 @@
             }
          },
          {
-            "actorID":"4",
-            "actorType":"producer",
+            "actorID":"2",
+            "actorType":"Producer",
             "actorName":"Olivia Jones",
             "deleted":false,
             "aditionalInfoMap":{
@@ -142,10 +202,10 @@
       ],
       "steps":[
          {
-            "stepID":"3",
-            "stepName":"extraction",
+            "stepID":"1",
+            "stepName":"Exploration",
             "stepOrder":1,
-            "actorType":"coffee grower",
+            "actorType":"Raw Material",
             "deleted":false,
             "aditionalInfoMap":{
                
@@ -153,9 +213,9 @@
          },
          {
             "stepID":"2",
-            "stepName":"production",
+            "stepName":"Production",
             "stepOrder":2,
-            "actorType":"producer",
+            "actorType":"Producer",
             "deleted":false,
             "aditionalInfoMap":{
                
