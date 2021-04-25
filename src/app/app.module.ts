@@ -28,6 +28,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MoveAssetItemComponent } from './move-asset-item/move-asset-item.component';
 import { StepDetailsComponent } from './step-details/step-details.component';
 import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.component';
+import { DiagramComponent } from './diagram/diagram.component';
+import { InspectorComponent } from './inspector/inspector.component';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.com
     EditActorComponent,
     StepDetailsComponent,
     EditStepComponent,
+    DiagramComponent,
+    InspectorComponent,
 
   ],
   providers: [],

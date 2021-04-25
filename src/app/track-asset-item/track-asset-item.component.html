@@ -12,7 +12,8 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive"></div>
+            <app-diagram [model]="model" (nodeClicked)="setSelectedNode($event)"></app-diagram>
+            <app-inspector [selectedNode]="selectedNode" [model]="model"></app-inspector>
           </div>
         </div>
       </div>
