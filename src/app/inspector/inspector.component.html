@@ -1,4 +1,49 @@
-<form *ngIf="selectedNode" (ngSubmit)="onCommitForm()">
-  Name: <input name="name" [(ngModel)]="data.name" /> Boss: <input name="parent" [(ngModel)]="data.parent" />
+<!-- <form *ngIf="selectedNode" (ngSubmit)="onCommitForm()">
+  Name: <input name="name" [(ngModel)]="data.name" /> Boss: <input name="parent" [(ngModel)]="data.parent" /> new-field:
+  <input name="newField" [(ngModel)]="data.newField" />
   <button type="submit">Commit</button>
 </form>
+ -->
+
+<div *ngIf="selectedNode">
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Id: </strong>{{ data['key'] }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Parent ID: </strong>{{ data['parent'] }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Owner: </strong>{{ data['owner'] }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Current step: </strong>{{ data['step'] }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Process Date: </strong>{{ data['processDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Delivery Date: </strong>{{ data['deliveryDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <p><strong>Order Price: </strong>{{ data['orderPrice'] }}</p>
+    </div>
+    <div class="col-md-3">
+      <p><strong>Shipping Price: </strong>{{ data['shippingPrice'] }}</p>
+    </div>
+    <div class="col-md-3">
+      <p><strong>Status: </strong>{{ data['status'] }}</p>
+    </div>
+    <div class="col-md-3">
+      <p><strong>Quantity: </strong>{{ data['quantity'] }}</p>
+    </div>
+  </div>
+</div>

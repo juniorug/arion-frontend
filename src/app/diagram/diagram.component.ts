@@ -30,12 +30,12 @@ export class DiagramComponent {
             {
               isOngoing: true,
               treeStyle: go.TreeLayout.StyleLastParents,
-              arrangement: go.TreeLayout.ArrangementHorizontal,
+              arrangement: go.TreeLayout.ArrangementVertical,
               // properties for most of the tree:
-              angle: 90,
+              angle: 0,
               layerSpacing: 35,
               // properties for the "last parents":
-              alternateAngle: 90,
+              alternateAngle: 0,
               alternateLayerSpacing: 35,
               alternateAlignment: go.TreeLayout.AlignmentBus,
               alternateNodeSpacing: 20
@@ -52,7 +52,7 @@ export class DiagramComponent {
         // bind the Part.layerName to control the Node's layer depending on whether it isSelected
         new go.Binding('layerName', 'isSelected', function(sel) { return sel ? 'Foreground' : ''; }).ofObject(),
         // define the node's outer shape
-        $(go.Shape, 'Rectangle',
+        $(go.Shape, 'RoundedRectangle',
           {
             name: 'SHAPE', fill: 'lightblue', stroke: null,
             // set the port properties:

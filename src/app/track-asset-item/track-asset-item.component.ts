@@ -14,9 +14,12 @@ import * as go from 'gojs';
 })
 export class TrackAssetItemComponent implements OnInit {
 
+  asset: Asset;
   assetId: string;
   id: string;
   assetItem: AssetItem;
+  trackedItems: AssetItem[];
+  threeModel: any[];
 
   /* GoJs diagram variables: public selectedNode = null;*/
   public selectedNode = null;
@@ -24,21 +27,11 @@ export class TrackAssetItemComponent implements OnInit {
   public model: go.TreeModel = new go.TreeModel(
     [
       { 'key': 1, 'name': 'Stella Payne Diaz', 'title': 'CEO' },
-      { 'key': 2, 'name': 'Luke Warm', 'title': 'VP Marketing/Sales', 'parent': 1 },
+      { 'key': 2, 'name': 'Luke Warm', 'title': 'VP Marketing/Sales', 'newField':'new-field-value',  'parent': 1 },
       { 'key': 3, 'name': 'Meg Meehan Hoffa', 'title': 'Sales', 'parent': 2 },
       { 'key': 4, 'name': 'Peggy Flaming', 'title': 'VP Engineering', 'parent': 1 },
       { 'key': 5, 'name': 'Saul Wellingood', 'title': 'Manufacturing', 'parent': 4 },
-      { 'key': 6, 'name': 'Al Ligori', 'title': 'Marketing', 'parent': 2 },
-      { 'key': 7, 'name': 'Dot Stubadd', 'title': 'Sales Rep', 'parent': 3 },
-      { 'key': 8, 'name': 'Les Ismore', 'title': 'Project Mgr', 'parent': 5 },
-      { 'key': 9, 'name': 'April Lynn Parris', 'title': 'Events Mgr', 'parent': 6 },
-      { 'key': 10, 'name': 'Xavier Breath', 'title': 'Engineering', 'parent': 4 },
-      { 'key': 11, 'name': 'Anita Hammer', 'title': 'Process', 'parent': 5 },
-      { 'key': 12, 'name': 'Billy Aiken', 'title': 'Software', 'parent': 10 },
-      { 'key': 13, 'name': 'Stan Wellback', 'title': 'Testing', 'parent': 10 },
-      { 'key': 14, 'name': 'Marge Innovera', 'title': 'Hardware', 'parent': 10 },
-      { 'key': 15, 'name': 'Evan Elpus', 'title': 'Quality', 'parent': 5 },
-      { 'key': 16, 'name': 'Lotta B. Essen', 'title': 'Sales Rep', 'parent': 3 }
+      { 'key': 7, 'name': 'Dot Stubadd', 'title': 'Sales Rep', 'parent': 3 }
     ]
   );
 
@@ -66,14 +59,51 @@ export class TrackAssetItemComponent implements OnInit {
         this.assetItem = data;
       }, error => console.log(error)); */
     this.reloadData();
+    this.model = new go.TreeModel(this.threeModel);
   }
 
   reloadData() {
     //this.assets = this.assetService.getAssetList();
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("asset: ", asset);
-    this.assetItem =  asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+    this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
+    console.log("asset: ", this.asset);
+    this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
+    this.trackedItems = new Array();
+    this.trackedItems.push(this.assetItem);
+    while (this.assetItem.parentID !== '0') {
+      this.assetItem = this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.assetItem.parentID)
+      this.trackedItems.push(this.assetItem);
+    }
+    console.log("this.trackedItems: ", this.trackedItems);
+    this.convertTrackedItemsToTreeModel();
+  }
+
+  convertTrackedItemsToTreeModel() {
+    this.threeModel = new Array();
+    for (let item of this.trackedItems) {
+      console.log(item); // 1, "string", false
+
+      let currentStep = this.asset.steps.find(step => step.stepID === this.assetItem.stepID);
+      console.log("currentStep: ", currentStep);
+      let currentActor = this.asset.actors.find( actor => actor.actorID === this.assetItem.ownerID);
+      console.log("currentActor: ", currentActor);
+      this.threeModel.push(
+        {
+          "key": item.assetItemID,
+          "step": currentStep.stepName,
+          "owner": currentActor.actorName,
+          "parent": item.parentID,
+          "processDate": item.processDate,
+          "deliveryDate": item.deliveryDate,
+          "orderPrice": item.orderPrice,
+          "shippingPrice": item.shippingPrice,
+          "status": item.status,
+          "quantity": item.quantity,
+          "aditionalInfoMap": item.aditionalInfoMap
+        }
+      );
+    }
+    console.log("this.threeModel: ", this.threeModel);
   }
 
   public setSelectedNode(node) {
