@@ -49,11 +49,4 @@ export class InspectorComponent {
 
   constructor() { }
 
-  /* public onCommitForm() {
-    this.model.startTransaction();
-    this.model.set(this.selectedNode.data, 'name', this.data.name);
-    this.model.set(this.selectedNode.data, 'parent', this.data.parent);
-    this.model.commitTransaction();
-  } */
-
 }

@@ -60,8 +60,8 @@ export class DiagramComponent {
           },
           new go.Binding('fill', '', function(node) {
             // modify the fill based on the tree depth level
-            const levelColors = ['#AC193D', '#2672EC', '#8C0095', '#5133AB',
-              '#008299', '#D24726', '#008A00', '#094AB2'];
+            const levelColors = ['#291749', '#482980', '#673ab7', '#9575cd',
+              '#c2b0e2', '#f0ebf8', '#ffffff'];
             let color = node.findObject('SHAPE').fill;
             const dia: go.Diagram = node.diagram;
             if (dia && dia.layout.network) {
@@ -95,15 +95,18 @@ export class DiagramComponent {
               defaultAlignment: go.Spot.Left
             },
             $(go.RowColumnDefinition, { column: 2, width: 4 }),
+            $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+              { row: 0, column: 0 },
+              new go.Binding('text', 'key', function(v) { return 'ID: ' + v; })),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },  // the name
               {
-                row: 0, column: 0, columnSpan: 5,
+                row: 0, column: 1, columnSpan: 5,
                 font: '12pt Segoe UI,sans-serif',
                 editable: true, isMultiline: false,
                 minSize: new go.Size(10, 16)
               },
               new go.Binding('text', 'name').makeTwoWay()),
-            $(go.TextBlock, 'Title: ', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+            $(go.TextBlock, 'Step: ', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { row: 1, column: 0 }),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               {
@@ -112,22 +115,18 @@ export class DiagramComponent {
                 minSize: new go.Size(10, 14),
                 margin: new go.Margin(0, 0, 0, 3)
               },
-              new go.Binding('text', 'title').makeTwoWay()),
-            $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
-              { row: 2, column: 0 },
-              new go.Binding('text', 'key', function(v) { return 'ID: ' + v; })),
-            $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
-              { name: 'boss', row: 2, column: 3 }, // we include a name so we can access this TextBlock when deleting Nodes/Links
-              new go.Binding('text', 'parent', function(v) { return 'Boss: ' + v; })),
+              new go.Binding('text', 'step').makeTwoWay()),
+            $(go.TextBlock, 'Actor:', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+              { row: 2, column: 0 }),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },  // the comments
               {
-                row: 3, column: 0, columnSpan: 5,
+                row: 2, column: 1, columnSpan: 5,
                 font: 'italic 9pt sans-serif',
                 wrap: go.TextBlock.WrapFit,
                 editable: true,  // by default newlines are allowed
                 minSize: new go.Size(10, 14)
               },
-              new go.Binding('text', 'comments').makeTwoWay())
+              new go.Binding('text', 'owner').makeTwoWay())
           )  // end Table Panel
         ) // end Horizontal Panel
       );  // end Node

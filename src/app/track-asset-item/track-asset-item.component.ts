@@ -23,17 +23,7 @@ export class TrackAssetItemComponent implements OnInit {
 
   /* GoJs diagram variables: public selectedNode = null;*/
   public selectedNode = null;
-
-  public model: go.TreeModel = new go.TreeModel(
-    [
-      { 'key': 1, 'name': 'Stella Payne Diaz', 'title': 'CEO' },
-      { 'key': 2, 'name': 'Luke Warm', 'title': 'VP Marketing/Sales', 'newField':'new-field-value',  'parent': 1 },
-      { 'key': 3, 'name': 'Meg Meehan Hoffa', 'title': 'Sales', 'parent': 2 },
-      { 'key': 4, 'name': 'Peggy Flaming', 'title': 'VP Engineering', 'parent': 1 },
-      { 'key': 5, 'name': 'Saul Wellingood', 'title': 'Manufacturing', 'parent': 4 },
-      { 'key': 7, 'name': 'Dot Stubadd', 'title': 'Sales Rep', 'parent': 3 }
-    ]
-  );
+  public model: go.TreeModel;
 
 
   constructor(
@@ -83,9 +73,9 @@ export class TrackAssetItemComponent implements OnInit {
     for (let item of this.trackedItems) {
       console.log(item); // 1, "string", false
 
-      let currentStep = this.asset.steps.find(step => step.stepID === this.assetItem.stepID);
+      let currentStep = this.asset.steps.find(step => step.stepID === item.stepID);
       console.log("currentStep: ", currentStep);
-      let currentActor = this.asset.actors.find( actor => actor.actorID === this.assetItem.ownerID);
+      let currentActor = this.asset.actors.find( actor => actor.actorID === item.ownerID);
       console.log("currentActor: ", currentActor);
       this.threeModel.push(
         {
