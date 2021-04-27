@@ -25,7 +25,7 @@ export class TrackAssetItemComponent implements OnInit {
   public selectedNode = null;
   public model: go.TreeModel;
   /** selectedkey to be used in the spector*/
-  public selectedKey = "777999";
+  public selectedAssetItem: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +42,6 @@ export class TrackAssetItemComponent implements OnInit {
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    this.selectedKey = this.id;
     console.log("TrackAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.assetItemService.getAssetItem(this.id)
@@ -57,39 +56,28 @@ export class TrackAssetItemComponent implements OnInit {
   reloadData() {
     //this.assets = this.assetService.getAssetList();
     this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("asset: ", this.asset);
     this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-    console.log("assetItem: ", this.assetItem);
-    //console.log("GET TREE: ", this.getTree(this.assetItem));
-
     this.trackedItems = new Array();
-
     //get the tree of children of given assetItem including itself
     this.getTree(this.assetItem).forEach(child => {
       this.trackedItems.push(child);
     });
-
-    let parent: AssetItem = this.assetItem; 
-
     //get ancestrals of the  given assetItem
+    let parent: AssetItem = this.assetItem; 
     while (parent.parentID !== '0') {
       parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
       this.trackedItems.push(parent);
-      console.log("<<<<< this.assetItem: ", this.assetItem);
-      console.log("<<<<< parent: ", parent);
     }
-    console.log("this.trackedItems: ", this.trackedItems);
-    console.log(">>>>>>> this.assetItem: ", this.assetItem);
+    //convert the tree data to the tree model used in the diagram
     this.convertTrackedItemsToTreeModel();
+    this.selectedAssetItem = this.threeModel.find(model => model.key === this.assetItem.assetItemID);
   }
 
   getTree(assetItem: AssetItem) : AssetItem[] {
     let tree: AssetItem[] = new Array();
     if (!assetItem.children.length) {
-      console.log("this assetItem is leaf: ", assetItem.assetItemID);
       tree.push(assetItem);
     } else {
-      console.log("this node NOT is leaf: ", assetItem.assetItemID);
       assetItem.children.forEach(childId => {
         let childAssetItem = this.asset.assetItems.find(item => item.assetItemID === childId);
         let aux = this.getTree(childAssetItem);
@@ -105,12 +93,8 @@ export class TrackAssetItemComponent implements OnInit {
   convertTrackedItemsToTreeModel() {
     this.threeModel = new Array();
     for (let item of this.trackedItems) {
-      console.log(item); // 1, "string", false
-
       let currentStep = this.asset.steps.find(step => step.stepID === item.stepID);
-      console.log("currentStep: ", currentStep);
       let currentActor = this.asset.actors.find( actor => actor.actorID === item.ownerID);
-      console.log("currentActor: ", currentActor);
       this.threeModel.push(
         {
           "key": item.assetItemID,
@@ -127,13 +111,11 @@ export class TrackAssetItemComponent implements OnInit {
         }
       );
     }
-    console.log("this.threeModel: ", this.threeModel);
+    //console.log("this.threeModel: ", this.threeModel);
   }
 
   public setSelectedNode(node) {
-    //console.log("SELECTEDDDDDDDDDDDDDDDDDDDDDDDDDD: ", node['nb']);
-    this.selectedKey = node['nb']['key'];
-    console.log("SELECTEDDDDDDDDDDDDDDDDDDDDDDDDDD. new key: ", this.selectedKey);
+    this.selectedAssetItem = this.threeModel.find(model => model.key === node['nb']['key']);
     /* let currentNode = this.asset.actors.find( actor => actor.actorID === item.ownerID); */
     this.selectedNode = node;
   }

@@ -15,8 +15,8 @@ export class DiagramComponent {
   @Input()
   public model: go.Model;
 
-  /* @Input()
-  public selectedKey: string; */
+  @Input()
+  public selectedKey: string;
 
   @Output()
   public nodeClicked = new EventEmitter();
@@ -26,8 +26,6 @@ export class DiagramComponent {
   }
 
   public ngAfterViewInit() {
-    //console.log("selectedKey: ", this.selectedKey);
-    
     this.diagram = $(go.Diagram, 'myDiagramDiv',
       {
         layout:
@@ -138,42 +136,10 @@ export class DiagramComponent {
         )// end Horizontal Panel
       );  // end Node
 
-      /** ADD HIGHLIGHT FOR THE TRACKED ASSET ITEM */
-      // Create a part in the background of the full diagram to highlight the selected node
-      let highlighter =
-        $(go.Part, "Auto",
-          {
-            layerName: "Background",
-            selectable: false,
-            isInDocumentBounds: false,
-            locationSpot: go.Spot.Center
-          },
-          $(go.Shape, "Ellipse",
-            {
-              fill: $(go.Brush, "Radial", { 0.0: "red", 1.0: "green" }),
-              stroke: null,
-              desiredSize: new go.Size(400, 400)
-            })
-        );
-        this.diagram.add(highlighter);
-        // Start by focusing the diagrams on the node at the top of the tree.
-      // Wait until the tree has been laid out before selecting the root node.
-      this.diagram.addDiagramListener("InitialLayoutCompleted", function(e) {
-        var node0 = this?.diagram?.findPartForKey(1);
-        if (node0 !== null && node0 !== undefined) node0.isSelected = true;
-        //showLocalOnFullClick();
-      });
-
-
-      /** END HIGHLIGHT FOR THE TRACKED ASSET ITEM */
-
-      // when the user clicks on the background of the Diagram, remove all highlighting
-  /* this.diagram.click = function(e) {
-    e.diagram.commit(function(d) { d.clearHighlighteds(); }, "no highlighteds");
-  }; */
     this.diagram.model = this.model;
-    //this.diagram.select(this.diagram.findNodeForKey(this.selectedKey));
-    //this.nodeClicked.emit(this.diagram.findNodeForKey(this.selectedKey));
+    //Highlight the searched assetItem at the begining:
+    this.diagram.select(this.diagram.findNodeForKey(this.selectedKey));
+    this.nodeClicked.emit(this.diagram.findNodeForKey(this.selectedKey));
 
     // when the selection changes, emit event to app-component updating the selected node
     this.diagram.addDiagramListener('ChangedSelection', (e) => {

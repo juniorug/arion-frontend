@@ -13,12 +13,13 @@
           </div>
           <div class="card-body">
             <div class="white-hide"></div>
-            <!-- [selectedKey]="selectedKey" -->
-            <app-diagram [model]="model" (nodeClicked)="setSelectedNode($event)"></app-diagram>
-            <app-inspector [model]="model"></app-inspector>
-            <!-- <app-inspector [selectedNode]="selectedNode" [model]="model"></app-inspector> -->
+            <app-diagram
+              [model]="model"
+              [selectedKey]="selectedAssetItem.key"
+              (nodeClicked)="setSelectedNode($event)"
+            ></app-diagram>
+            <app-inspector [selectedAssetItem]="selectedAssetItem"></app-inspector>
           </div>
-          <pre>{{ assetItem.assetItemID }}</pre>
         </div>
       </div>
     </div>

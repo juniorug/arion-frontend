@@ -1,42 +1,43 @@
-<div *ngIf="selectedKey">
-  <!-- <div class="row mt-25">
+<!-- <pre>{{ selectedAssetItem | json }}</pre> -->
+<div *ngIf="selectedAssetItem">
+  <div class="row mt-25">
     <div class="col-md-6">
-      <p><strong>Id: </strong>{{ data['key'] }}</p>
+      <p><strong>Id: </strong>{{ selectedAssetItem.key }}</p>
     </div>
     <div class="col-md-6">
-      <p><strong>Parent ID: </strong>{{ data['parent'] }}</p>
+      <p><strong>Parent ID: </strong>{{ selectedAssetItem.parent }}</p>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
-      <p><strong>Current step: </strong>{{ data['step'] }}</p>
+      <p><strong>Current step: </strong>{{ selectedAssetItem.step }}</p>
     </div>
     <div class="col-md-6">
-      <p><strong>Owner: </strong>{{ data['owner'] }}</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <p><strong>Process Date: </strong>{{ data['processDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
-    </div>
-    <div class="col-md-6">
-      <p><strong>Delivery Date: </strong>{{ data['deliveryDate'] | date: 'MM-dd-yy HH:mm:ss' }}</p>
+      <p><strong>Owner: </strong>{{ selectedAssetItem.owner }}</p>
     </div>
   </div>
 
   <div class="row">
+    <div class="col-md-6">
+      <p><strong>Process Date: </strong>{{ selectedAssetItem.processDate | date: 'MM-dd-yy HH:mm:ss' }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Delivery Date: </strong>{{ selectedAssetItem.deliveryDate | date: 'MM-dd-yy HH:mm:ss' }}</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-3">
-      <p><strong>Order Price: </strong>{{ data['orderPrice'] }}</p>
+      <p><strong>Order Price: </strong>{{ selectedAssetItem.orderPrice }}</p>
     </div>
     <div class="col-md-3">
-      <p><strong>Shipping Price: </strong>{{ data['shippingPrice'] }}</p>
+      <p><strong>Shipping Price: </strong>{{ selectedAssetItem.shippingPrice }}</p>
     </div>
     <div class="col-md-3">
-      <p><strong>Status: </strong>{{ data['status'] }}</p>
+      <p><strong>Status: </strong>{{ selectedAssetItem.status }}</p>
     </div>
     <div class="col-md-3">
-      <p><strong>Quantity: </strong>{{ data['quantity'] }}</p>
+      <p><strong>Quantity: </strong>{{ selectedAssetItem.quantity }}</p>
     </div>
-  </div> -->
+  </div>
 </div>
