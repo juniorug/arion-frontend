@@ -24,7 +24,8 @@ export class TrackAssetItemComponent implements OnInit {
   /* GoJs diagram variables: public selectedNode = null;*/
   public selectedNode = null;
   public model: go.TreeModel;
-
+  /** selectedkey to be used in the spector*/
+  public selectedKey = "777999";
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +34,7 @@ export class TrackAssetItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.selectedNode = null;
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
@@ -41,6 +42,7 @@ export class TrackAssetItemComponent implements OnInit {
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
+    this.selectedKey = this.id;
     console.log("TrackAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.assetItemService.getAssetItem(this.id)
@@ -58,7 +60,7 @@ export class TrackAssetItemComponent implements OnInit {
     console.log("asset: ", this.asset);
     this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
-    console.log("GET TREE '1': ", this.getTree(this.assetItem));
+    //console.log("GET TREE: ", this.getTree(this.assetItem));
 
     this.trackedItems = new Array();
 
@@ -67,14 +69,17 @@ export class TrackAssetItemComponent implements OnInit {
       this.trackedItems.push(child);
     });
 
-    
+    let parent: AssetItem = this.assetItem; 
 
     //get ancestrals of the  given assetItem
-    while (this.assetItem.parentID !== '0') {
-      this.assetItem = this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.assetItem.parentID)
-      this.trackedItems.push(this.assetItem);
+    while (parent.parentID !== '0') {
+      parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
+      this.trackedItems.push(parent);
+      console.log("<<<<< this.assetItem: ", this.assetItem);
+      console.log("<<<<< parent: ", parent);
     }
     console.log("this.trackedItems: ", this.trackedItems);
+    console.log(">>>>>>> this.assetItem: ", this.assetItem);
     this.convertTrackedItemsToTreeModel();
   }
 
@@ -126,6 +131,10 @@ export class TrackAssetItemComponent implements OnInit {
   }
 
   public setSelectedNode(node) {
+    //console.log("SELECTEDDDDDDDDDDDDDDDDDDDDDDDDDD: ", node['nb']);
+    this.selectedKey = node['nb']['key'];
+    console.log("SELECTEDDDDDDDDDDDDDDDDDDDDDDDDDD. new key: ", this.selectedKey);
+    /* let currentNode = this.asset.actors.find( actor => actor.actorID === item.ownerID); */
     this.selectedNode = node;
   }
   

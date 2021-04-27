@@ -15,6 +15,9 @@ export class DiagramComponent {
   @Input()
   public model: go.Model;
 
+  /* @Input()
+  public selectedKey: string; */
+
   @Output()
   public nodeClicked = new EventEmitter();
 
@@ -23,6 +26,8 @@ export class DiagramComponent {
   }
 
   public ngAfterViewInit() {
+    //console.log("selectedKey: ", this.selectedKey);
+    
     this.diagram = $(go.Diagram, 'myDiagramDiv',
       {
         layout:
@@ -56,22 +61,6 @@ export class DiagramComponent {
             $(go.Placeholder)
           )  // end Adornment
       },
-        { // when the user clicks on a Node, highlight all Links coming out of the node
-          // and all of the Nodes at the other ends of those Links.
-          click: function(e, node) {
-              // highlight all Links and Nodes coming out of a given Node
-              var diagram = node.diagram;
-              diagram.startTransaction("highlight");
-              // remove any previous highlighting
-              diagram.clearHighlighteds();
-              
-              // for each Link coming out of the Node, set Link.isHighlighted
-              /* (node as go.Node).findLinksOutOf().each(function(l) { l.isHighlighted = true; }); */
-              // for each Node destination for the Node, set Node.isHighlighted
-              /* (node as go.Node).findNodesOutOf().each(function(n) { n.isHighlighted = true; }); */
-              diagram.commitTransaction("highlight");
-            }
-        },
         // for sorting, have the Node.text be the data.name
         new go.Binding('text', 'name'),
         // bind the Part.layerName to control the Node's layer depending on whether it isSelected
@@ -149,31 +138,42 @@ export class DiagramComponent {
         )// end Horizontal Panel
       );  // end Node
 
+      /** ADD HIGHLIGHT FOR THE TRACKED ASSET ITEM */
+      // Create a part in the background of the full diagram to highlight the selected node
+      let highlighter =
+        $(go.Part, "Auto",
+          {
+            layerName: "Background",
+            selectable: false,
+            isInDocumentBounds: false,
+            locationSpot: go.Spot.Center
+          },
+          $(go.Shape, "Ellipse",
+            {
+              fill: $(go.Brush, "Radial", { 0.0: "red", 1.0: "green" }),
+              stroke: null,
+              desiredSize: new go.Size(400, 400)
+            })
+        );
+        this.diagram.add(highlighter);
+        // Start by focusing the diagrams on the node at the top of the tree.
+      // Wait until the tree has been laid out before selecting the root node.
+      this.diagram.addDiagramListener("InitialLayoutCompleted", function(e) {
+        var node0 = this?.diagram?.findPartForKey(1);
+        if (node0 !== null && node0 !== undefined) node0.isSelected = true;
+        //showLocalOnFullClick();
+      });
 
-    this.diagram.linkTemplate =
-      $(go.Link,
-        { toShortLength: 4 },
-        $(go.Shape,
-          // the Shape.stroke color depends on whether Link.isHighlighted is true
-          new go.Binding("stroke", "isHighlighted", function(h) { return h ? "black" : "black"; })
-              .ofObject(),
-          // the Shape.strokeWidth depends on whether Link.isHighlighted is true
-          new go.Binding("strokeWidth", "isHighlighted", function(h) { return h ? 1 : 1; })
-              .ofObject()),
-        $(go.Shape,
-          { toArrow: "Standard", strokeWidth: 0 },
-          // the Shape.fill color depends on whether Link.isHighlighted is true
-          new go.Binding("fill", "isHighlighted", function(h) { return h ? "black" : "black"; })
-              .ofObject())
-      );
 
-
+      /** END HIGHLIGHT FOR THE TRACKED ASSET ITEM */
 
       // when the user clicks on the background of the Diagram, remove all highlighting
   /* this.diagram.click = function(e) {
     e.diagram.commit(function(d) { d.clearHighlighteds(); }, "no highlighteds");
   }; */
     this.diagram.model = this.model;
+    //this.diagram.select(this.diagram.findNodeForKey(this.selectedKey));
+    //this.nodeClicked.emit(this.diagram.findNodeForKey(this.selectedKey));
 
     // when the selection changes, emit event to app-component updating the selected node
     this.diagram.addDiagramListener('ChangedSelection', (e) => {
