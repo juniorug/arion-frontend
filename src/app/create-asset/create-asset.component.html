@@ -36,10 +36,11 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-default float-left" type="button" mat-button mat-raised-button matStepperNext>
+                  <button class="btn btn-info float-right" type="button" mat-button mat-raised-button matStepperNext>
                     Next
                     <i class="material-icons">arrow_forward_ios</i>
                   </button>
+                  <button class="btn btn-default float-right" onclick="history.back()">Cancel</button>
                 </div>
               </div>
             </form>
@@ -82,25 +83,25 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
-                    Back
-                    <i class="material-icons">arrow_back_ios</i>
-                  </button>
-                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperNext>
-                    Next
-                    <i class="material-icons">arrow_forward_ios</i>
+                  <button class="btn btn-primary" mat-button mat-raised-button (click)="addActor()" type="button">
+                    <i class="material-icons">add</i>
+                    Add Actor
                   </button>
                 </div>
                 <div class="col-md-6">
+                  <button class="btn btn-info float-right" type="button" mat-button mat-raised-button matStepperNext>
+                    Next
+                    <i class="material-icons">arrow_forward_ios</i>
+                  </button>
                   <button
-                    class="btn btn-default float-right"
+                    class="btn btn-info float-right"
+                    type="button"
                     mat-button
                     mat-raised-button
-                    (click)="addActor()"
-                    type="button"
+                    matStepperPrevious
                   >
-                    <i class="material-icons">add</i>
-                    Add Actor
+                    <i class="material-icons">arrow_back_ios</i>
+                    Previous
                   </button>
                 </div>
               </div>
@@ -145,12 +146,14 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
-                    Back
-                    <i class="material-icons">arrow_back_ios</i>
+                  <button class="btn btn-primary" mat-button mat-raised-button (click)="addStep()" type="button">
+                    <i class="material-icons">add</i>
+                    Add Step
                   </button>
+                </div>
+                <div class="col-md-6">
                   <button
-                    class="btn btn-default"
+                    class="btn btn-info float-right"
                     type="button"
                     mat-button
                     mat-raised-button
@@ -160,17 +163,15 @@
                     Next
                     <i class="material-icons">arrow_forward_ios</i>
                   </button>
-                </div>
-                <div class="col-md-6">
                   <button
-                    class="btn btn-default float-right"
+                    class="btn btn-info float-right"
+                    type="button"
                     mat-button
                     mat-raised-button
-                    (click)="addStep()"
-                    type="button"
+                    matStepperPrevious
                   >
-                    <i class="material-icons">add</i>
-                    Add Step
+                    <i class="material-icons">arrow_back_ios</i>
+                    Previous
                   </button>
                 </div>
               </div>
@@ -257,9 +258,9 @@
             </div>
             <div class="row">
               <div class="col-md-10">
-                <button class="btn btn-default" type="button" mat-button mat-raised-button matStepperPrevious>
-                  Back
+                <button class="btn btn-info" type="button" mat-button mat-raised-button matStepperPrevious>
                   <i class="material-icons">arrow_back_ios</i>
+                  Previous
                 </button>
                 <button
                   class="btn btn-default"
@@ -273,7 +274,7 @@
                 </button>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-info float-right" (click)="createAsset()">
+                <button class="btn btn-primary float-right" (click)="createAsset()">
                   <i class="material-icons">check</i>Create
                 </button>
               </div>
@@ -285,7 +286,7 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid">
+  <!--   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <button class="btn btn-primary float-right" onclick="history.back()">
@@ -293,5 +294,5 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

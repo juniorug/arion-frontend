@@ -86,8 +86,7 @@ export class DiagramComponent {
             }
             return color;
           }).ofObject(),
-          new go.Binding("stroke", "isHighlighted", function(h) { return "null" })
-            .ofObject(),
+          
         ),
         $(go.Panel, 'Horizontal',
           $(go.TextBlock,

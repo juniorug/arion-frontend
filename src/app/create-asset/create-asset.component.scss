@@ -4,6 +4,16 @@
   color: #a9afbb;
 }
 
+.btn.btn-default {
+  background-color: #fff !important;
+  border-color: #00bcd4 !important;
+  border-width: 2px;
+  padding: 12px 25px;
+  margin-right: 15px;
+  color: #00bcd4 !important;
+  box-shadow: none;
+}
+
 .invisible {
   display: block;
   visibility: hidden;
