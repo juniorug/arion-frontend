@@ -47,6 +47,31 @@ export class DiagramComponent {
     // define the Node template
     this.diagram.nodeTemplate =
       $(go.Node, 'Auto',
+      {
+        selectionAdornmentTemplate:
+          $(go.Adornment, "Auto",
+            $(go.Shape, 'RoundedRectangle',
+              { fill: null, stroke: "#00cae3", strokeWidth: 6 ,  margin: new go.Margin(1)},
+              new go.Binding("stroke", "color")),
+            $(go.Placeholder)
+          )  // end Adornment
+      },
+        { // when the user clicks on a Node, highlight all Links coming out of the node
+          // and all of the Nodes at the other ends of those Links.
+          click: function(e, node) {
+              // highlight all Links and Nodes coming out of a given Node
+              var diagram = node.diagram;
+              diagram.startTransaction("highlight");
+              // remove any previous highlighting
+              diagram.clearHighlighteds();
+              
+              // for each Link coming out of the Node, set Link.isHighlighted
+              /* (node as go.Node).findLinksOutOf().each(function(l) { l.isHighlighted = true; }); */
+              // for each Node destination for the Node, set Node.isHighlighted
+              /* (node as go.Node).findNodesOutOf().each(function(n) { n.isHighlighted = true; }); */
+              diagram.commitTransaction("highlight");
+            }
+        },
         // for sorting, have the Node.text be the data.name
         new go.Binding('text', 'name'),
         // bind the Part.layerName to control the Node's layer depending on whether it isSelected
@@ -73,25 +98,18 @@ export class DiagramComponent {
               });
             }
             return color;
-          }).ofObject()
+          }).ofObject(),
+          new go.Binding("stroke", "isHighlighted", function(h) { return "null" })
+            .ofObject(),
         ),
         $(go.Panel, 'Horizontal',
-          $(go.Picture,
-            {
-              name: 'Picture',
-              desiredSize: new go.Size(39, 50),
-              margin: new go.Margin(6, 8, 6, 10)
-            },
-            new go.Binding('source', 'key', function(key) {
-              if (key < 0 || key > 16) return ''; // There are only 16 images on the server
-              return 'assets/HS' + key + '.png';
-            })
-          ),
+          $(go.TextBlock,
+            {  margin: new go.Margin(17, 10, 0, 3), text: 'double_arrow', font: '36pt Material Icons', stroke: 'white'}),
           // define the panel where the text will appear
           $(go.Panel, 'Table',
             {
               maxSize: new go.Size(150, 999),
-              margin: new go.Margin(6, 10, 0, 3),
+              margin: new go.Margin(-5, 10, 0, 3),
               defaultAlignment: go.Spot.Left
             },
             $(go.RowColumnDefinition, { column: 2, width: 4 }),
@@ -128,9 +146,33 @@ export class DiagramComponent {
               },
               new go.Binding('text', 'owner').makeTwoWay())
           )  // end Table Panel
-        ) // end Horizontal Panel
+        )// end Horizontal Panel
       );  // end Node
 
+
+    this.diagram.linkTemplate =
+      $(go.Link,
+        { toShortLength: 4 },
+        $(go.Shape,
+          // the Shape.stroke color depends on whether Link.isHighlighted is true
+          new go.Binding("stroke", "isHighlighted", function(h) { return h ? "black" : "black"; })
+              .ofObject(),
+          // the Shape.strokeWidth depends on whether Link.isHighlighted is true
+          new go.Binding("strokeWidth", "isHighlighted", function(h) { return h ? 1 : 1; })
+              .ofObject()),
+        $(go.Shape,
+          { toArrow: "Standard", strokeWidth: 0 },
+          // the Shape.fill color depends on whether Link.isHighlighted is true
+          new go.Binding("fill", "isHighlighted", function(h) { return h ? "black" : "black"; })
+              .ofObject())
+      );
+
+
+
+      // when the user clicks on the background of the Diagram, remove all highlighting
+  /* this.diagram.click = function(e) {
+    e.diagram.commit(function(d) { d.clearHighlighteds(); }, "no highlighteds");
+  }; */
     this.diagram.model = this.model;
 
     // when the selection changes, emit event to app-component updating the selected node

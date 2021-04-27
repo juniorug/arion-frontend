@@ -33,7 +33,7 @@ export class TrackAssetItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
@@ -58,8 +58,18 @@ export class TrackAssetItemComponent implements OnInit {
     console.log("asset: ", this.asset);
     this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
+    console.log("GET TREE '1': ", this.getTree(this.assetItem));
+
     this.trackedItems = new Array();
-    this.trackedItems.push(this.assetItem);
+
+    //get the tree of children of given assetItem including itself
+    this.getTree(this.assetItem).forEach(child => {
+      this.trackedItems.push(child);
+    });
+
+    
+
+    //get ancestrals of the  given assetItem
     while (this.assetItem.parentID !== '0') {
       this.assetItem = this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.assetItem.parentID)
       this.trackedItems.push(this.assetItem);
@@ -67,6 +77,25 @@ export class TrackAssetItemComponent implements OnInit {
     console.log("this.trackedItems: ", this.trackedItems);
     this.convertTrackedItemsToTreeModel();
   }
+
+  getTree(assetItem: AssetItem) : AssetItem[] {
+    let tree: AssetItem[] = new Array();
+    if (!assetItem.children.length) {
+      console.log("this assetItem is leaf: ", assetItem.assetItemID);
+      tree.push(assetItem);
+    } else {
+      console.log("this node NOT is leaf: ", assetItem.assetItemID);
+      assetItem.children.forEach(childId => {
+        let childAssetItem = this.asset.assetItems.find(item => item.assetItemID === childId);
+        let aux = this.getTree(childAssetItem);
+        aux.forEach(child => {
+          tree.push(child);
+        });
+      });
+      tree.push(assetItem);
+    }
+    return tree;
+  } 
 
   convertTrackedItemsToTreeModel() {
     this.threeModel = new Array();

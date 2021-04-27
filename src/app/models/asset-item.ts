@@ -3,6 +3,7 @@ export class AssetItem {
    stepID: string;
    ownerID: string;
    parentID: string;
+   children: string[];
    processDate: string;
    deliveryDate: string;
    orderPrice: number;
