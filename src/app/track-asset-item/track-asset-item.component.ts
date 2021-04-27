@@ -115,9 +115,13 @@ export class TrackAssetItemComponent implements OnInit {
   }
 
   public setSelectedNode(node) {
-    this.selectedAssetItem = this.threeModel.find(model => model.key === node['nb']['key']);
+    if ( node) {
+      this.selectedAssetItem = this.threeModel.find(model => model.key === node['nb']['key']);
+    } else {
+      this.selectedAssetItem =  null;
+    }
     /* let currentNode = this.asset.actors.find( actor => actor.actorID === item.ownerID); */
-    this.selectedNode = node;
+    this.selectedNode =  new AssetItem() ;
   }
   
   ngOnDestroy(): void {

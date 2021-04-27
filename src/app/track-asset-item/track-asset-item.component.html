@@ -15,7 +15,7 @@
             <div class="white-hide"></div>
             <app-diagram
               [model]="model"
-              [selectedKey]="selectedAssetItem.key"
+              [selectedKey]="selectedAssetItem?.key"
               (nodeClicked)="setSelectedNode($event)"
             ></app-diagram>
             <app-inspector [selectedAssetItem]="selectedAssetItem"></app-inspector>
