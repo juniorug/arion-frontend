@@ -1,3 +1,13 @@
+.btn.btn-info.float-right,
+.btn.btn-default.float-right {
+  width: 115px;
+}
+
+.btn.btn-info.float-right:first-child,
+.btn.btn-default.float-right:first-child {
+  margin-left: 15px;
+}
+
 .btn.btn-transparent {
   background-color: transparent;
   border-color: transparent;
@@ -8,8 +18,6 @@
   background-color: #fff !important;
   border-color: #00bcd4 !important;
   border-width: 2px;
-  padding: 12px 25px;
-  margin-right: 15px;
   color: #00bcd4 !important;
   box-shadow: none;
 }
@@ -21,9 +29,61 @@
   width: 0;
 }
 
+.btn-remove-item {
+  background-color: transparent !important;
+  border-radius: 50% !important;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  background-image: none;
+  padding: 0px !important;
+  text-align: center;
+  line-height: 0px;
+  position: relative;
+  margin: 5px 0 0;
+  color: red !important;
+  box-shadow: none !important;
+
+  .material-icons {
+    font-size: 30px;
+  }
+}
+
+.btn-remove-item:disabled {
+  /* background-color: #999 !important;
+  border-color: #999 !important; */
+  color: #999 !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+.btn-remove-item:hover {
+  background-color: #eee !important;
+}
+
 .mat-stepper-horizontal {
   background-color: transparent;
 }
+
+.inner-row {
+  margin-right: 20px;
+}
+
+.inner-row:first-child {
+  margin-left: 15px;
+}
+.card .card-body {
+  /* padding: 0.9375rem 26px; */
+  padding: 0.9375rem 1.6386rem;
+  padding: 0.9375rem 1.3655vw;
+}
+
+.card.inner {
+  box-shadow: 0 1px 4px 3px rgb(0 0 0 / 14%);
+}
+$deep-purple-500: #673ab7 !default;
+$brand-primary: $deep-purple-500 !default;
 
 ::ng-deep {
   .mat-horizontal-stepper-header .mat-step-icon {
@@ -33,5 +93,17 @@
   .mat-step-header .mat-step-icon-selected {
     background-color: #673ab7; //9c27b0
     color: white;
+  }
+  .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: $brand-primary !important;
+  }
+  .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #212529 !important;
+  }
+  .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: $brand-primary !important;
   }
 }

@@ -20,18 +20,23 @@
               <!-- #docregion step-label -->
               <ng-template matStepLabel>Fill asset info</ng-template>
               <!-- #enddocregion step-label -->
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Asset Name</mat-label>
-                    <input matInput formControlName="assetName" placeholder="Asset name" required />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-label>Description</mat-label>
-                    <input matInput formControlName="description" placeholder="Description" />
-                  </mat-form-field>
+
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Asset Name</mat-label>
+                        <input matInput formControlName="assetName" placeholder="Asset name" required />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="description" placeholder="Description" />
+                      </mat-form-field>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -40,7 +45,16 @@
                     Next
                     <i class="material-icons">arrow_forward_ios</i>
                   </button>
-                  <button class="btn btn-default float-right" onclick="history.back()">Cancel</button>
+                  <button
+                    class="btn btn-default float-right"
+                    type="button"
+                    mat-button
+                    mat-raised-button
+                    matStepperNext
+                    onclick="history.back()"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>
@@ -48,39 +62,48 @@
           <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
             <form [formGroup]="actorsFormGroup">
               <ng-template matStepLabel>Define Actors</ng-template>
-              <div class="row">
-                <div
-                  formArrayName="actors"
-                  *ngFor="let actor of actorsFormGroup.get('actors')['controls']; let i = index"
-                >
-                  <div [formGroupName]="i" class="card">
-                    <div class="card-body">
-                      <mat-form-field>
-                        <mat-label>Id</mat-label>
-                        <input matInput formControlName="id" placeholder="Actor ID" required />
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" placeholder="Name" required />
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Type</mat-label>
-                        <input matInput formControlName="type" placeholder="Type" required />
-                      </mat-form-field>
-                      <button
-                        class="btn btn-default"
-                        mat-button
-                        mat-raised-button
-                        (click)="removeActor(i)"
-                        [disabled]="actorsFormGroup.get('actors').length < 2"
-                        type="button"
-                      >
-                        <i class="material-icons">highlight_off</i>
-                      </button>
+
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div
+                      class="inner-row"
+                      formArrayName="actors"
+                      *ngFor="let actor of actorsFormGroup.get('actors')['controls']; let i = index"
+                    >
+                      <div [formGroupName]="i" class="card inner">
+                        <div class="card-body">
+                          <mat-form-field>
+                            <mat-label>Id</mat-label>
+                            <input matInput formControlName="id" placeholder="Actor ID" required />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name" required />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Type</mat-label>
+                            <input matInput formControlName="type" placeholder="Type" required />
+                          </mat-form-field>
+                          <div class="text-center">
+                            <button
+                              class="btn btn-remove-item"
+                              mat-button
+                              mat-raised-button
+                              (click)="removeActor(i)"
+                              [disabled]="actorsFormGroup.get('actors').length < 2"
+                              type="button"
+                            >
+                              <i class="material-icons">highlight_off</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <button class="btn btn-primary" mat-button mat-raised-button (click)="addActor()" type="button">

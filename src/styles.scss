@@ -32,6 +32,19 @@
   background-color: #eee !important;
 }
 
-/* .btn-primary {
-  color: #673ab7;
-} */
+$deep-purple-500: #673ab7 !default;
+$brand-primary: $deep-purple-500 !default;
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: $brand-primary !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #212529 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: $brand-primary !important;
+}
