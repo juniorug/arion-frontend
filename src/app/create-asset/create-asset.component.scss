@@ -1,10 +1,36 @@
+.card-header {
+  .material-icons {
+    font-size: 35px;
+  }
+  h4 {
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+}
+
+.card.inner {
+  .card-header {
+    padding: 0px 20px;
+
+    .btn-remove-item {
+      margin: 10px -10px -30px 0px;
+      height: 30px;
+      width: 30px;
+      /* margin-top: 10px;
+      margin-bottom: -35px;
+      margin-right: -20px; */
+    }
+  }
+}
+
 .btn.btn-info.float-right,
 .btn.btn-default.float-right {
   width: 115px;
 }
 
 .btn.btn-info.float-right:first-child,
-.btn.btn-default.float-right:first-child {
+.btn.btn-default.float-right:first-child,
+.btn.btn-default:last-child {
   margin-left: 15px;
 }
 
@@ -107,3 +133,11 @@ $brand-primary: $deep-purple-500 !default;
     background-color: $brand-primary !important;
   }
 }
+
+/* Change the white to any color */
+/*input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+} */

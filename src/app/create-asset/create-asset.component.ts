@@ -1,5 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
+import { Actor } from 'app/models/actor';
+import { NotificationService } from 'app/services/notification.service';
 
 @Component({
   selector: 'app-create-asset',
@@ -15,11 +18,12 @@ export class CreateAssetComponent implements OnInit {
 
   actors: FormArray;
   steps: FormArray;
+  actorTypes: string[];
 
 
-  constructor(private _formBuilder: FormBuilder, private _ref: ChangeDetectorRef) {
+  constructor(private _formBuilder: FormBuilder, private _ref: ChangeDetectorRef, private notificationServiceService: NotificationService) {
     this.assetFormGroup = this._formBuilder.group({
-      assetName: ['', Validators.required],
+      assetName: [''],
       description: ['']
     });
     this.actorsFormGroup = this._formBuilder.group({
@@ -34,6 +38,7 @@ export class CreateAssetComponent implements OnInit {
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
+    this.actorTypes = new Array();
   }
 
   createActor(): FormGroup {
@@ -57,12 +62,20 @@ export class CreateAssetComponent implements OnInit {
     this.actors.removeAt(id);
     this._ref.detectChanges();
   }
+
+  updateActorTypes() {
+    this.actorTypes = new Array();
+    this.actorTypes = this.actorsFormGroup.get('actors').value
+      .map(actor => actor.type)
+      .filter((value, index, self) => self.indexOf(value) === index);
+  }
+
   createStep(): FormGroup {
     return this._formBuilder.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
+      id: [''],
+      name: [''],
       order: [''],
-      actorType: ['', Validators.required]
+      actorType: ['']
     });
   }
 
@@ -113,6 +126,14 @@ export class CreateAssetComponent implements OnInit {
     console.log("assetFormGroup", this.assetFormGroup.value);
     console.log("actorsFormGroup", this.actorsFormGroup.value);
     console.log("stepsFormGroup", this.stepsFormGroup.value);
+
+    this.notificationServiceService.showNotification('success', 'Asset succesfully created');
+    this.gotoAssetList();
+
+  }
+
+  gotoAssetList() {
+    history.back();
   }
 
   ngOnDestroy(): void {

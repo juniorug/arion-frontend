@@ -2,32 +2,27 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <!-- <div class="card"> -->
-        <!-- <div class="card-header card-header-info">
-            <div class="row">
-              <div class="col-md-10">
-                <h4 class="card-title">Create Asset</h4>
-              </div>
-              <div class="col-md-2 float-right"></div>
-            </div>
-          </div> -->
-        <!-- <div class="card-body"> -->
-        <mat-horizontal-stepper linear #stepper>
+        <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
           <!-- #docregion editable -->
           <mat-step [stepControl]="assetFormGroup" [editable]="isEditable">
             <!-- #enddocregion editable -->
             <form [formGroup]="assetFormGroup">
               <!-- #docregion step-label -->
-              <ng-template matStepLabel>Fill asset info</ng-template>
+              <!-- <ng-template matStepLabel>Fill asset info</ng-template> -->
               <!-- #enddocregion step-label -->
-
               <div class="card">
+                <div class="card-header card-header-info">
+                  <i class="material-icons float-left">category</i>
+                  <div class="float-left">
+                    <h4 class="card-title">Fill asset info</h4>
+                  </div>
+                </div>
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row" style="margin-top: 15px">
                     <div class="col-md-6">
                       <mat-form-field>
                         <mat-label>Asset Name</mat-label>
-                        <input matInput formControlName="assetName" placeholder="Asset name" required />
+                        <input matInput formControlName="assetName" placeholder="Asset name" />
                       </mat-form-field>
                     </div>
                     <div class="col-md-6">
@@ -61,9 +56,13 @@
           </mat-step>
           <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
             <form [formGroup]="actorsFormGroup">
-              <ng-template matStepLabel>Define Actors</ng-template>
-
               <div class="card">
+                <div class="card-header card-header-info">
+                  <i class="material-icons float-left">person</i>
+                  <div class="float-left">
+                    <h4 class="card-title">Define Actors</h4>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="row">
                     <div
@@ -72,31 +71,31 @@
                       *ngFor="let actor of actorsFormGroup.get('actors')['controls']; let i = index"
                     >
                       <div [formGroupName]="i" class="card inner">
+                        <div class="card-header">
+                          <button
+                            class="btn btn-remove-item float-right"
+                            mat-button
+                            mat-raised-button
+                            (click)="removeActor(i)"
+                            [disabled]="actorsFormGroup.get('actors').length < 2"
+                            type="button"
+                          >
+                            <i class="material-icons">highlight_off</i>
+                          </button>
+                        </div>
                         <div class="card-body">
                           <mat-form-field>
                             <mat-label>Id</mat-label>
-                            <input matInput formControlName="id" placeholder="Actor ID" required />
+                            <input matInput formControlName="id" placeholder="Actor ID" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Name</mat-label>
-                            <input matInput formControlName="name" placeholder="Name" required />
+                            <input matInput formControlName="name" placeholder="Name" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Type</mat-label>
-                            <input matInput formControlName="type" placeholder="Type" required />
+                            <input matInput formControlName="type" placeholder="Type" />
                           </mat-form-field>
-                          <div class="text-center">
-                            <button
-                              class="btn btn-remove-item"
-                              mat-button
-                              mat-raised-button
-                              (click)="removeActor(i)"
-                              [disabled]="actorsFormGroup.get('actors').length < 2"
-                              type="button"
-                            >
-                              <i class="material-icons">highlight_off</i>
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -112,7 +111,14 @@
                   </button>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-info float-right" type="button" mat-button mat-raised-button matStepperNext>
+                  <button
+                    class="btn btn-info float-right"
+                    type="button"
+                    mat-button
+                    mat-raised-button
+                    matStepperNext
+                    (click)="updateActorTypes()"
+                  >
                     Next
                     <i class="material-icons">arrow_forward_ios</i>
                   </button>
@@ -132,37 +138,56 @@
           </mat-step>
           <mat-step [stepControl]="stepsFormGroup" [editable]="isEditable">
             <form [formGroup]="stepsFormGroup">
-              <ng-template matStepLabel>Define Steps</ng-template>
-              <div class="row">
-                <div formArrayName="steps" *ngFor="let step of stepsFormGroup.get('steps')['controls']; let j = index">
-                  <div [formGroupName]="j" class="card">
-                    <div class="card-body">
-                      <mat-form-field>
-                        <mat-label>Id</mat-label>
-                        <input matInput formControlName="id" placeholder="Step ID" required />
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" placeholder="Name" required />
-                      </mat-form-field>
-                      <mat-form-field class="invisible">
-                        <mat-label>order</mat-label>
-                        <input matInput formControlName="order" value="{{ j }}" />
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Actor Type</mat-label>
-                        <input matInput formControlName="actorType" placeholder="Type" required />
-                      </mat-form-field>
-                      <button
-                        class="btn btn-default"
-                        mat-button
-                        mat-raised-button
-                        (click)="removeStep(j)"
-                        [disabled]="stepsFormGroup.get('steps').length < 2"
-                        type="button"
-                      >
-                        <i class="material-icons">highlight_off</i>
-                      </button>
+              <div class="card">
+                <div class="card-header card-header-info">
+                  <i class="material-icons float-left">double_arrow</i>
+                  <div class="float-left">
+                    <h4 class="card-title">Define Steps</h4>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div
+                      class="inner-row"
+                      formArrayName="steps"
+                      *ngFor="let step of stepsFormGroup.get('steps')['controls']; let j = index"
+                    >
+                      <div [formGroupName]="j" class="card inner">
+                        <div class="card-header">
+                          <button
+                            class="btn btn-remove-item float-right"
+                            mat-button
+                            mat-raised-button
+                            (click)="removeStep(j)"
+                            [disabled]="stepsFormGroup.get('steps').length < 2"
+                            type="button"
+                          >
+                            <i class="material-icons">highlight_off</i>
+                          </button>
+                        </div>
+                        <div class="card-body">
+                          <mat-form-field>
+                            <mat-label>Id</mat-label>
+                            <input matInput formControlName="id" placeholder="Step ID" />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name" />
+                          </mat-form-field>
+                          <mat-form-field class="invisible">
+                            <mat-label>order</mat-label>
+                            <input matInput formControlName="order" value="{{ j }}" />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Actor Type</mat-label>
+                            <mat-select formControlName="actorType">
+                              <mat-option *ngFor="let actorType of actorTypes" [value]="actorType">
+                                {{ actorType }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -201,7 +226,6 @@
             </form>
           </mat-step>
           <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
             <div class="row">
               <div class="col-md-12 text-center">
                 <h2>Review Asset details:</h2>
@@ -213,7 +237,10 @@
                   <div class="card-header card-header-info">
                     <div class="row">
                       <div class="col-md-10">
-                        <h4 class="card-title">Asset:</h4>
+                        <i class="material-icons float-left">category</i>
+                        <div class="float-left">
+                          <h4 class="card-title">Asset:</h4>
+                        </div>
                       </div>
                       <div class="col-md-2 float-right"></div>
                     </div>
@@ -229,19 +256,23 @@
               <div class="card-header card-header-info">
                 <div class="row">
                   <div class="col-md-10">
-                    <h4 class="card-title">Actors:</h4>
+                    <i class="material-icons float-left">person</i>
+                    <div class="float-left">
+                      <h4 class="card-title">Actors:</h4>
+                    </div>
                   </div>
                   <div class="col-md-2 float-right"></div>
                 </div>
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-12">
-                    <div
-                      *ngFor="let actor of actorsFormGroup.get('actors').value; let i = index"
-                      class="col-md-3 float-left"
-                    >
-                      <div class="card">
+                  <div
+                    class="inner-row"
+                    *ngFor="let actor of actorsFormGroup.get('actors').value; let i = index"
+                    class="col-md-3 float-left"
+                  >
+                    <div class="card inner">
+                      <div class="card-body">
                         <p><strong>Id: </strong>{{ actor['id'] }}</p>
                         <p><strong>Name: </strong>{{ actor['name'] }}</p>
                         <p><strong>Type: </strong>{{ actor['type'] }}</p>
@@ -256,19 +287,23 @@
               <div class="card-header card-header-info">
                 <div class="row">
                   <div class="col-md-10">
-                    <h4 class="card-title">Steps:</h4>
+                    <i class="material-icons float-left">double_arrow</i>
+                    <div class="float-left">
+                      <h4 class="card-title">Steps:</h4>
+                    </div>
                   </div>
                   <div class="col-md-2 float-right"></div>
                 </div>
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-12">
-                    <div
-                      *ngFor="let step of stepsFormGroup.get('steps').value; let i = index"
-                      class="col-md-3 float-left"
-                    >
-                      <div class="card">
+                  <div
+                    class="inner-row"
+                    *ngFor="let step of stepsFormGroup.get('steps').value; let i = index"
+                    class="col-md-3 float-left"
+                  >
+                    <div class="card inner">
+                      <div class="card-body">
                         <p><strong>Id: </strong>{{ step['id'] }}</p>
                         <p><strong>Name: </strong>{{ step['name'] }}</p>
                         <p><strong>Order: </strong>{{ step['order'] }}</p>
@@ -304,18 +339,7 @@
             </div>
           </mat-step>
         </mat-horizontal-stepper>
-        <!--  </div> -->
-        <!--  </div> -->
       </div>
     </div>
   </div>
-  <!--   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-primary float-right" onclick="history.back()">
-          <i class="material-icons">arrow_back_ios</i>Back
-        </button>
-      </div>
-    </div>
-  </div> -->
 </div>
