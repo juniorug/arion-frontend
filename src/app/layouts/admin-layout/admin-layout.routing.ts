@@ -2,11 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
 import { AssetListComponent } from '../../asset-list/asset-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
 import { AssetDetailsComponent } from 'app/asset-details/asset-details.component';
 import { CreateAssetComponent } from 'app/create-asset/create-asset.component';
 import { EditAssetComponent } from 'app/edit-asset/edit-asset.component';
@@ -23,7 +19,6 @@ import { StepDetailsComponent } from 'app/step-details/step-details.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',                component: DashboardComponent },
     { path: 'user-profile',             component: UserProfileComponent },
-    { path: 'table-list',               component: TableListComponent },
     { path: 'assets',                   component: AssetListComponent,          data: {title: 'Assets'} },
     { path: 'create-asset',             component: CreateAssetComponent,        data: {title: 'Create Asset'} },
     { path: 'asset-details/:id',        component: AssetDetailsComponent,       data: {title: 'Asset Details'} },
@@ -40,8 +35,4 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: 'step-details/:assetId/:id',        component: StepDetailsComponent,        data: {title: 'Step Details'} },
     { path: 'edit-step/:assetId/:id',           component: EditStepComponent,           data: {title: 'Edit Step'} },
-
-    { path: 'typography',               component: TypographyComponent },
-    { path: 'icons',                    component: IconsComponent },
-    { path: 'notifications',            component: NotificationsComponent },
 ];

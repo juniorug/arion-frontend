@@ -41,7 +41,7 @@ export class AssetDetailsComponent implements OnInit {
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
-    this.showCreateAssetItemButton = false;
+    this.showCreateAssetItemButton = true;
     this.asset = new Asset();
     this.id = this.route.snapshot.params['id'];
     this.reloadData();

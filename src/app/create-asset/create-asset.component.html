@@ -8,7 +8,7 @@
             <!-- #enddocregion editable -->
             <form [formGroup]="assetFormGroup">
               <!-- #docregion step-label -->
-              <!-- <ng-template matStepLabel>Fill asset info</ng-template> -->
+              <ng-template matStepLabel>Asset</ng-template>
               <!-- #enddocregion step-label -->
               <div class="card">
                 <div class="card-header card-header-info">
@@ -56,6 +56,7 @@
           </mat-step>
           <mat-step [stepControl]="actorsFormGroup" [editable]="isEditable">
             <form [formGroup]="actorsFormGroup">
+              <ng-template matStepLabel>Actors</ng-template>
               <div class="card">
                 <div class="card-header card-header-info">
                   <i class="material-icons float-left">person</i>
@@ -138,6 +139,7 @@
           </mat-step>
           <mat-step [stepControl]="stepsFormGroup" [editable]="isEditable">
             <form [formGroup]="stepsFormGroup">
+              <ng-template matStepLabel>Steps</ng-template>
               <div class="card">
                 <div class="card-header card-header-info">
                   <i class="material-icons float-left">double_arrow</i>
@@ -226,6 +228,7 @@
             </form>
           </mat-step>
           <mat-step>
+            <ng-template matStepLabel>Summary</ng-template>
             <div class="row">
               <div class="col-md-12 text-center">
                 <h2>Review Asset details:</h2>

@@ -4,6 +4,11 @@ th {
 }
 
 .bt-actions {
+  width: 280px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
   .btn.btn-default {
     margin-left: 10px;
     padding: 10px;
@@ -46,6 +51,12 @@ th {
     /* color: #a9afbb; */
     color: #673ab7;
     box-shadow: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    background-image: none;
+    padding: 0px;
   }
   .btn.btn-default:last-child {
     margin-right: 0px;

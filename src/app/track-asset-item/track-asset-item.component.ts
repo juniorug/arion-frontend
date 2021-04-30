@@ -51,6 +51,8 @@ export class TrackAssetItemComponent implements OnInit {
       }, error => console.log(error)); */
     this.reloadData();
     this.model = new go.TreeModel(this.threeModel);
+    console.log("this.model: ", this.model);
+    
   }
 
   reloadData() {

@@ -127,8 +127,8 @@ export class CreateAssetComponent implements OnInit {
     console.log("actorsFormGroup", this.actorsFormGroup.value);
     console.log("stepsFormGroup", this.stepsFormGroup.value);
 
-    this.notificationServiceService.showNotification('success', 'Asset succesfully created');
     this.gotoAssetList();
+    this.notificationServiceService.showNotification('success', 'Asset succesfully created');
 
   }
 
