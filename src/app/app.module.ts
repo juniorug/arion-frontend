@@ -1,5 +1,4 @@
-import { AgmCoreModule } from '@agm/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,6 +30,18 @@ import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.com
 import { DiagramComponent } from './diagram/diagram.component';
 import { InspectorComponent } from './inspector/inspector.component';
 
+//LOGIN MODULES
+import { BrowserModule } from '@angular/platform-browser';
+
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers';
+
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { AlertComponent } from './_components';
+import { HomeComponent } from './home';
+
+
+
 
 @NgModule({
   exports: [
@@ -51,13 +62,11 @@ import { InspectorComponent } from './inspector/inspector.component';
     MatFormFieldModule,
     MatInputModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
     ModalModule.forRoot(),
     MatStepperModule,
     MatSelectModule,
     MatIconModule,
+    BrowserModule,
   ],
   declarations: [
     AppComponent,
@@ -76,9 +85,16 @@ import { InspectorComponent } from './inspector/inspector.component';
     EditStepComponent,
     DiagramComponent,
     InspectorComponent,
-
+    AlertComponent,
+    HomeComponent
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent],
   entryComponents: [],
 })
