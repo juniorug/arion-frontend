@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AccountService } from '@app/_services';
 
 declare const $: any;
@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private renderer:Renderer2) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -35,6 +35,7 @@ export class SidebarComponent implements OnInit {
   };
 
   logout() {
+    this.renderer.addClass(document.body, "container-bg");
     this.accountService.logout();
   }
 }
