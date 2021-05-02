@@ -1,3 +1,35 @@
+/*BODY - login page*/
+
+body {
+  /* background-color: #ff0000; */
+  color: #3c4858;
+  font-weight: 300;
+  height: 100vh;
+  background-color: #00bcd4;
+  background-image: linear-gradient(to top right, #00bcd4, #673ab7);
+
+  /* background: rgb(0,188,212); */
+  /* background: linear-gradient(
+90deg
+, rgba(0,188,212,1) 0%, rgba(103,58,183,1) 50%); */
+  /* background: linear-gradient( 
+-135deg
+ ,#c850c0,#4158d0); */
+  /* background-image: linear-gradient(
+45deg
+, #00bcd4, #673ab7); */
+  /* background: rgb(0,188,212); */
+  /* background: linear-gradient(
+90deg
+, rgba(0,188,212,1) 0%, rgba(103,58,183,1) 61%); */
+  /* background: url(https://thumbs.dreamstime.com/b/abstract-concept-blue-color-interconnected-icons-representing-supply-chain-topics-challenges-as-well-as-modes-goods-113674116.jpg) no-repeat center center fixed; */
+  /* background-repeat: no-repeat; */
+  /* -webkit-background-size: cover; */
+  /* -moz-background-size: cover;
+    -o-background-size: cover; */
+  /* background-size: cover;*/
+}
+
 /* You can add global styles to this file, and also import other style files */
 .btn:hover {
   -webkit-box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;

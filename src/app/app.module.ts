@@ -40,7 +40,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
-
+import { AngularTiltModule } from 'angular-tilt';
 
 
 @NgModule({
@@ -86,7 +86,7 @@ import { HomeComponent } from './home';
     DiagramComponent,
     InspectorComponent,
     AlertComponent,
-    HomeComponent
+    HomeComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

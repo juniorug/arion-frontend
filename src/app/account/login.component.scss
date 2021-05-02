@@ -1,0 +1,30 @@
+.card-body {
+  margin: 50px;
+
+  h4 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+}
+
+.verticalhorizontal {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.btn.btn-link {
+  margin-left: 15px;
+}

@@ -5,7 +5,8 @@
     "baseUrl": "src",
     "paths": {
         "@app/*": ["app/*"],
-        "@environments/*": ["environments/*"]
+        "@environments/*": ["environments/*"],
+        "@assets/*": ["assets/*"]
     },
     "sourceMap": true,
     "declaration": false,
