@@ -41,6 +41,7 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
 import { AngularTiltModule } from 'angular-tilt';
+import { AuditComponent } from './audit/audit.component';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { AngularTiltModule } from 'angular-tilt';
     InspectorComponent,
     AlertComponent,
     HomeComponent,
+    AuditComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

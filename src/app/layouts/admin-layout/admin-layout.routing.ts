@@ -15,10 +15,12 @@ import { ActorDetailsComponent } from 'app/actor-details/actor-details.component
 import { EditActorComponent } from 'app/edit-actor/edit-actor.component';
 import { EditStepComponent } from 'app/edit-step/edit-step.component';
 import { StepDetailsComponent } from 'app/step-details/step-details.component';
+import { AuditComponent } from '@app/audit/audit.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',                component: DashboardComponent },
     { path: 'user-profile',             component: UserProfileComponent },
+    { path: 'audit',                    component: AuditComponent,              data: {title: 'Audit'} },
     { path: 'assets',                   component: AssetListComponent,          data: {title: 'Assets'} },
     { path: 'create-asset',             component: CreateAssetComponent,        data: {title: 'Create Asset'} },
     { path: 'asset-details/:id',        component: AssetDetailsComponent,       data: {title: 'Asset Details'} },
