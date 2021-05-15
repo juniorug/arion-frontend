@@ -1,14 +1,14 @@
 [
    {
-      "assetID":"1",
+      "assetID":"cb7497f0-47d7-435b-96e2-8d4258517b7a",
       "assetName":"Coffee",
       "assetItems":[
          {
-            "assetItemID":"1",
-            "ownerID":"1",
-            "stepID":"1",
+            "assetItemID":"a544bb43-61c6-48e9-9908-3edc17837dc3",
+            "ownerID":"818f6b34-2842-4e40-94c1-bd5b79cd0acd",
+            "stepID":"abfd4f63-c172-4bd4-8ebd-ae840348e695",
             "parentID":"0",
-            "children":["3","4"],
+            "children":["10043c19-baab-4083-bf52-bcb1e0009475","ff446b7b-3709-41f2-9839-e6abe6912158"],
             "processDate":"2021-04-11T21:49:49",
             "deliveryDate":"2020-03-07T07:04:05",
             "orderPrice":"",
@@ -21,9 +21,9 @@
             }
          },
          {
-            "assetItemID":"2",
-            "ownerID":"1",
-            "stepID":"1",
+            "assetItemID":"600c17ca-9b87-4769-9038-d9899989ab42",
+            "ownerID":"818f6b34-2842-4e40-94c1-bd5b79cd0acd",
+            "stepID":"abfd4f63-c172-4bd4-8ebd-ae840348e695",
             "parentID":"0",
             "children":[],
             "processDate":"2021-04-11T21:49:58",
@@ -38,11 +38,11 @@
             }
          },
          {
-            "assetItemID":"3",
-            "ownerID":"2",
-            "stepID":"2",
-            "parentID":"1",
-            "children":["777999"],
+            "assetItemID":"10043c19-baab-4083-bf52-bcb1e0009475",
+            "ownerID":"036c6611-49b7-4ed2-9521-57bffa05ebe5",
+            "stepID":"a206d480-4466-4948-9b71-944787df79f0",
+            "parentID":"a544bb43-61c6-48e9-9908-3edc17837dc3",
+            "children":["64be1ff8-8981-427c-b065-c424576b814d"],
             "processDate":"2021-04-11T21:51:26",
             "deliveryDate":"2021-05-11T15:06:54",
             "orderPrice":"50",
@@ -55,10 +55,10 @@
             }
          },
          {
-            "assetItemID":"4",
-            "ownerID":"2",
-            "stepID":"2",
-            "parentID":"1",
+            "assetItemID":"ff446b7b-3709-41f2-9839-e6abe6912158",
+            "ownerID":"036c6611-49b7-4ed2-9521-57bffa05ebe5",
+            "stepID":"a206d480-4466-4948-9b71-944787df79f0",
+            "parentID":"a544bb43-61c6-48e9-9908-3edc17837dc3",
             "children":[],
             "processDate":"2021-04-11T21:51:38",
             "deliveryDate":"",
@@ -72,10 +72,10 @@
             }
          },
          {
-            "assetItemID":"777999",
-            "ownerID":"3",
-            "stepID":"3",
-            "parentID":"3",
+            "assetItemID":"64be1ff8-8981-427c-b065-c424576b814d",
+            "ownerID":"91ea1472-12d6-4275-b7f2-7b6b3f640138",
+            "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
+            "parentID":"10043c19-baab-4083-bf52-bcb1e0009475",
             "children":[],
             "processDate":"2021-04-11T21:51:26",
             "deliveryDate":"",
@@ -91,7 +91,7 @@
       ],
       "actors":[
          {
-            "actorID":"1",
+            "actorID":"818f6b34-2842-4e40-94c1-bd5b79cd0acd",
             "actorType":"Extractor",
             "actorName":"James JohnsonX9",
             "deleted":false,
@@ -100,7 +100,7 @@
             }
          },
          {
-            "actorID":"2",
+            "actorID":"036c6611-49b7-4ed2-9521-57bffa05ebe5",
             "actorType":"Manufacturer",
             "actorName":"Donald Jackson",
             "deleted":false,
@@ -109,7 +109,7 @@
             }
          },
          {
-            "actorID":"3",
+            "actorID":"91ea1472-12d6-4275-b7f2-7b6b3f640138",
             "actorType":"Distributor",
             "actorName":"Elizabeth Taylor",
             "deleted":false,
@@ -118,7 +118,7 @@
             }
          },
          {
-            "actorID":"4",
+            "actorID":"1c0ef67f-566d-4818-8f87-fca135443ca7",
             "actorType":"Distributor",
             "actorName":"Charlotte O'Neill",
             "deleted":false,
@@ -129,7 +129,7 @@
       ],
       "steps":[
          {
-            "stepID":"1",
+            "stepID":"abfd4f63-c172-4bd4-8ebd-ae840348e695",
             "stepName":"Extraction",
             "stepOrder":1,
             "actorType":"Extractor",
@@ -139,7 +139,7 @@
             }
          },
          {
-            "stepID":"2",
+            "stepID":"a206d480-4466-4948-9b71-944787df79f0",
             "stepName":"Processing",
             "stepOrder":2,
             "actorType":"Manufacturer",
@@ -149,7 +149,7 @@
             }
          },
          {
-            "stepID":"3",
+            "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
             "stepName":"Distribution",
             "stepOrder":3,
             "actorType":"Distributor",
@@ -165,13 +165,13 @@
       }
    },
    {
-      "assetID":"2",
+      "assetID":"5e531f30-83c3-4ed9-a5ce-22594924189b",
       "assetName":"Gold",
       "assetItems":[
          {
-            "assetItemID":"1",
-            "ownerID":"1",
-            "stepID":"1",
+            "assetItemID":"cc5b9f57-2db3-409d-8adc-1d5db8e68825",
+            "ownerID":"b471045b-0258-4c8b-ad9c-2e93da0107b2",
+            "stepID":"2a340cac-dbee-459e-b3c3-e4529fc08df7",
             "parentID":"0",
             "children":[],
             "processDate":"2021-04-11T21:49:49",
@@ -188,7 +188,7 @@
       ],
       "actors":[
          {
-            "actorID":"1",
+            "actorID":"b471045b-0258-4c8b-ad9c-2e93da0107b2",
             "actorType":"Raw Material",
             "actorName":"Andrew O'connell",
             "deleted":false,
@@ -197,7 +197,7 @@
             }
          },
          {
-            "actorID":"2",
+            "actorID":"86b7d449-1108-4580-a8c2-fd6e937b1f56",
             "actorType":"Producer",
             "actorName":"Olivia Jones",
             "deleted":false,
@@ -208,7 +208,7 @@
       ],
       "steps":[
          {
-            "stepID":"1",
+            "stepID":"2a340cac-dbee-459e-b3c3-e4529fc08df7",
             "stepName":"Exploration",
             "stepOrder":1,
             "actorType":"Raw Material",
@@ -218,7 +218,7 @@
             }
          },
          {
-            "stepID":"2",
+            "stepID":"c1366576-60ca-4145-a499-b821ffdfeb86",
             "stepName":"Production",
             "stepOrder":2,
             "actorType":"Producer",

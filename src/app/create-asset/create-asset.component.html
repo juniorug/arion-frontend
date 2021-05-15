@@ -19,13 +19,19 @@
                 </div>
                 <div class="card-body">
                   <div class="row" style="margin-top: 15px">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label>Asset ID</mat-label>
+                        <input matInput formControlName="id" placeholder="A new ID will be generated if not provided" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
                       <mat-form-field>
                         <mat-label>Asset Name</mat-label>
                         <input matInput formControlName="assetName" placeholder="Asset name" />
                       </mat-form-field>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <mat-form-field>
                         <mat-label>Description</mat-label>
                         <input matInput formControlName="description" placeholder="Description" />
@@ -249,6 +255,7 @@
                     </div>
                   </div>
                   <div class="card-body">
+                    <p><strong>ID: </strong>{{ assetFormGroup.get('id')?.value }}</p>
                     <p><strong>Name: </strong>{{ assetFormGroup.get('assetName')?.value }}</p>
                     <p><strong>Description: </strong>{{ assetFormGroup.get('description')?.value }}</p>
                   </div>

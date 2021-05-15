@@ -60,11 +60,15 @@ export class MoveAssetItemComponent implements OnInit {
     console.log("asset: ", this.asset);
     this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
     console.log("assetItem: ", this.assetItem);
-    let currentStepId = Number(this.assetItem.stepID);
-    this.currentStep = this.asset.steps.find( step => step.stepOrder === currentStepId);
-    this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (currentStepId - 1) || step.stepOrder === (currentStepId + 1) );
-    this.currentActor =  this.asset.actors.find(actor => actor.actorType ===  this.currentStep.actorType);
+    //let currentStepId = Number(this.assetItem.stepID);
+    this.currentStep =   this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
+    this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (this.currentStep.stepOrder - 1) || step.stepOrder === (this.currentStep.stepOrder + 1) );
+    this.currentActor =  this.asset.actors.find(actor => actor.actorID ===  this.assetItem.ownerID);
     this.startNewAssetItem();
+  }
+
+  getCurrentStepOrder(assetItem) {
+    
   }
 
   startNewAssetItem() {

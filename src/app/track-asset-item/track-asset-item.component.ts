@@ -42,7 +42,7 @@ export class TrackAssetItemComponent implements OnInit {
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("TrackAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
+    console.log("TrackAssetItemComponent called with assetId=", this.assetId, " and id=", this.id, );
     
     /* this.assetItemService.getAssetItem(this.id)
       .subscribe(data => {
@@ -58,7 +58,10 @@ export class TrackAssetItemComponent implements OnInit {
   reloadData() {
     //this.assets = this.assetService.getAssetList();
     this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
+    console.log("this.asset : ", this.asset);
+    
     this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+    console.log("this.assetItem : ", this.assetItem);
     this.trackedItems = new Array();
     //get the tree of children of given assetItem including itself
     this.getTree(this.assetItem).forEach(child => {
@@ -77,6 +80,7 @@ export class TrackAssetItemComponent implements OnInit {
 
   getTree(assetItem: AssetItem) : AssetItem[] {
     let tree: AssetItem[] = new Array();
+    console.log("getTree assetItem : ", assetItem);
     if (!assetItem.children.length) {
       tree.push(assetItem);
     } else {

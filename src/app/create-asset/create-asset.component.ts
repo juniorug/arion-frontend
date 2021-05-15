@@ -23,6 +23,7 @@ export class CreateAssetComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private _ref: ChangeDetectorRef, private notificationServiceService: NotificationService) {
     this.assetFormGroup = this._formBuilder.group({
+      id: [''],
       assetName: [''],
       description: ['']
     });

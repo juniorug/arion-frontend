@@ -18,7 +18,7 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class="text-primary">
-                  <th>ID</th>
+                  <th class="col-md-4">ID</th>
                   <th>Name</th>
                   <th>Items</th>
                   <th>Actors</th>
@@ -28,7 +28,7 @@
                 <tbody>
                   <tr *ngFor="let asset of assets">
                     <!--<tr *ngFor="let asset of assets | async">-->
-                    <td>{{ asset.assetID }}</td>
+                    <td class="col-md-4">{{ asset.assetID }}</td>
                     <td>{{ asset.assetName }}</td>
                     <td>{{ asset.assetItems.length }}</td>
                     <td>{{ asset.actors.length }}</td>

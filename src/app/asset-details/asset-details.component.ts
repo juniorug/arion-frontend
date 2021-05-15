@@ -53,6 +53,16 @@ export class AssetDetailsComponent implements OnInit {
     console.log("asset: ", this.asset);
   }
 
+  getOwnerName(assetItem) {
+    let currentActor = this.asset.actors.find(actor => actor.actorID === assetItem.ownerID);
+    return currentActor.actorName;
+  }
+
+  getCurrentStep(assetItem) {
+    let currentStep = this.asset.steps.find( step => step.stepID === assetItem.stepID);
+    return currentStep.stepName;
+  }
+
   openModal(template: TemplateRef<any>, selectedObjectType: any, selectedObjectId: any) {
     console.log("open modal called with id: ", selectedObjectId);
     this.selectedObjectType = selectedObjectType;

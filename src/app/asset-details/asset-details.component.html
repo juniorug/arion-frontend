@@ -76,13 +76,13 @@
                   <table class="table">
                     <thead class="text-primary">
                       <th>ID</th>
-                      <th>Owner ID</th>
-                      <th>Step ID</th>
-                      <th>Parent ID</th>
+                      <th>Owner</th>
+                      <th>Step</th>
+                      <!-- <th>Parent</th> -->
                       <th>Process Date</th>
-                      <th>Delivery Date</th>
+                      <!-- <th>Delivery Date</th>
                       <th>Order Price</th>
-                      <th>Shipping Price</th>
+                      <th>Shipping Price</th> -->
                       <th>Status</th>
                       <th>Quantity</th>
                       <th>Actions</th>
@@ -91,13 +91,13 @@
                       <tr *ngFor="let assetItem of asset.assetItems">
                         <!--<tr *ngFor="let asset of assets | async">-->
                         <td>{{ assetItem.assetItemID }}</td>
-                        <td>{{ assetItem.ownerID }}</td>
-                        <td>{{ assetItem.stepID }}</td>
-                        <td>{{ assetItem.parentID }}</td>
+                        <td>{{ getOwnerName(assetItem) }}</td>
+                        <td>{{ getCurrentStep(assetItem) }}</td>
+                        <!-- <td>{{ assetItem.parentID === '0' ? '-' : assetItem.parentID }}</td> -->
                         <td>{{ assetItem.processDate }}</td>
-                        <td>{{ assetItem.deliveryDate }}</td>
+                        <!-- <td>{{ assetItem.deliveryDate }}</td>
                         <td>{{ assetItem.orderPrice }}</td>
-                        <td>{{ assetItem.shippingPrice }}</td>
+                        <td>{{ assetItem.shippingPrice }}</td> -->
                         <td>{{ assetItem.status }}</td>
                         <td>{{ assetItem.quantity }}</td>
 

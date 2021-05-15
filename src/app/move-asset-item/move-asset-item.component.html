@@ -186,9 +186,11 @@
                             >
                               <mat-select-trigger>{{ selected?.stepName }}</mat-select-trigger>
                               <mat-option *ngFor="let step of allowedSteps" [value]="step">
-                                <i class="material-icons" *ngIf="step.stepOrder <= newAssetItem.stepID">arrow_back</i>
+                                <i class="material-icons" *ngIf="step.stepOrder <= currentStep.stepOrder">arrow_back</i>
                                 {{ step.stepName }}
-                                <i class="material-icons" *ngIf="step.stepOrder > newAssetItem.stepID">arrow_forward</i>
+                                <i class="material-icons" *ngIf="step.stepOrder > currentStep.stepOrder"
+                                  >arrow_forward</i
+                                >
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
