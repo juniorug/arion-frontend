@@ -94,14 +94,14 @@ export class DiagramComponent {
           // define the panel where the text will appear
           $(go.Panel, 'Table',
             {
-              maxSize: new go.Size(150, 999),
-              margin: new go.Margin(-5, 10, 0, 3),
+              /* maxSize: new go.Size(150, 999),
+              margin: new go.Margin(-5, 10, 0, 3), */
               defaultAlignment: go.Spot.Left
             },
             $(go.RowColumnDefinition, { column: 2, width: 4 }),
-            $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+            /* $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { row: 0, column: 0 },
-              new go.Binding('text', 'key', function(v) { return 'ID: ' + v; })),
+              new go.Binding('text', 'key', function(v) { return 'ID: ' + v.substring(0, 9).concat("..."); })),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },  // the name
               {
                 row: 0, column: 1, columnSpan: 5,
@@ -109,26 +109,40 @@ export class DiagramComponent {
                 editable: true, isMultiline: false,
                 minSize: new go.Size(10, 16)
               },
-              new go.Binding('text', 'name').makeTwoWay()),
+              new go.Binding('text', 'name').makeTwoWay()), */
+            
+              $(go.TextBlock, 'ID: ', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+              { row: 0, column: 0 }),
+            $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
+              {
+                row: 0, column: 1, columnSpan: 1,
+                editable: true, isMultiline: false,
+                minSize: new go.Size(10, 14),
+                margin: new go.Margin(0, 5, 0, 3) 
+              },
+
+              new go.Binding('text', 'key', function(v) { return v.substring(0, 18).concat("..."); }).makeTwoWay()),
             $(go.TextBlock, 'Step: ', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { row: 1, column: 0 }),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               {
-                row: 1, column: 1, columnSpan: 4,
+                row: 1, column: 1, columnSpan: 1,
                 editable: true, isMultiline: false,
                 minSize: new go.Size(10, 14),
-                margin: new go.Margin(0, 0, 0, 3)
+                margin: new go.Margin(0, 0, 0, 3) 
               },
+
               new go.Binding('text', 'step').makeTwoWay()),
             $(go.TextBlock, 'Actor:', { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { row: 2, column: 0 }),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },  // the comments
               {
-                row: 2, column: 1, columnSpan: 5,
+                row: 2, column: 1, columnSpan: 1,
                 font: 'italic 9pt sans-serif',
-                wrap: go.TextBlock.WrapFit,
+                /* wrap: go.TextBlock.WrapFit,  */
                 editable: true,  // by default newlines are allowed
-                minSize: new go.Size(10, 14)
+                minSize: new go.Size(10, 14),
+                margin: new go.Margin(0, 0, 0, 3) 
               },
               new go.Binding('text', 'owner').makeTwoWay())
           )  // end Table Panel
