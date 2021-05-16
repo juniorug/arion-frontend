@@ -72,8 +72,10 @@ export class DiagramComponent {
           },
           new go.Binding('fill', '', function(node) {
             // modify the fill based on the tree depth level
-            const levelColors = ['#291749', '#482980', '#673ab7', '#9575cd',
-              '#c2b0e2', '#f0ebf8', '#ffffff'];
+            /* const levelColors = ['#291749', '#482980', '#673ab7', '#9575cd',
+              '#A997C9', '#f0ebf8', '#ffffff']; */
+            const levelColors = ['#291749', '#2A3865', '#2C5981', '#2D7A9C',
+              '#2F9BB8', '#30BCD4', '#30BCD4'];
             let color = node.findObject('SHAPE').fill;
             const dia: go.Diagram = node.diagram;
             if (dia && dia.layout.network) {

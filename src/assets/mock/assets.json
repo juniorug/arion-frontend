@@ -76,6 +76,40 @@
             "ownerID":"91ea1472-12d6-4275-b7f2-7b6b3f640138",
             "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
             "parentID":"10043c19-baab-4083-bf52-bcb1e0009475",
+            "children":["ae70c071-f07f-45f7-8221-c82437112c31"],
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"",
+            "orderPrice":"70",
+            "shippingPrice":"20",
+            "status":"Exported",
+            "quantity":"2",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "assetItemID":"ae70c071-f07f-45f7-8221-c82437112c31",
+            "ownerID":"e2219c06-cd6e-4102-acf6-65f8d983d011",
+            "stepID":"7bfbc8ef-59b7-43d9-b13f-ac5ce405bbfb",
+            "parentID":"64be1ff8-8981-427c-b065-c424576b814d",
+            "children":["7acd4a8e-25a5-475c-9262-04653ead5b1a"],
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"",
+            "orderPrice":"70",
+            "shippingPrice":"20",
+            "status":"Exported",
+            "quantity":"2",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "assetItemID":"7acd4a8e-25a5-475c-9262-04653ead5b1a",
+            "ownerID":"75e55075-32d2-4c78-b88f-7655a753b4ce",
+            "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
+            "parentID":"ae70c071-f07f-45f7-8221-c82437112c31",
             "children":[],
             "processDate":"2021-04-11T21:51:26",
             "deliveryDate":"",
@@ -125,6 +159,24 @@
             "aditionalInfoMap":{
                
             }
+         },
+         {
+            "actorID":"e2219c06-cd6e-4102-acf6-65f8d983d011",
+            "actorType":"Retailer",
+            "actorName":"bigSales",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "actorID":"75e55075-32d2-4c78-b88f-7655a753b4ce",
+            "actorType":"Customer",
+            "actorName":"Allan Manoel Jr.",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
          }
       ],
       "steps":[
@@ -153,6 +205,26 @@
             "stepName":"Distribution",
             "stepOrder":3,
             "actorType":"Distributor",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "stepID":"4fd6ed94-7a11-4b6c-95de-6bd3e5a00637",
+            "stepName":"Retail",
+            "stepOrder":4,
+            "actorType":"Retailer",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "stepID":"7bfbc8ef-59b7-43d9-b13f-ac5ce405bbfb",
+            "stepName":"Retail Customer",
+            "stepOrder":5,
+            "actorType":"Customer",
             "deleted":false,
             "aditionalInfoMap":{
                
