@@ -2,6 +2,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -66,6 +68,8 @@ import { AuditComponent } from './audit/audit.component';
     ModalModule.forRoot(),
     MatStepperModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatIconModule,
     BrowserModule,
   ],

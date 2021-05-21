@@ -59,12 +59,12 @@
             "ownerID":"036c6611-49b7-4ed2-9521-57bffa05ebe5",
             "stepID":"a206d480-4466-4948-9b71-944787df79f0",
             "parentID":"a544bb43-61c6-48e9-9908-3edc17837dc3",
-            "children":[],
+            "children":["6014a546-3c4a-482f-916e-08a481b61204", "c4eaa4b1-2c6b-49d3-95d9-af41c7379932"],
             "processDate":"2021-04-11T21:51:38",
             "deliveryDate":"",
             "orderPrice":"50",
             "shippingPrice":"5",
-            "status":"Processing",
+            "status":"Sold",
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
@@ -117,6 +117,40 @@
             "shippingPrice":"20",
             "status":"Exported",
             "quantity":"2",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "assetItemID":"6014a546-3c4a-482f-916e-08a481b61204",
+            "ownerID":"91ea1472-12d6-4275-b7f2-7b6b3f640138",
+            "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
+            "parentID":"ff446b7b-3709-41f2-9839-e6abe6912158",
+            "children":[],
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"",
+            "orderPrice":"70",
+            "shippingPrice":"20",
+            "status":"Exported",
+            "quantity":"1",
+            "deleted":false,
+            "aditionalInfoMap":{
+               
+            }
+         },
+         {
+            "assetItemID":"c4eaa4b1-2c6b-49d3-95d9-af41c7379932",
+            "ownerID":"1c0ef67f-566d-4818-8f87-fca135443ca7",
+            "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
+            "parentID":"ff446b7b-3709-41f2-9839-e6abe6912158",
+            "children":[],
+            "processDate":"2021-04-11T21:51:26",
+            "deliveryDate":"",
+            "orderPrice":"70",
+            "shippingPrice":"20",
+            "status":"Exported",
+            "quantity":"1",
             "deleted":false,
             "aditionalInfoMap":{
                
