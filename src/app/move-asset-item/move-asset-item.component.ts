@@ -44,7 +44,7 @@ export class MoveAssetItemComponent implements OnInit {
     this.newAssetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("EditAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
+    console.log("MoveAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
     
     /* this.assetItemService.getAssetItem(this.id)
       .subscribe(data => {
@@ -76,7 +76,8 @@ export class MoveAssetItemComponent implements OnInit {
     this.newAssetItem.parentID = this.assetItem.assetItemID;
     this.newAssetItem.stepID = this.assetItem.stepID;
     this.newAssetItem.assetItemID = "";
-    this.newAssetItem.processDate = moment().format('YYYY-MM-DD HH:mm:ss') ;
+    this.newAssetItem.processDate = moment().format('YYYY-MM-DDTHH:mm:ss') ;
+    //this.newAssetItem.processDate = new Date().toLocaleString();
   }
 
   onSubmit() {
