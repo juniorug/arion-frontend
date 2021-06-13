@@ -12,38 +12,50 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class="text-primary">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Items</th>
-                  <th>Actors</th>
-                  <th>Steps</th>
-                  <th>Actions</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let asset of assets">
-                    <!--<tr *ngFor="let asset of assets | async">-->
-                    <td>{{ asset.assetID }}</td>
-                    <td>{{ asset.assetName }}</td>
-                    <td>{{ asset.assetItems.length }}</td>
-                    <td>{{ asset.actors.length }}</td>
-                    <td>{{ asset.steps.length }}</td>
-                    <td style="width: 200px" class="bt-actions">
-                      <button (click)="assetDetails(asset.assetID)" class="btn btn-default" st>
-                        <i class="material-icons">search</i>
-                      </button>
-                      <button (click)="editAsset(asset.assetID)" class="btn btn-default">
-                        <i class="material-icons">edit</i>
-                      </button>
-                      <button (click)="openModal(template, asset)" class="btn btn-default">
-                        <i class="material-icons">delete</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div>
+              <form (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="assetID"
+                        placeholder="Asset ID"
+                        [(ngModel)]="asset.assetID"
+                        name="assetID"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="assetName"
+                        placeholder="Name"
+                        [(ngModel)]="asset.assetName"
+                        name="assetName"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        matInput
+                        id="description"
+                        placeholder="Description"
+                        [(ngModel)]="asset.description"
+                        name="description"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button type="submit" class="btn btn-info float-right">Submit</button>
+                <button mat-raised-button type="button" class="btn btn-default float-right" onclick="history.back()">
+                  Cancel
+                </button>
+                <div class="clearfix"></div>
+              </form>
             </div>
           </div>
         </div>

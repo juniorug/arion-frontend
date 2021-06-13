@@ -5,6 +5,7 @@ import {AssetItem} from "./asset-item";
 export class Asset {
     assetID: string;
     assetName: string;
+    description: string;
     assetItems: AssetItem[];
     actors: Actor[];
     steps: Step[];

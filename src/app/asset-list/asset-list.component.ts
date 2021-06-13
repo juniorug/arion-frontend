@@ -76,11 +76,13 @@ export class AssetListComponent implements OnInit {
     this.router.navigate(['create-asset']);
   }
 
-  assetDetails(id: number){
+  assetDetails(id: string){
     this.router.navigate(['asset-details', id]);
   }
 
-  editAsset(id: number){
+  editAsset(id: string){
+    console.log(">>> editAssed clicked. ID: ", id);
+    
     this.router.navigate(['edit-asset', id]);
   }
 

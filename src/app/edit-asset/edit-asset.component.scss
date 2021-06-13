@@ -1,0 +1,22 @@
+.btn.btn-info.float-right,
+.btn.btn-default.float-right {
+  width: 115px;
+}
+
+.btn.btn-info.float-right,
+.btn.btn-default.float-right:first-child,
+.btn.btn-default:last-child {
+  margin-left: 15px;
+}
+
+.btn.btn-transparent {
+  background-color: transparent;
+  border-color: transparent;
+  color: #a9afbb;
+}
+
+.btn.btn-default {
+  background-color: #fff !important;
+  color: #00bcd4 !important;
+  border: 1px solid #00bcd4 !important;
+}
