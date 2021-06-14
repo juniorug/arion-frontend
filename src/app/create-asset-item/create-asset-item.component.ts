@@ -22,7 +22,6 @@ export class CreateAssetItemComponent implements OnInit {
   allowedActors: Actor[];
   assetItemFormGroup: FormGroup;
   aditionalInfoMapFormGroup: FormGroup;
-
   aditionalInfoMap: FormArray;
 
   constructor(
@@ -31,7 +30,7 @@ export class CreateAssetItemComponent implements OnInit {
     private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
-    private _ref: ChangeDetectorRef,
+    private _ref: ChangeDetectorRef
   ) { 
     this.assetItemFormGroup = this._formBuilder.group({
       assetItemID: [''],
