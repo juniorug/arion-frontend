@@ -143,8 +143,37 @@ export class CreateAssetItemComponent implements OnInit {
     ); */  
     console.log("assetItemFormGroup", this.assetItemFormGroup.getRawValue());
     console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
+    this.transformFormsToAssetItem();
+    console.log("assetItem sent: ", this.assetItem);
     this.notificationServiceService.showNotification('success', 'Asset Item succesfully created');
     //history.back();
+  }
+
+  transformFormsToAssetItem() {
+    let assetItemFormRawValue = this.assetItemFormGroup.getRawValue();
+    let aditionalInfoFormRawValue = this.aditionalInfoMapFormGroup.value.aditionalInfoMap;
+    console.log("aditionalInfoFormRawValue: ", aditionalInfoFormRawValue);
+    
+    this.assetItem.assetItemID = assetItemFormRawValue.assetItemID;
+    this.assetItem.stepID = "1";
+    this.assetItem.ownerID = assetItemFormRawValue.actorID;
+    this.assetItem.parentID = "0";
+    this.assetItem.children = [];
+    this.assetItem.processDate = assetItemFormRawValue.processDate;
+    this.assetItem.deliveryDate = assetItemFormRawValue.deliveryDate;
+    this.assetItem.orderPrice = assetItemFormRawValue.orderPrice;
+    this.assetItem.shippingPrice = assetItemFormRawValue.shippingPrice;
+    this.assetItem.status = assetItemFormRawValue.status;
+    this.assetItem.quantity = assetItemFormRawValue.quantity;
+    this.assetItem.deleted = false;
+    this.assetItem.aditionalInfoMap = new Map();
+    aditionalInfoFormRawValue.forEach(element => {
+      console.log("aditionalInfoFormRawValue.foreach. [Key: ", element.key, "][value: ", element.value, "]");
+      if (element.key && element.value) {
+        console.log("inside if key/value");
+        this.assetItem.aditionalInfoMap.set(element.key, element.value);
+      }
+    });
   }
 
   gotoAssetItemList() {

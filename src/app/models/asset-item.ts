@@ -12,4 +12,5 @@ export class AssetItem {
    quantity: string;
    deleted: boolean;
    aditionalInfoMap: Map<string,string>;
+   //aditionalInfoMap: string[][];
 }
