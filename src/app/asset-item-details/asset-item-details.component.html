@@ -53,6 +53,17 @@
                   <p><strong>Quantity: </strong>{{ assetItem['quantity'] }}</p>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12 mb-15">
+                  <h4 class="aditional-label">Aditional Info:</h4>
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="col-md-3" *ngFor="let aditionalInfo of assetItem.aditionalInfoMap | keyvalue">
+                  <p>
+                    <strong>{{ aditionalInfo.key }}: </strong>{{ aditionalInfo.value }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

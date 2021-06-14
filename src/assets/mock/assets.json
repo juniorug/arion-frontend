@@ -17,8 +17,17 @@
             "quantity":"4",
             "deleted":false,
             "aditionalInfoMap":{
-               "harvest" : "june-2021", 
-               "method" : "selective"
+               "Harvest" : "june-2021", 
+               "Method" : "selective",
+               "Name01" : "Name01",
+               "Name02" : "Name02",
+               "Name03" : "Name03",
+               "Name04" : "Name04",
+               "Name05" : "Name05",
+               "Name06" : "Name06",
+               "Name07" : "Name07",
+               "Name08" : "Name08",
+               "Name09" : "Name09"
             }
          },
          {
@@ -35,8 +44,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "harvest" : "june-2021", 
-               "method" : "stripes"
+               "Harvest" : "june-2021", 
+               "Method" : "stripes"
             }
          },
          {
@@ -53,8 +62,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "batch" : "202106COF89b0cede", 
-               "type" : "Arabica"
+               "Batch" : "202106COF89b0cede", 
+               "Type" : "Arabica"
             }
          },
          {
@@ -71,8 +80,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "batch" : "202106COF2c84b80a", 
-               "type" : "Robusta"
+               "Batch" : "202106COF2c84b80a", 
+               "Type" : "Robusta"
             }
          },
          {
@@ -89,8 +98,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "received date" : "04/21/2021", 
-               "barcode" : "653654758692"
+               "Received date" : "04/21/2021", 
+               "Barcode" : "653654758692"
             }
          },
          {
@@ -107,8 +116,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "customer id" : "001.565.335-86", 
-               "customer doc type" : "CPF"
+               "Customer id" : "001.565.335-86", 
+               "Customer doc type" : "CPF"
             }
          },
          {
@@ -125,8 +134,8 @@
             "quantity":"2",
             "deleted":false,
             "aditionalInfoMap":{
-               "received date" : "04/21/2021", 
-               "barcode" : "036895378962"
+               "Received date" : "04/21/2021", 
+               "Barcode" : "036895378962"
             }
          },
          {
@@ -143,8 +152,8 @@
             "quantity":"1",
             "deleted":false,
             "aditionalInfoMap":{
-               "received date" : "05/01/2021", 
-               "barcode" : "137869369452"
+               "Received date" : "05/01/2021", 
+               "Barcode" : "137869369452"
             }
          },
          {
@@ -161,8 +170,8 @@
             "quantity":"1",
             "deleted":false,
             "aditionalInfoMap":{
-               "received date" : "04/11/2021", 
-               "barcode" : "634786356982"
+               "Received date" : "04/11/2021", 
+               "Barcode" : "634786356982"
             }
          }
       ],
