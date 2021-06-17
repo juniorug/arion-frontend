@@ -36,7 +36,6 @@ export class SidebarComponent implements OnInit {
   };
 
   logout() {
-    this.renderer.addClass(document.body, "container-bg");
     this.accountService.logout();
   }
 }

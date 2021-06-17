@@ -14,10 +14,6 @@ export class AppComponent {
   constructor(private accountService: AccountService, private renderer:Renderer2) {
       this.accountService.user.subscribe(x => this.user = x);
       console.log("localStorage.getItem('user'): " , localStorage.getItem('user'));
-      
-      localStorage.getItem('user') ?
-        renderer.addClass(document.body, "container-bg"):
-        renderer.removeClass(document.body, "container-bg")
   }
 
   logout() {

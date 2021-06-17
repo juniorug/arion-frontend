@@ -29,7 +29,6 @@ export class AccountService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
-                /* this.renderer.removeClass(document.body, "container-bg"); */
                 this.userSubject.next(user);
                 return user;
             }));

@@ -28,3 +28,21 @@
 .btn.btn-link {
   margin-left: 15px;
 }
+/* container-bg */
+.container-bg {
+  /* background-color: #ff0000; */
+  color: #3c4858;
+  font-weight: 300;
+  background-color: #00bcd4;
+  background-image: linear-gradient(to top right, #00bcd4, #673ab7);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.login-card {
+  z-index: 20;
+}
