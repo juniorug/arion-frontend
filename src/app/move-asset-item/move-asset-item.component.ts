@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actor } from 'app/models/actor';
@@ -26,13 +27,21 @@ export class MoveAssetItemComponent implements OnInit {
   allowedSteps: Step[];
   allowedActors: Actor[];
   currentActor: Actor;
+  aditionalInfoMapFormGroup: FormGroup;
+  aditionalInfoMap: FormArray;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private assetItemService: AssetItemService,
-    private notificationServiceService: NotificationService
-  ) { }
+    private notificationServiceService: NotificationService,
+    private _formBuilder: FormBuilder, 
+    private _ref: ChangeDetectorRef
+  ) { 
+    this.aditionalInfoMapFormGroup = this._formBuilder.group({
+      aditionalInfoMap: this._formBuilder.array([  ]) //this.createAditionalInfoForm() 
+    });
+  }
 
   ngOnInit(): void {
     
@@ -54,6 +63,52 @@ export class MoveAssetItemComponent implements OnInit {
     this.reloadData();
   }
 
+  createAditionalInfoForm(): FormGroup {
+    return this._formBuilder.group({
+      key: [''],
+      value: ['']
+    });
+  }
+
+  
+
+  addAditionalInfo(): void {
+    this.aditionalInfoMap = this.aditionalInfoMapFormGroup.get('aditionalInfoMap') as FormArray;
+    this.aditionalInfoMap.push(this.createAditionalInfoForm());
+    this._ref.detectChanges();
+  }
+
+  createAditionalInfoFormWithKeyValue(key: string, value: string): FormGroup {
+    return this._formBuilder.group({
+      key: [key],
+      value: [value]
+    });
+  }
+
+  addAditionalInfoWithKeyValue(key: string, value: string): void {
+    this.aditionalInfoMap = this.aditionalInfoMapFormGroup.get('aditionalInfoMap') as FormArray;
+    this.aditionalInfoMap.push(this.createAditionalInfoFormWithKeyValue(key, value));
+    this._ref.detectChanges();
+  }
+
+  removeAditionalInfo(id): void {
+    this.aditionalInfoMap = this.aditionalInfoMapFormGroup.get('aditionalInfoMap') as FormArray;
+    this.aditionalInfoMap.removeAt(id);
+    this._ref.detectChanges();
+  }
+
+  resetForm() {
+    this.aditionalInfoMap.clear();
+    this.resetFormGroup(this.aditionalInfoMapFormGroup);
+    this.addAditionalInfo();
+  }
+
+  resetFormGroup(form: FormGroup ) {
+    form.reset(form.value);
+    form.markAsPristine();
+    form.markAsUntouched();
+  }
+
   reloadData() {
     //this.assets = this.assetService.getAssetList();
     this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
@@ -64,7 +119,14 @@ export class MoveAssetItemComponent implements OnInit {
     this.currentStep =   this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
     this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (this.currentStep.stepOrder - 1) || step.stepOrder === (this.currentStep.stepOrder + 1) );
     this.currentActor =  this.asset.actors.find(actor => actor.actorID ===  this.assetItem.ownerID);
+    
+    Object.keys(this.assetItem.aditionalInfoMap).forEach(key => {
+      let value = this.assetItem.aditionalInfoMap[key];
+      this.addAditionalInfoWithKeyValue(key, value)
+    });
+    
     this.startNewAssetItem();
+
   }
 
   getCurrentStepOrder(assetItem) {
@@ -87,9 +149,23 @@ export class MoveAssetItemComponent implements OnInit {
         this.assetItem = new AssetItem();
         this.gotoList();
       }, error => console.log(error)); */
+      console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
+      this.transformFormsToAssetItem();
+      console.log("SUBMITED. assetItem: ", this.newAssetItem);
       this.notificationServiceService.showNotification('success', 'AssetItem succesfully moved');
       this.gotoAssetItemList();
 
+  }
+
+  transformFormsToAssetItem() {
+    let aditionalInfoFormRawValue = this.aditionalInfoMapFormGroup.value.aditionalInfoMap;
+    this.newAssetItem.aditionalInfoMap = new Map();
+    aditionalInfoFormRawValue.forEach(element => {
+      if (element.key && element.value) {
+        console.log("inside if key/value");
+        this.newAssetItem.aditionalInfoMap.set(element.key, element.value);
+      }
+    });
   }
 
   getStepSelected(event: MatSelectChange): void {

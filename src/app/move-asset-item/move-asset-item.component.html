@@ -141,6 +141,17 @@
                           </mat-form-field>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-md-12 mb-15">
+                          <h4 class="aditional-label">Aditional Info:</h4>
+                          <mat-divider></mat-divider>
+                        </div>
+                        <div class="col-md-6" *ngFor="let aditionalInfo of assetItem.aditionalInfoMap | keyvalue">
+                          <p>
+                            <strong>{{ aditionalInfo.key }}: </strong>{{ aditionalInfo.value }}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -285,6 +296,58 @@
                               name="quantityNew"
                             />
                           </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12" style="margin-bottom: 15px">
+                          <!-- <p class="aditional-label">Aditional Info:</p> -->
+                          <button
+                            class="btn btn-primary"
+                            mat-button
+                            mat-raised-button
+                            (click)="addAditionalInfo()"
+                            type="button"
+                          >
+                            <i class="material-icons">add</i>
+                            Add Aditional Info
+                          </button>
+                          <mat-divider></mat-divider>
+                        </div>
+                        <div class="col-md-12">
+                          <form [formGroup]="aditionalInfoMapFormGroup">
+                            <div
+                              class="inner-row col-md-6"
+                              formArrayName="aditionalInfoMap"
+                              *ngFor="
+                                let aditionalInfo of aditionalInfoMapFormGroup.get('aditionalInfoMap')['controls'];
+                                let i = index
+                              "
+                            >
+                              <div [formGroupName]="i" class="card inner">
+                                <div class="card-header">
+                                  <button
+                                    class="btn btn-remove-item float-right"
+                                    mat-button
+                                    mat-raised-button
+                                    (click)="removeAditionalInfo(i)"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">highlight_off</i>
+                                  </button>
+                                </div>
+                                <div class="card-body">
+                                  <mat-form-field>
+                                    <mat-label>Key</mat-label>
+                                    <input matInput formControlName="key" placeholder="Key" />
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Value</mat-label>
+                                    <input matInput formControlName="value" placeholder="Value" />
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
