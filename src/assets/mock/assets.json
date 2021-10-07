@@ -16,19 +16,19 @@
             "status":"Sold",
             "quantity":"4",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Harvest" : "june-2021", 
-               "Method" : "selective",
-               "Name01" : "Name01",
-               "Name02" : "Name02",
-               "Name03" : "Name03",
-               "Name04" : "Name04",
-               "Name05" : "Name05",
-               "Name06" : "Name06",
-               "Name07" : "Name07",
-               "Name08" : "Name08",
-               "Name09" : "Name09"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Harvest", "value" : "june-2021"},
+               {"key" : "Method", "value" : "selective"},
+               {"key" : "Name01", "value" : "Name01"},
+               {"key" : "Name02", "value" : "Name02"},
+               {"key" : "Name03", "value" : "Name03"},
+               {"key" : "Name04", "value" : "Name04"},
+               {"key" : "Name05", "value" : "Name05"},
+               {"key" : "Name06", "value" : "Name06"},
+               {"key" : "Name07", "value" : "Name07"},
+               {"key" : "Name08", "value" : "Name08"},
+               {"key" : "Name09", "value" : "Name09"}
+            ]
          },
          {
             "assetItemID":"600c17ca-9b87-4769-9038-d9899989ab42",
@@ -43,10 +43,10 @@
             "status":"Order initiated",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Harvest" : "june-2021", 
-               "Method" : "stripes"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Harvest", "value" : "june-2021"},
+               {"key" : "Method", "value" : "stripes"}
+            ]
          },
          {
             "assetItemID":"10043c19-baab-4083-bf52-bcb1e0009475",
@@ -61,10 +61,11 @@
             "status":"Sold",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Batch" : "202106COF89b0cede", 
-               "Type" : "Arabica"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Batch", "value" : "202106COF89b0cede"},
+               {"key" : "Type", "value" : "Arabica"}
+            ]
+
          },
          {
             "assetItemID":"ff446b7b-3709-41f2-9839-e6abe6912158",
@@ -79,10 +80,10 @@
             "status":"Sold",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Batch" : "202106COF2c84b80a", 
-               "Type" : "Robusta"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Batch", "value" : "202106COF2c84b80a"},
+               {"key" : "Type", "value" : "Robusta"}
+            ]
          },
          {
             "assetItemID":"64be1ff8-8981-427c-b065-c424576b814d",
@@ -97,10 +98,10 @@
             "status":"Exported",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Received date" : "04/21/2021", 
-               "Barcode" : "653654758692"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Received date", "value" : "04/21/2021"},
+               {"key" : "Barcode", "value" : "653654758692"}
+            ]
          },
          {
             "assetItemID":"ae70c071-f07f-45f7-8221-c82437112c31",
@@ -115,10 +116,10 @@
             "status":"Exported",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Customer id" : "001.565.335-86", 
-               "Customer doc type" : "CPF"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Customer id", "value" : "001.565.335-86"},
+               {"key" : "Customer doc type", "value" : "CPF"}
+            ]
          },
          {
             "assetItemID":"7acd4a8e-25a5-475c-9262-04653ead5b1a",
@@ -133,10 +134,10 @@
             "status":"Exported",
             "quantity":"2",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Received date" : "04/21/2021", 
-               "Barcode" : "036895378962"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Received date", "value" : "04/21/2021"},
+               {"key" : "Barcode", "value" : "036895378962"}
+            ]
          },
          {
             "assetItemID":"6014a546-3c4a-482f-916e-08a481b61204",
@@ -151,10 +152,10 @@
             "status":"Exported",
             "quantity":"1",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Received date" : "05/01/2021", 
-               "Barcode" : "137869369452"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Received date", "value" : "05/01/2021"},
+               {"key" : "Barcode", "value" : "137869369452"}
+            ]
          },
          {
             "assetItemID":"c4eaa4b1-2c6b-49d3-95d9-af41c7379932",
@@ -169,10 +170,10 @@
             "status":"Exported",
             "quantity":"1",
             "deleted":false,
-            "aditionalInfoMap":{
-               "Received date" : "04/11/2021", 
-               "Barcode" : "634786356982"
-            }
+            "aditionalInfoMap":[
+               {"key" : "Received date", "value" : "04/11/2021"},
+               {"key" : "Barcode", "value" : "634786356982"}
+            ]
          }
       ],
       "actors":[
@@ -181,54 +182,42 @@
             "actorType":"Extractor",
             "actorName":"James JohnsonX9",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"036c6611-49b7-4ed2-9521-57bffa05ebe5",
             "actorType":"Manufacturer",
             "actorName":"Donald Jackson",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"91ea1472-12d6-4275-b7f2-7b6b3f640138",
             "actorType":"Distributor",
             "actorName":"Elizabeth Taylor",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"1c0ef67f-566d-4818-8f87-fca135443ca7",
             "actorType":"Distributor",
             "actorName":"Charlotte O'Neill",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"e2219c06-cd6e-4102-acf6-65f8d983d011",
             "actorType":"Retailer",
             "actorName":"bigSales",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"75e55075-32d2-4c78-b88f-7655a753b4ce",
             "actorType":"Customer",
             "actorName":"Allan Manoel Jr.",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          }
       ],
       "steps":[
@@ -238,9 +227,7 @@
             "stepOrder":1,
             "actorType":"Extractor",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "stepID":"a206d480-4466-4948-9b71-944787df79f0",
@@ -248,9 +235,7 @@
             "stepOrder":2,
             "actorType":"Manufacturer",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "stepID":"d1192c44-cf96-487f-a1d1-74cd4bccd7ec",
@@ -258,9 +243,7 @@
             "stepOrder":3,
             "actorType":"Distributor",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "stepID":"4fd6ed94-7a11-4b6c-95de-6bd3e5a00637",
@@ -268,9 +251,7 @@
             "stepOrder":4,
             "actorType":"Retailer",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "stepID":"7bfbc8ef-59b7-43d9-b13f-ac5ce405bbfb",
@@ -278,15 +259,11 @@
             "stepOrder":5,
             "actorType":"Customer",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          }
       ],
       "deleted":false,
-      "aditionalInfoMap":{
-         
-      }
+      "aditionalInfoMap":[]
    },
    {
       "assetID":"5e531f30-83c3-4ed9-a5ce-22594924189b",
@@ -305,9 +282,7 @@
             "status":"Order initiated",
             "quantity":"100",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          }
       ],
       "actors":[
@@ -316,18 +291,14 @@
             "actorType":"Raw Material",
             "actorName":"Andrew O'connell",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "actorID":"86b7d449-1108-4580-a8c2-fd6e937b1f56",
             "actorType":"Producer",
             "actorName":"Olivia Jones",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          }
       ],
       "steps":[
@@ -337,9 +308,7 @@
             "stepOrder":1,
             "actorType":"Raw Material",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          },
          {
             "stepID":"c1366576-60ca-4145-a499-b821ffdfeb86",
@@ -347,14 +316,10 @@
             "stepOrder":2,
             "actorType":"Producer",
             "deleted":false,
-            "aditionalInfoMap":{
-               
-            }
+            "aditionalInfoMap":[]
          }
       ],
       "deleted":false,
-      "aditionalInfoMap":{
-         
-      }
+      "aditionalInfoMap":[]
    }
 ]
