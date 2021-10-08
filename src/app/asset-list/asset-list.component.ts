@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as assetsJson from "../../assets/mock/assets.json";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NotificationService } from 'app/services/notification.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 //declare var $: any;
 @Component({
@@ -26,7 +27,8 @@ export class AssetListComponent implements OnInit {
     private assetService: AssetService,
     private modalService: BsModalService,
     private notificationServiceService: NotificationService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -37,9 +39,19 @@ export class AssetListComponent implements OnInit {
   }
 
   reloadData() {
-    //this.assets = this.assetService.getAssetList();
-    this.assets =  assetsJson['default'];
-    console.log("assets: ", this.assets);
+    this.spinner.show();
+    this.assetService.getAssetList().subscribe(
+      data => {
+        this.assets = data['data'];
+        console.log("assets: ", this.assets);
+        //this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset List failed. Please try again.');
+        //this.spinner.hide();
+      }
+    );
   }
 
   openModal(template: TemplateRef<any>, asset: any) {

@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,7 +8,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +33,7 @@ import { StepDetailsComponent } from './step-details/step-details.component';
 import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.component';
 import { DiagramComponent } from './diagram/diagram.component';
 import { InspectorComponent } from './inspector/inspector.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 //LOGIN MODULES
 import { BrowserModule } from '@angular/platform-browser';
@@ -74,6 +76,8 @@ import { AuditComponent } from './audit/audit.component';
     MatNativeDateModule,
     MatIconModule,
     BrowserModule,
+    NgxSpinnerModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     AppComponent,
@@ -105,5 +109,6 @@ import { AuditComponent } from './audit/audit.component';
   ],
   bootstrap: [AppComponent],
   entryComponents: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
