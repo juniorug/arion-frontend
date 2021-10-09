@@ -1,8 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { Asset } from '@app/models/asset';
+import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { NotificationService } from 'app/services/notification.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-asset',
@@ -20,10 +23,17 @@ export class CreateAssetComponent implements OnInit {
   steps: FormArray;
   actorTypes: string[];
 
+  asset: Asset;
 
-  constructor(private _formBuilder: FormBuilder, private _ref: ChangeDetectorRef, private notificationServiceService: NotificationService) {
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _ref: ChangeDetectorRef, 
+    private notificationServiceService: NotificationService, 
+    private assetService: AssetService,
+    private spinner: NgxSpinnerService
+  ) {
     this.assetFormGroup = this._formBuilder.group({
-      id: [''],
+      assetID: [''],
       assetName: [''],
       description: ['']
     });
@@ -44,9 +54,9 @@ export class CreateAssetComponent implements OnInit {
 
   createActor(): FormGroup {
     return this._formBuilder.group({
-      id: [''],
-      name: [''],
-      type: ['']
+      actorID: [''],
+      actorName: [''],
+      actorType: ['']
     });
   }
 
@@ -67,15 +77,15 @@ export class CreateAssetComponent implements OnInit {
   updateActorTypes() {
     this.actorTypes = new Array();
     this.actorTypes = this.actorsFormGroup.get('actors').value
-      .map(actor => actor.type)
+      .map(actor => actor.actorType)
       .filter((value, index, self) => self.indexOf(value) === index);
   }
 
   createStep(): FormGroup {
     return this._formBuilder.group({
-      id: [''],
-      name: [''],
-      order: [''],
+      stepID: [''],
+      stepName: [''],
+      stepOrder: [''],
       actorType: ['']
     });
   }
@@ -84,8 +94,8 @@ export class CreateAssetComponent implements OnInit {
     this.steps = this.stepsFormGroup.get('steps') as FormArray;
     this.steps.push(this.createStep());
     this._ref.detectChanges();
-    for (let i = 0; i < this.steps.value.length; i++  ) {
-      this.steps.value[i]['order'] = i + 1;
+    for ( let i = 0; i < this.steps.value.length; i++ ) {
+      this.steps.value[i]['stepOrder'] = i + 1;
     }
   }
 
@@ -98,7 +108,7 @@ export class CreateAssetComponent implements OnInit {
   updateStepOrder() {
     this.steps = this.stepsFormGroup.get('steps') as FormArray;
     for (let i = 0; i < this.steps.value.length; i++  ) {
-      this.steps.value[i]['order'] = i + 1;
+      this.steps.value[i]['stepOrder'] = i + 1;
     }
     
   }
@@ -123,14 +133,32 @@ export class CreateAssetComponent implements OnInit {
   }
 
   createAsset() {
+    this.spinner.show();
     this.updateStepOrder();
     console.log("assetFormGroup", this.assetFormGroup.value);
     console.log("actorsFormGroup", this.actorsFormGroup.value);
     console.log("stepsFormGroup", this.stepsFormGroup.value);
 
-    this.gotoAssetList();
-    this.notificationServiceService.showNotification('success', 'Asset succesfully created');
+    this.asset = new Asset();
+    this.asset = this.assetFormGroup.value;
+    this.asset.actors = this.actorsFormGroup.value.actors;
+    this.asset.steps = this.stepsFormGroup.value.steps;
 
+    console.log("Asset to be created: ", JSON.stringify(this.asset));
+
+    this.assetService.createAsset(this.asset).subscribe(
+      data => {
+        console.log(data);
+        //this.gotoAssetList();
+        this.spinner.hide();
+        this.notificationServiceService.showNotification('success', 'Asset succesfully created');
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'Create Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
   }
 
   gotoAssetList() {

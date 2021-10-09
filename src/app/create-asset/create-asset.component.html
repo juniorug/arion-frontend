@@ -28,7 +28,7 @@ type="ball-spin-clockwise"
                     <div class="col-md-4">
                       <mat-form-field>
                         <mat-label>Asset ID</mat-label>
-                        <input matInput formControlName="id" placeholder="A new ID will be generated if not provided" />
+                        <input matInput formControlName="assetID" placeholder="A new ID will be generated if not provided" />
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
@@ -99,15 +99,15 @@ type="ball-spin-clockwise"
                         <div class="card-body">
                           <mat-form-field>
                             <mat-label>Id</mat-label>
-                            <input matInput formControlName="id" placeholder="Actor ID" />
+                            <input matInput formControlName="actorID" placeholder="Actor ID" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Name</mat-label>
-                            <input matInput formControlName="name" placeholder="Name" />
+                            <input matInput formControlName="actorName" placeholder="Name" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Type</mat-label>
-                            <input matInput formControlName="type" placeholder="Type" />
+                            <input matInput formControlName="actorType" placeholder="Type" />
                           </mat-form-field>
                         </div>
                       </div>
@@ -182,15 +182,15 @@ type="ball-spin-clockwise"
                         <div class="card-body">
                           <mat-form-field>
                             <mat-label>Id</mat-label>
-                            <input matInput formControlName="id" placeholder="Step ID" />
+                            <input matInput formControlName="stepID" placeholder="Step ID" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Name</mat-label>
-                            <input matInput formControlName="name" placeholder="Name" />
+                            <input matInput formControlName="stepName" placeholder="Name" />
                           </mat-form-field>
                           <mat-form-field class="invisible">
                             <mat-label>order</mat-label>
-                            <input matInput formControlName="order" value="{{ j }}" />
+                            <input matInput formControlName="stepOrder" value="{{ j }}" />
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Actor Type</mat-label>
@@ -289,9 +289,9 @@ type="ball-spin-clockwise"
                   >
                     <div class="card inner">
                       <div class="card-body">
-                        <p><strong>Id: </strong>{{ actor['id'] }}</p>
-                        <p><strong>Name: </strong>{{ actor['name'] }}</p>
-                        <p><strong>Type: </strong>{{ actor['type'] }}</p>
+                        <p><strong>Id: </strong>{{ actor['actorID'] }}</p>
+                        <p><strong>Name: </strong>{{ actor['actorName'] }}</p>
+                        <p><strong>Type: </strong>{{ actor['actorType'] }}</p>
                       </div>
                     </div>
                   </div>
@@ -320,9 +320,9 @@ type="ball-spin-clockwise"
                   >
                     <div class="card inner">
                       <div class="card-body">
-                        <p><strong>Id: </strong>{{ step['id'] }}</p>
-                        <p><strong>Name: </strong>{{ step['name'] }}</p>
-                        <p><strong>Order: </strong>{{ step['order'] }}</p>
+                        <p><strong>Id: </strong>{{ step['stepID'] }}</p>
+                        <p><strong>Name: </strong>{{ step['stepName'] }}</p>
+                        <p><strong>Order: </strong>{{ step['stepOrder'] }}</p>
                         <p><strong>Type: </strong>{{ step['actorType'] }}</p>
                       </div>
                     </div>
