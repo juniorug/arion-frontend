@@ -1,3 +1,9 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.5)"
+size="medium"
+color="#673ab7"
+type="ball-spin-clockwise"
+></ngx-spinner>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -104,31 +110,47 @@
                         <td class="bt-actions">
                           <button
                             (click)="assetItemDetails(asset.assetID, assetItem.assetItemID)"
+                            #tooltip="matTooltip"
+                            matTooltip="Details"
+                            [matTooltipPosition]="'above'"
+                            matTooltipClass="custom-tooltip"
                             class="btn btn-default btn-small"
                             st
                           >
                             <i class="material-icons">search</i>
                           </button>
-                          <button
-                            (click)="editAssetItem(asset.assetID, assetItem.assetItemID)"
+                          <button (click)="editAssetItem(asset.assetID, assetItem.assetItemID)"
+                            #tooltip="matTooltip"
+                            matTooltip="Edit"
+                            [matTooltipPosition]="'above'"
+                            matTooltipClass="custom-tooltip"
                             class="btn btn-default btn-small"
                           >
                             <i class="material-icons">edit</i>
                           </button>
-                          <button
-                            (click)="moveAssetItem(asset.assetID, assetItem.assetItemID)"
+                          <button (click)="moveAssetItem(asset.assetID, assetItem.assetItemID)"
+                            #tooltip="matTooltip"
+                            matTooltip="Move"
+                            [matTooltipPosition]="'above'"
+                            matTooltipClass="custom-tooltip"
                             class="btn btn-default btn-small rotate-90"
                           >
                             <i class="material-icons">alt_route</i>
                           </button>
-                          <button
-                            (click)="trackAssetItem(asset.assetID, assetItem.assetItemID)"
+                          <button (click)="trackAssetItem(asset.assetID, assetItem.assetItemID)"
+                            #tooltip="matTooltip"
+                            matTooltip="Track"
+                            [matTooltipPosition]="'above'"
+                            matTooltipClass="custom-tooltip"
                             class="btn btn-default btn-small"
                           >
                             <i class="material-icons">timeline</i>
                           </button>
-                          <button
-                            (click)="openModal(template, 'Asset Item', assetItem.assetItemID)"
+                          <button (click)="openModal(template, 'Asset Item', assetItem.assetItemID)"
+                            #tooltip="matTooltip"
+                            matTooltip="Delete"
+                            [matTooltipPosition]="'above'"
+                            matTooltipClass="custom-tooltip"
                             class="btn btn-default btn-small"
                           >
                             <i class="material-icons">delete</i>
@@ -151,13 +173,25 @@
                         <p class="card-category">{{ actor.actorType }}</p>
                       </div>
                       <div class="card-footer" style="justify-content: center">
-                        <button (click)="actorDetails(asset.assetID, actor.actorID)" class="btn btn-default" st>
+                        <button (click)="actorDetails(asset.assetID, actor.actorID)" 
+                          matTooltip="Details"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default" st>
                           <i class="material-icons">search</i>
                         </button>
-                        <button (click)="editActor(asset.assetID, actor.actorID)" class="btn btn-default">
+                        <button (click)="editActor(asset.assetID, actor.actorID)" 
+                          matTooltip="Edit"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button (click)="openModal(template, 'Actor', actor.actorID)" class="btn btn-default">
+                        <button (click)="openModal(template, 'Actor', actor.actorID)" 
+                          matTooltip="Delete"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default">
                           <i class="material-icons">delete</i>
                         </button>
                       </div>
@@ -180,13 +214,25 @@
                         </p>
                       </div>
                       <div class="card-footer" style="justify-content: center">
-                        <button (click)="stepDetails(asset.assetID, step.stepID)" class="btn btn-default" st>
+                        <button (click)="stepDetails(asset.assetID, step.stepID)" 
+                          matTooltip="Details"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default" st>
                           <i class="material-icons">search</i>
                         </button>
-                        <button (click)="editStep(asset.assetID, step.stepID)" class="btn btn-default">
+                        <button (click)="editStep(asset.assetID, step.stepID)" 
+                          matTooltip="Edit"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button (click)="openModal(template, 'Step', step.stepID)" class="btn btn-default">
+                        <button (click)="openModal(template, 'Step', step.stepID)" 
+                          matTooltip="Delete"
+                          [matTooltipPosition]="'above'"
+                          matTooltipClass="custom-tooltip"
+                          class="btn btn-default">
                           <i class="material-icons">delete</i>
                         </button>
                       </div>

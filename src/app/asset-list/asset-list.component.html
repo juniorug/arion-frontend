@@ -1,14 +1,10 @@
-<mat-spinner></mat-spinner>
-
-<div class="main-content">
-
-  <ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
+<ngx-spinner
+bdColor="rgba(51,51,51,0.5)"
+size="medium"
+color="#673ab7"
+type="ball-spin-clockwise"
 ></ngx-spinner>
-
+<div class="main-content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -44,13 +40,31 @@
                     <td>{{ asset.actors.length }}</td>
                     <td>{{ asset.steps.length }}</td>
                     <td class="bt-actions">
-                      <button (click)="assetDetails(asset.assetID)" class="btn btn-default btn-small" st>
+                      <button (click)="assetDetails(asset.assetID)" 
+                        #tooltip="matTooltip"
+                        
+                        matTooltip="Asset Details"
+                        [matTooltipPosition]="'above'"
+                        matTooltipClass="custom-tooltip"
+                        class="btn btn-default btn-small" st>
                         <i class="material-icons">search</i>
                       </button>
-                      <button (click)="editAsset(asset.assetID)" class="btn btn-default btn-small">
+                      <button (click)="editAsset(asset.assetID)" 
+                        #tooltip="matTooltip"
+                        
+                        matTooltip="Edit Asset"
+                        [matTooltipPosition]="'above'"
+                        matTooltipClass="custom-tooltip"
+                        class="btn btn-default btn-small">
                         <i class="material-icons">edit</i>
                       </button>
-                      <button (click)="openModal(template, asset)" class="btn btn-default btn-small">
+                      <button (click)="openModal(template, asset)" 
+                        #tooltip="matTooltip"
+                        
+                        matTooltip="Delete Asset"
+                        [matTooltipPosition]="'above'"
+                        matTooltipClass="custom-tooltip"
+                        class="btn btn-default btn-small">
                         <i class="material-icons">delete</i>
                       </button>
                     </td>

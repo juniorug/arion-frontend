@@ -1,3 +1,11 @@
+::ng-deep {
+  .mat-tooltip {
+    color: #fff !important;
+    background-color: #919191 !important;
+    min-width: 100px;
+    margin-bottom: 5px !important;
+  }
+}
 th {
   color: #666;
   color: #212529;
@@ -10,7 +18,7 @@ td {
 .bt-actions {
   width: 280px;
   align-items: center;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 
   .btn.btn-default {

@@ -1,3 +1,9 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.5)"
+size="medium"
+color="#673ab7"
+type="ball-spin-clockwise"
+></ngx-spinner>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -22,10 +28,10 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="currentActor">
                   <p><strong>Owner: </strong>{{ currentActor['actorName'] }}</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="currentStep">
                   <p><strong>Current step: </strong>{{ currentStep['stepName'] }}</p>
                 </div>
               </div>
@@ -58,7 +64,7 @@
                   <h4 class="aditional-label">Aditional Info:</h4>
                   <mat-divider></mat-divider>
                 </div>
-                <div class="col-md-3" *ngFor="let aditionalInfo of assetItem.aditionalInfoMap | keyvalue">
+                <div class="col-md-3" *ngFor="let aditionalInfo of assetItem.aditionalInfoMap">
                   <p>
                     <strong>{{ aditionalInfo.key }}: </strong>{{ aditionalInfo.value }}
                   </p>

@@ -21,3 +21,6 @@ At present, we officially aim to support the last two versions of the following 
 
 [changelog]: ./CHANGELOG.md
 [version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+
+
+nvm use v12.15.0

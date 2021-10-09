@@ -9,6 +9,7 @@ import { AssetService } from 'app/services/asset.service';
 import { NotificationService } from 'app/services/notification.service';
 import { StepService } from 'app/services/step.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
@@ -20,7 +21,7 @@ export class AssetDetailsComponent implements OnInit {
   
   modalRef: BsModalRef;
   message: string;
-  id: number;
+  id: string;
   asset: Asset;
   selectedObjectID: string;
   selectedObjectType: string;
@@ -35,6 +36,7 @@ export class AssetDetailsComponent implements OnInit {
     private assetItemService: AssetItemService,
     private modalService: BsModalService,
     private notificationServiceService: NotificationService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -45,12 +47,23 @@ export class AssetDetailsComponent implements OnInit {
     this.asset = new Asset();
     this.id = this.route.snapshot.params['id'];
     this.reloadData();
+    console.log("AssetDetailsComponent called with Id= ", this.id);
   }
 
   reloadData() {
-    //this.assets = this.assetService.getAssetList();
-    this.asset =  assetsJson['default'].find(asset => asset.assetID === this.id);
-    console.log("asset: ", this.asset);
+    this.spinner.show();
+    this.assetService.getAsset(this.id).subscribe(
+      data => {
+        this.asset = data['data'];
+        console.log("asset: ", this.asset);
+        this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
   }
 
   getOwnerName(assetItem) {

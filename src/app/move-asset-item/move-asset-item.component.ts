@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
@@ -10,6 +11,7 @@ import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as moment from 'moment';
+import { NgxSpinnerService } from 'ngx-spinner';
 import * as assetsJson from "../../assets/mock/assets.json";
 @Component({
   selector: 'app-move-asset-item',
@@ -36,7 +38,9 @@ export class MoveAssetItemComponent implements OnInit {
     private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
-    private _ref: ChangeDetectorRef
+    private _ref: ChangeDetectorRef,
+    private spinner: NgxSpinnerService,
+    private assetService: AssetService
   ) { 
     this.aditionalInfoMapFormGroup = this._formBuilder.group({
       aditionalInfoMap: this._formBuilder.array([  ]) //this.createAditionalInfoForm() 
@@ -44,22 +48,15 @@ export class MoveAssetItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
-
+    this.asset = new Asset();
     this.assetItem = new AssetItem();
     this.newAssetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
     console.log("MoveAssetItemComponent called with assetId= ", this.assetId, " and id= ", this.id, );
-    
-    /* this.assetItemService.getAssetItem(this.id)
-      .subscribe(data => {
-        console.log(data)
-        this.assetItem = data;
-      }, error => console.log(error)); */
     this.reloadData();
   }
 
@@ -110,36 +107,38 @@ export class MoveAssetItemComponent implements OnInit {
   }
 
   reloadData() {
-    //this.assets = this.assetService.getAssetList();
-    this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("asset: ", this.asset);
-    this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-    console.log("assetItem: ", this.assetItem);
-    //let currentStepId = Number(this.assetItem.stepID);
-    this.currentStep =   this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
-    this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (this.currentStep.stepOrder - 1) || step.stepOrder === (this.currentStep.stepOrder + 1) );
-    this.currentActor =  this.asset.actors.find(actor => actor.actorID ===  this.assetItem.ownerID);
-    
-    Object.keys(this.assetItem.aditionalInfoMap).forEach(key => {
-      let value = this.assetItem.aditionalInfoMap[key];
-      this.addAditionalInfoWithKeyValue(key, value)
-    });
-    
-    this.startNewAssetItem();
 
-  }
-
-  getCurrentStepOrder(assetItem) {
-    
+    this.spinner.show();
+    this.assetService.getAsset(this.assetId).subscribe(
+      data => {
+        this.asset = data['data'];
+        console.log("asset: ", this.asset);
+        this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+        console.log("assetItem: ", this.assetItem);
+        this.currentStep =   this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
+        this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (this.currentStep.stepOrder - 1) || step.stepOrder === (this.currentStep.stepOrder + 1) );
+        this.currentActor =  this.asset.actors.find(actor => actor.actorID ===  this.assetItem.ownerID);
+        
+        Object.keys(this.assetItem.aditionalInfoMap).forEach(index => {
+          let item = this.assetItem.aditionalInfoMap[index];
+          this.addAditionalInfoWithKeyValue(item.key, item.value);
+        });
+        this.startNewAssetItem();
+        this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
   }
 
   startNewAssetItem() {
-    //this.newAssetItem = cloneDeep(this.assetItem);
     this.newAssetItem.parentID = this.assetItem.assetItemID;
     this.newAssetItem.stepID = this.assetItem.stepID;
     this.newAssetItem.assetItemID = "";
     this.newAssetItem.processDate = moment().format('YYYY-MM-DDTHH:mm:ss') ;
-    //this.newAssetItem.processDate = new Date().toLocaleString();
   }
 
   onSubmit() {

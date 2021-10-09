@@ -9,6 +9,8 @@ import { Step } from 'app/models/step';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
 import * as assetsJson from "../../assets/mock/assets.json";
+import { AssetService } from '@app/services/asset.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-asset-item',
@@ -17,6 +19,7 @@ import * as assetsJson from "../../assets/mock/assets.json";
 })
 export class CreateAssetItemComponent implements OnInit {
   
+  asset: Asset;
   assetId: string;
   assetItem: AssetItem = new AssetItem();
   allowedActors: Actor[];
@@ -30,7 +33,9 @@ export class CreateAssetItemComponent implements OnInit {
     private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
-    private _ref: ChangeDetectorRef
+    private _ref: ChangeDetectorRef,
+    private spinner: NgxSpinnerService,
+    private assetService: AssetService
   ) { 
     this.assetItemFormGroup = this._formBuilder.group({
       assetItemID: [''],
@@ -54,7 +59,9 @@ export class CreateAssetItemComponent implements OnInit {
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
-
+    this.asset = new Asset();
+    this.assetId = this.route.snapshot.params['assetId'];
+    console.log("EditAssetItemComponent called with assetId= ", this.assetId);
     this.prepareData();
     
   }
@@ -97,16 +104,22 @@ export class CreateAssetItemComponent implements OnInit {
   }
 
   prepareData() {
-    this.assetId = this.route.snapshot.params['assetId'];
-    console.log("EditAssetItemComponent called with assetId= ", this.assetId);
-    let asset: Asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    let firstStep: Step =  asset.steps.find(step => step.stepOrder === 1);
-    this.allowedActors =  asset.actors.filter( actor => actor.actorType ===  firstStep.actorType);
-    console.log("allowedActors= ", this.allowedActors);
-    /* this.assetItem = new AssetItem();
-    this.assetItem.parentID = "0";
-    this.assetItem.stepID = "1";
-    this.assetItem.processDate = new Date().toLocaleString(); */
+    this.spinner.show();
+    this.assetService.getAsset(this.assetId).subscribe(
+      data => {
+        this.asset = data['data'];
+        console.log("asset: ", this.asset);
+        let firstStep: Step = this.asset.steps.find(step => step.stepOrder === 1);
+        this.allowedActors = this.asset.actors.filter( actor => actor.actorType ===  firstStep.actorType);
+        console.log("allowedActors= ", this.allowedActors);
+        this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
     this.assetItemFormGroup.setValue({
       assetItemID: [''],
       parentID: "0",
@@ -145,7 +158,7 @@ export class CreateAssetItemComponent implements OnInit {
     this.transformFormsToAssetItem();
     console.log("assetItem sent: ", this.assetItem);
     this.notificationServiceService.showNotification('success', 'Asset Item succesfully created');
-    //history.back();
+    history.back();
   }
 
   transformFormsToAssetItem() {

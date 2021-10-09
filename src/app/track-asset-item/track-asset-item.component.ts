@@ -5,6 +5,9 @@ import { AssetItem } from 'app/models/asset-item';
 import { AssetItemService } from 'app/services/asset-item.service';
 import * as assetsJson from "../../assets/mock/assets.json";
 import * as go from 'gojs';
+import { AssetService } from '@app/services/asset.service';
+import { NotificationService } from '@app/services/notification.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -30,7 +33,10 @@ export class TrackAssetItemComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private assetItemService: AssetItemService
+    private assetItemService: AssetItemService,
+    private spinner: NgxSpinnerService,
+    private assetService: AssetService,
+    private notificationServiceService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -38,17 +44,11 @@ export class TrackAssetItemComponent implements OnInit {
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
-
+    this.asset = new Asset();
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
     console.log("TrackAssetItemComponent called with assetId=", this.assetId, " and id=", this.id, );
-    
-    /* this.assetItemService.getAssetItem(this.id)
-      .subscribe(data => {
-        console.log(data)
-        this.assetItem = data;
-      }, error => console.log(error)); */
     this.reloadData();
     this.model = new go.TreeModel(this.threeModel);
     console.log("this.model: ", this.model);
@@ -56,26 +56,35 @@ export class TrackAssetItemComponent implements OnInit {
   }
 
   reloadData() {
-    //this.assets = this.assetService.getAssetList();
-    this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("this.asset : ", this.asset);
-    
-    this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-    console.log("this.assetItem : ", this.assetItem);
-    this.trackedItems = new Array();
-    //get the tree of children of given assetItem including itself
-    this.getTree(this.assetItem).forEach(child => {
-      this.trackedItems.push(child);
-    });
-    //get ancestrals of the  given assetItem
-    let parent: AssetItem = this.assetItem; 
-    while (parent.parentID !== '0') {
-      parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
-      this.trackedItems.push(parent);
-    }
-    //convert the tree data to the tree model used in the diagram
-    this.convertTrackedItemsToTreeModel();
-    this.selectedAssetItem = this.threeModel.find(model => model.key === this.assetItem.assetItemID);
+    this.spinner.show();
+    this.assetService.getAsset(this.assetId).subscribe(
+      data => {
+        this.asset = data['data'];
+        console.log("this.asset : ", this.asset);
+        this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+        console.log("this.assetItem : ", this.assetItem);
+        this.trackedItems = new Array();
+        //get the tree of children of given assetItem including itself
+        this.getTree(this.assetItem).forEach(child => {
+          this.trackedItems.push(child);
+        });
+        //get ancestrals of the  given assetItem
+        let parent: AssetItem = this.assetItem; 
+        while (parent.parentID !== '0') {
+          parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
+          this.trackedItems.push(parent);
+        }
+        //convert the tree data to the tree model used in the diagram
+        this.convertTrackedItemsToTreeModel();
+        this.selectedAssetItem = this.threeModel.find(model => model.key === this.assetItem.assetItemID);
+        this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
   }
 
   getTree(assetItem: AssetItem) : AssetItem[] {

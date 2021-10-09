@@ -35,6 +35,18 @@ span.material-icons {
   color: #f44336;
   font-size: 75px;
 }
+.btn-small {
+  border-radius: 50% !important;
+}
+
+::ng-deep {
+  .mat-tooltip {
+    color: #fff !important;
+    background-color: #919191 !important;
+    min-width: 100px;
+    margin-bottom: 5px !important;
+  }
+}
 
 @media (min-width: 768px) {
   .modal-confirm {

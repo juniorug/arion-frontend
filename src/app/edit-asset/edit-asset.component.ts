@@ -4,6 +4,7 @@ import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetService } from 'app/services/asset.service';
 import { NotificationService } from 'app/services/notification.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
@@ -20,8 +21,9 @@ export class EditAssetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private spinner: NgxSpinnerService,
     private assetService: AssetService,
-    private notificationServiceService: NotificationService
+    private notificationServiceService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -32,19 +34,23 @@ export class EditAssetComponent implements OnInit {
     this.asset = new Asset();
     this.assetId = this.route.snapshot.params['id'];
     console.log("EditAssetComponent called with assetId= ", this.assetId);
-
-    /* this.assetService.getasset(this.assetId)
-      .subscribe(data => {
-        console.log(data)
-        this.asset = data;
-      }, error => console.log(error)); */
-      this.reloadData();
+    this.reloadData();
   }
 
   reloadData() {
-    //this.assets = this.assetService.getAssetList();
-    this.asset =  assetsJson['default'].find(assetUpper => assetUpper.assetID === this.assetId);
-    console.log("asset: ", this.asset);
+    this.spinner.show();
+    this.assetService.getAsset(this.assetId).subscribe(
+      data => {
+        this.asset = data['data'];
+        console.log("asset: ", this.asset);
+        this.spinner.hide();
+      },
+      error => {
+        console.log(error);
+        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
+        this.spinner.hide();
+      }
+    );
   }
 
   onSubmit() {

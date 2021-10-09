@@ -42,14 +42,14 @@ export class AssetListComponent implements OnInit {
     this.spinner.show();
     this.assetService.getAssetList().subscribe(
       data => {
-        this.assets = data['data'];
+        this.assets = data['data'].sort((a, b) => a.assetID.localeCompare(b.assetID));
         console.log("assets: ", this.assets);
-        //this.spinner.hide();
+        this.spinner.hide();
       },
       error => {
         console.log(error);
         this.notificationServiceService.showNotification('danger', 'get Asset List failed. Please try again.');
-        //this.spinner.hide();
+        this.spinner.hide();
       }
     );
   }

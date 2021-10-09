@@ -34,6 +34,7 @@ import { TrackAssetItemComponent } from './track-asset-item/track-asset-item.com
 import { DiagramComponent } from './diagram/diagram.component';
 import { InspectorComponent } from './inspector/inspector.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 //LOGIN MODULES
 import { BrowserModule } from '@angular/platform-browser';
@@ -78,6 +79,7 @@ import { AuditComponent } from './audit/audit.component';
     BrowserModule,
     NgxSpinnerModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
   ],
   declarations: [
     AppComponent,
