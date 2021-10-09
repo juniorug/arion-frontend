@@ -26,6 +26,7 @@ export class DiagramComponent {
   }
 
   public ngAfterViewInit() {
+    console.log("model: ", this.model);
     this.diagram = $(go.Diagram, 'myDiagramDiv',
       {
         layout:

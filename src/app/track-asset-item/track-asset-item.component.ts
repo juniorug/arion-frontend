@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
 import { AssetItemService } from 'app/services/asset-item.service';
-import * as assetsJson from "../../assets/mock/assets.json";
-import * as go from 'gojs';
 import { AssetService } from '@app/services/asset.service';
 import { NotificationService } from '@app/services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as go from 'gojs';
+import { DataService } from '@app/services/data.service';
 
 
 @Component({
@@ -36,8 +36,11 @@ export class TrackAssetItemComponent implements OnInit {
     private assetItemService: AssetItemService,
     private spinner: NgxSpinnerService,
     private assetService: AssetService,
+    private dataService: DataService,
     private notificationServiceService: NotificationService
   ) { }
+
+
 
   ngOnInit(): void {
     this.selectedNode = null;
@@ -48,7 +51,7 @@ export class TrackAssetItemComponent implements OnInit {
     this.assetItem = new AssetItem();
     this.assetId = this.route.snapshot.params['assetId'];
     this.id = this.route.snapshot.params['id'];
-    console.log("TrackAssetItemComponent called with assetId=", this.assetId, " and id=", this.id, );
+    console.log("TrackAssetItemComponent called with assetId=", this.assetId, " and id=", this.id);
     this.reloadData();
     this.model = new go.TreeModel(this.threeModel);
     console.log("this.model: ", this.model);
@@ -57,34 +60,30 @@ export class TrackAssetItemComponent implements OnInit {
 
   reloadData() {
     this.spinner.show();
-    this.assetService.getAsset(this.assetId).subscribe(
-      data => {
-        this.asset = data['data'];
-        console.log("this.asset : ", this.asset);
-        this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
-        console.log("this.assetItem : ", this.assetItem);
-        this.trackedItems = new Array();
-        //get the tree of children of given assetItem including itself
-        this.getTree(this.assetItem).forEach(child => {
-          this.trackedItems.push(child);
-        });
-        //get ancestrals of the  given assetItem
-        let parent: AssetItem = this.assetItem; 
-        while (parent.parentID !== '0') {
-          parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
-          this.trackedItems.push(parent);
-        }
-        //convert the tree data to the tree model used in the diagram
-        this.convertTrackedItemsToTreeModel();
-        this.selectedAssetItem = this.threeModel.find(model => model.key === this.assetItem.assetItemID);
-        this.spinner.hide();
-      },
-      error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
-      }
-    );
+    this.asset =  this.dataService.getSharedAsset();
+    if (this.asset == null) {
+      console.log("SharedAsset is null, will return back");
+      this.errorNoSharedAssetInLocalStorage();
+    }
+    console.log("this.asset : ", this.asset);
+    
+    this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+    console.log("this.assetItem : ", this.assetItem);
+    this.trackedItems = new Array();
+    //get the tree of children of given assetItem including itself
+    this.getTree(this.assetItem).forEach(child => {
+      this.trackedItems.push(child);
+    });
+    //get ancestrals of the  given assetItem
+    let parent: AssetItem = this.assetItem; 
+    while (parent.parentID !== '0') {
+      parent = this.asset.assetItems.find(assetItem => assetItem.assetItemID === parent.parentID)
+      this.trackedItems.push(parent);
+    }
+    //convert the tree data to the tree model used in the diagram
+    this.convertTrackedItemsToTreeModel();
+    this.selectedAssetItem = this.threeModel.find(model => model.key === this.assetItem.assetItemID);
+    this.spinner.hide(); 
   }
 
   getTree(assetItem: AssetItem) : AssetItem[] {
@@ -126,7 +125,6 @@ export class TrackAssetItemComponent implements OnInit {
         }
       );
     }
-    //console.log("this.threeModel: ", this.threeModel);
   }
 
   public setSelectedNode(node) {
@@ -135,8 +133,12 @@ export class TrackAssetItemComponent implements OnInit {
     } else {
       this.selectedAssetItem =  null;
     }
-    /* let currentNode = this.asset.actors.find( actor => actor.actorID === item.ownerID); */
     this.selectedNode =  new AssetItem() ;
+  }
+
+  errorNoSharedAssetInLocalStorage() {
+    this.notificationServiceService.showNotification('danger', 'Error loading track asset item. Please try again.')
+    history.back();
   }
   
   ngOnDestroy(): void {

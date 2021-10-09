@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '@app/services/data.service';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
 import { ActorService } from 'app/services/actor.service';
@@ -33,6 +34,7 @@ export class AssetDetailsComponent implements OnInit {
     private assetService: AssetService,
     private actorService: ActorService,
     private stepService: StepService,
+    private dataService: DataService,
     private assetItemService: AssetItemService,
     private modalService: BsModalService,
     private notificationServiceService: NotificationService,
@@ -177,6 +179,7 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   trackAssetItem(assetId: number, id: number){
+    this.dataService.setSharedAsset(this.asset);
     this.router.navigate(['track-asset-item', assetId, id]);
   }
 
