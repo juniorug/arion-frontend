@@ -1,8 +1,14 @@
+import { AditionalInfo } from "./aditional-info";
+
 export class Step {
     stepID: string;
     stepName: string;
     stepOrder: number;
     actorType: string;
     deleted: boolean;
-    aditionalInfoMap: Map<string,string>;
+    aditionalInfoMap: AditionalInfo[];
+
+    constructor(){
+        this.aditionalInfoMap = [];
+    }
 }

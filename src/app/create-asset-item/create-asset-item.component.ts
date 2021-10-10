@@ -11,6 +11,7 @@ import { NotificationService } from 'app/services/notification.service';
 import * as assetsJson from "../../assets/mock/assets.json";
 import { AssetService } from '@app/services/asset.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AditionalInfo } from '@app/models/aditional-info';
 
 @Component({
   selector: 'app-create-asset-item',
@@ -178,12 +179,15 @@ export class CreateAssetItemComponent implements OnInit {
     this.assetItem.status = assetItemFormRawValue.status;
     this.assetItem.quantity = assetItemFormRawValue.quantity;
     this.assetItem.deleted = false;
-    this.assetItem.aditionalInfoMap = new Map();
+    this.assetItem.aditionalInfoMap = [];
     aditionalInfoFormRawValue.forEach(element => {
       console.log("aditionalInfoFormRawValue.foreach. [Key: ", element.key, "][value: ", element.value, "]");
       if (element.key && element.value) {
+        let aditionalInfo = new AditionalInfo();
+        aditionalInfo.key = element.key;
+        aditionalInfo.value = element.value;
         console.log("inside if key/value");
-        this.assetItem.aditionalInfoMap.set(element.key, element.value);
+        this.assetItem.aditionalInfoMap.push(aditionalInfo);
       }
     });
   }

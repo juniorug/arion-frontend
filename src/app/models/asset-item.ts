@@ -1,3 +1,5 @@
+import { AditionalInfo } from "./aditional-info";
+
 export class AssetItem {
    assetItemID: string;
    stepID: string;
@@ -11,6 +13,9 @@ export class AssetItem {
    status: number;
    quantity: string;
    deleted: boolean;
-   aditionalInfoMap: Map<string,string>;
-   //aditionalInfoMap: string[][];
+   aditionalInfoMap: AditionalInfo[];
+
+   constructor(){
+      this.aditionalInfoMap = [];
+   }
 }

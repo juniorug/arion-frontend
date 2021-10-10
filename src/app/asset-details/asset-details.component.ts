@@ -42,6 +42,7 @@ export class AssetDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //TODO: verificar chamada aos services!!!
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });

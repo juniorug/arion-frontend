@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AditionalInfo } from '@app/models/aditional-info';
 import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
@@ -144,11 +145,14 @@ export class EditAssetItemComponent implements OnInit {
 
   transformFormsToAssetItem() {
     let aditionalInfoFormRawValue = this.aditionalInfoMapFormGroup.value.aditionalInfoMap;
-    this.assetItem.aditionalInfoMap = new Map();
+    this.assetItem.aditionalInfoMap = [];
     aditionalInfoFormRawValue.forEach(element => {
       if (element.key && element.value) {
+        let aditionalInfo = new AditionalInfo();
+        aditionalInfo.key = element.key;
+        aditionalInfo.value = element.value;
         console.log("inside if key/value");
-        this.assetItem.aditionalInfoMap.set(element.key, element.value);
+        this.assetItem.aditionalInfoMap.push(aditionalInfo);
       }
     });
   }

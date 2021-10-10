@@ -1,6 +1,7 @@
 import {Actor} from "./actor";
 import {Step} from "./step";
 import {AssetItem} from "./asset-item";
+import { AditionalInfo } from "./aditional-info";
 
 export class Asset {
     assetID: string;
@@ -10,5 +11,12 @@ export class Asset {
     actors: Actor[];
     steps: Step[];
     deleted: boolean;
-    aditionalInfoMap: Map<string,string>;
+    aditionalInfoMap: AditionalInfo[];
+
+    constructor(){
+        this.assetItems = [];
+        this.actors = [];
+        this.steps = [];
+        this.aditionalInfoMap = [];
+    }
 }

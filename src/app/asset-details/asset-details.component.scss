@@ -91,6 +91,23 @@ th:last-child {
   transform: rotate(90deg);
 }
 
+.col-md-12.text-center {
+  height: 185px;
+
+  span {
+    color: rgb(184, 184, 184);
+    letter-spacing: 0.49px;
+    line-height: 1.4;
+    display: block;
+    margin-block-start: 75px;
+    margin-block-end: 75px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
+
 @media (min-width: 768px) {
   .modal-confirm {
     max-width: 500px;

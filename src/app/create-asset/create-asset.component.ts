@@ -149,7 +149,7 @@ export class CreateAssetComponent implements OnInit {
     this.assetService.createAsset(this.asset).subscribe(
       data => {
         console.log(data);
-        //this.gotoAssetList();
+        this.gotoAssetList();
         this.spinner.hide();
         this.notificationServiceService.showNotification('success', 'Asset succesfully created');
       },

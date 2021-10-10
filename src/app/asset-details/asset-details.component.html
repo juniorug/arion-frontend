@@ -78,7 +78,7 @@ type="ball-spin-clockwise"
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane active" id="asset-items">
-                <div class="table-responsive">
+                <div class="table-responsive" *ngIf="asset.assetItems.length > 0">
                   <table class="table">
                     <thead class="text-primary">
                       <th>ID</th>
@@ -159,6 +159,11 @@ type="ball-spin-clockwise"
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div *ngIf="asset.assetItems.length == 0" class="row">
+                  <div class="col-md-12 text-center">
+                    <span>No Asset Items found.</span>
+                  </div>
                 </div>
               </div>
               <div class="tab-pane" id="actors">

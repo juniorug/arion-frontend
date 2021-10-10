@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AditionalInfo } from '@app/models/aditional-info';
 import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
@@ -158,11 +159,14 @@ export class MoveAssetItemComponent implements OnInit {
 
   transformFormsToAssetItem() {
     let aditionalInfoFormRawValue = this.aditionalInfoMapFormGroup.value.aditionalInfoMap;
-    this.newAssetItem.aditionalInfoMap = new Map();
+    this.newAssetItem.aditionalInfoMap = [];
     aditionalInfoFormRawValue.forEach(element => {
       if (element.key && element.value) {
+        let aditionalInfo = new AditionalInfo();
+        aditionalInfo.key = element.key;
+        aditionalInfo.value = element.value;
         console.log("inside if key/value");
-        this.newAssetItem.aditionalInfoMap.set(element.key, element.value);
+        this.newAssetItem.aditionalInfoMap.push(aditionalInfo);
       }
     });
   }

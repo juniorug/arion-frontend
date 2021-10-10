@@ -42,8 +42,7 @@ type="ball-spin-clockwise"
                     <td class="bt-actions">
                       <button (click)="assetDetails(asset.assetID)" 
                         #tooltip="matTooltip"
-                        
-                        matTooltip="Asset Details"
+                        matTooltip="Details"
                         [matTooltipPosition]="'above'"
                         matTooltipClass="custom-tooltip"
                         class="btn btn-default btn-small" st>
@@ -51,8 +50,7 @@ type="ball-spin-clockwise"
                       </button>
                       <button (click)="editAsset(asset.assetID)" 
                         #tooltip="matTooltip"
-                        
-                        matTooltip="Edit Asset"
+                        matTooltip="Edit"
                         [matTooltipPosition]="'above'"
                         matTooltipClass="custom-tooltip"
                         class="btn btn-default btn-small">
@@ -61,7 +59,7 @@ type="ball-spin-clockwise"
                       <button (click)="openModal(template, asset)" 
                         #tooltip="matTooltip"
                         
-                        matTooltip="Delete Asset"
+                        matTooltip="Delete"
                         [matTooltipPosition]="'above'"
                         matTooltipClass="custom-tooltip"
                         class="btn btn-default btn-small">
