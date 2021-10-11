@@ -155,7 +155,8 @@ export class MoveAssetItemComponent implements OnInit {
         console.log(data);
         this.asset = new Asset();
         this.notificationServiceService.showNotification('success', 'AssetItem succesfully moved');
-        //this.gotoAssetItemList();
+        this.spinner.hide();
+        this.gotoAssetItemList();
       }, 
       error =>  {
         this.handleError(error, 'Update Actor failed. Please try again.');

@@ -134,6 +134,7 @@ export class EditAssetItemComponent implements OnInit {
         console.log(data);
         this.asset = new Asset();
         this.notificationServiceService.showNotification('success', 'AssetItem succesfully edited');
+        this.spinner.hide();
         this.gotoAssetItemList();
       }, 
       error =>  {
