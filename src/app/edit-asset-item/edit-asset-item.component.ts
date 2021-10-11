@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AditionalInfo } from '@app/models/aditional-info';
 import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
 import { Step } from 'app/models/step';
-import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -22,6 +21,7 @@ export class EditAssetItemComponent implements OnInit {
   id: string;
   asset: Asset;
   assetItem: AssetItem;
+  selectedItemIndex: number
   currentStep: Step;
   currentActor: Actor;
   aditionalInfoMapFormGroup: FormGroup;
@@ -29,8 +29,6 @@ export class EditAssetItemComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
     private _ref: ChangeDetectorRef,
@@ -60,8 +58,6 @@ export class EditAssetItemComponent implements OnInit {
       value: ['']
     });
   }
-
-  
 
   addAditionalInfo(): void {
     this.aditionalInfoMap = this.aditionalInfoMapFormGroup.get('aditionalInfoMap') as FormArray;
@@ -108,6 +104,7 @@ export class EditAssetItemComponent implements OnInit {
         this.asset = data['data'];
         console.log("asset: ", this.asset);
         this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+        this.selectedItemIndex = this.asset.assetItems.findIndex(assetItem => assetItem.assetItemID === this.id);
         console.log("assetItem: ", this.assetItem);
         this.currentStep = this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
         console.log("currentStep: ", this.currentStep);
@@ -120,26 +117,29 @@ export class EditAssetItemComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'Get Asset failed. Please try again.');
       }
     );
   }
 
   onSubmit() {
-    /* this.assetItemService.updateAssetItem(this.id, this.assetItem)
-      .subscribe(data => {
-        console.log(data);
-        this.assetItem = new AssetItem();
-        this.gotoList();
-      }, error => console.log(error)); */
-      console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
-      this.transformFormsToAssetItem();
-      console.log("SUBMITED. assetItem: ", this.assetItem);
-      this.notificationServiceService.showNotification('success', 'AssetItem succesfully edited');
-      this.gotoAssetItemList();
+    this.spinner.show();
+    console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
+    this.transformFormsToAssetItem();
+    console.log("SUBMITED. assetItem: ", this.assetItem);
+    this.asset.assetItems[this.selectedItemIndex] = this.assetItem;
 
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
+        console.log(data);
+        this.asset = new Asset();
+        this.notificationServiceService.showNotification('success', 'AssetItem succesfully edited');
+        this.gotoAssetItemList();
+      }, 
+      error =>  {
+        this.handleError(error, 'Update Actor failed. Please try again.');
+      }
+    );
   }
 
   transformFormsToAssetItem() {
@@ -156,6 +156,12 @@ export class EditAssetItemComponent implements OnInit {
     });
   }
   
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
+  }
+
   gotoAssetItemList() {
     history.back();
   }

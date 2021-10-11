@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
 import { Step } from 'app/models/step';
-import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
 import { AssetService } from '@app/services/asset.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,8 +29,6 @@ export class CreateAssetItemComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
     private _ref: ChangeDetectorRef,
@@ -155,7 +152,7 @@ export class CreateAssetItemComponent implements OnInit {
         this.asset = new Asset();
         this.notificationServiceService.showNotification('success', 'Asset Item succesfully created');
         this.spinner.hide();
-        //this.gotoAssetItemList()
+        this.gotoAssetItemList()
 
       }, 
       error =>  {
@@ -180,7 +177,7 @@ export class CreateAssetItemComponent implements OnInit {
     this.assetItem.ownerID = assetItemFormRawValue.actorID;
     this.assetItem.parentID = "0";
     this.assetItem.children = [];
-    this.assetItem.processDate = assetItemFormRawValue.processDate;
+    this.assetItem.processDate = this.formatDate(assetItemFormRawValue.processDate);
     this.assetItem.deliveryDate = assetItemFormRawValue.deliveryDate;
     this.assetItem.orderPrice = assetItemFormRawValue.orderPrice;
     this.assetItem.shippingPrice = assetItemFormRawValue.shippingPrice;
@@ -198,6 +195,27 @@ export class CreateAssetItemComponent implements OnInit {
         this.assetItem.aditionalInfoMap.push(aditionalInfo);
       }
     });
+  }
+
+
+  formatDate(jDate: any) {
+    const date: Date = new Date(jDate);
+    let formatted = 
+      date.getFullYear() + "-" + 
+      this.addZero((date.getMonth()+1)) + "-" + 
+      this.addZero(date.getDate()) + "T" + 
+      this.addZero(date.getHours()) + ":" + 
+      this.addZero(date.getMinutes()) + ":" + 
+      this.addZero(date.getSeconds());
+    console.log("formatted: ", formatted);
+    return formatted
+  }
+
+  addZero(numero){
+    if (numero <= 9) 
+      return "0" + numero;
+    else
+      return numero; 
   }
 
   gotoAssetItemList() {
