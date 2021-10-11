@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AditionalInfo } from '@app/models/aditional-info';
 import { AssetService } from '@app/services/asset.service';
 import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { AssetItem } from 'app/models/asset-item';
 import { Step } from 'app/models/step';
-import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { v4 as uuidv4 } from 'uuid';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as moment from 'moment';
-import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-move-asset-item',
   templateUrl: './move-asset-item.component.html',
@@ -29,13 +29,12 @@ export class MoveAssetItemComponent implements OnInit {
   allowedSteps: Step[];
   allowedActors: Actor[];
   currentActor: Actor;
+  selectedItemIndex: number
   aditionalInfoMapFormGroup: FormGroup;
   aditionalInfoMap: FormArray;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private assetItemService: AssetItemService,
     private notificationServiceService: NotificationService,
     private _formBuilder: FormBuilder, 
     private _ref: ChangeDetectorRef,
@@ -107,13 +106,13 @@ export class MoveAssetItemComponent implements OnInit {
   }
 
   reloadData() {
-
     this.spinner.show();
     this.assetService.getAsset(this.assetId).subscribe(
       data => {
         this.asset = data['data'];
         console.log("asset: ", this.asset);
         this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.id);
+        this.selectedItemIndex = this.asset.assetItems.findIndex(assetItem => assetItem.assetItemID === this.id);
         console.log("assetItem: ", this.assetItem);
         this.currentStep =   this.asset.steps.find( step => step.stepID === this.assetItem.stepID);
         this.allowedSteps =  this.asset.steps.filter( step => step.stepOrder === (this.currentStep.stepOrder - 1) || step.stepOrder === (this.currentStep.stepOrder + 1) );
@@ -127,9 +126,7 @@ export class MoveAssetItemComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'Get Asset Item failed. Please try again.');
       }
     );
   }
@@ -139,20 +136,31 @@ export class MoveAssetItemComponent implements OnInit {
     this.newAssetItem.stepID = this.assetItem.stepID;
     this.newAssetItem.assetItemID = "";
     this.newAssetItem.processDate = moment().format('YYYY-MM-DDTHH:mm:ss') ;
+    this.newAssetItem.children = [];
+    this.assetItem.deleted = false;
   }
 
   onSubmit() {
-    /* this.assetItemService.updateAssetItem(this.id, this.assetItem)
-      .subscribe(data => {
+    this.spinner.show();
+    console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
+    this.transformFormsToAssetItem();
+    this.newAssetItem.assetItemID = (this.newAssetItem.assetItemID)? this.newAssetItem.assetItemID : uuidv4();
+    this.asset.assetItems.push(this.newAssetItem);
+    this.assetItem.children.push(this.newAssetItem.assetItemID);
+    this.asset.assetItems[this.selectedItemIndex] = this.assetItem;
+    console.log("SUBMITED. currentAssetItem: ", this.assetItem);
+    console.log("SUBMITED. assetItem: ", this.newAssetItem);
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
         console.log(data);
-        this.assetItem = new AssetItem();
-        this.gotoList();
-      }, error => console.log(error)); */
-      console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
-      this.transformFormsToAssetItem();
-      console.log("SUBMITED. assetItem: ", this.newAssetItem);
-      this.notificationServiceService.showNotification('success', 'AssetItem succesfully moved');
-      this.gotoAssetItemList();
+        this.asset = new Asset();
+        this.notificationServiceService.showNotification('success', 'AssetItem succesfully moved');
+        //this.gotoAssetItemList();
+      }, 
+      error =>  {
+        this.handleError(error, 'Update Actor failed. Please try again.');
+      }
+    );
 
   }
 
@@ -178,6 +186,18 @@ export class MoveAssetItemComponent implements OnInit {
     console.log("selectedStep= ", selectedStep);
     this.allowedActors =  this.asset.actors.filter( actor => actor.actorType ===  selectedStep.actorType);
     console.log("allowedActors= ", this.allowedActors);
+    this.newAssetItem.stepID = selectedStep.stepID;
+  }
+  getOwnerSelected(event: MatSelectChange): void {
+    console.log("event.value: ", event.value); // get selected value
+    console.log("event.value.actorID: ", event.value.actorID);
+    this.newAssetItem.ownerID = event.value.actorID;
+  }
+
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
   }
 
   gotoAssetItemList() {

@@ -207,18 +207,22 @@ type="ball-spin-clockwise"
                               <mat-option *ngFor="let step of allowedSteps" [value]="step">
                                 <i class="material-icons" *ngIf="step.stepOrder <= currentStep.stepOrder">arrow_back</i>
                                 {{ step.stepName }}
-                                <i class="material-icons" *ngIf="step.stepOrder > currentStep.stepOrder"
-                                  >arrow_forward</i
-                                >
+                                <i class="material-icons" *ngIf="step.stepOrder > currentStep.stepOrder">arrow_forward</i>
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12">
                           <mat-form-field class="example-full-width">
-                            <mat-label>Owner</mat-label>
-                            <mat-select [disabled]="!allowedActors">
-                              <mat-option *ngFor="let actor of allowedActors" [value]="actor.actorID">
+                            <!-- <mat-label>Owner</mat-label> -->
+                            <mat-select 
+                              placeholder="Owner"
+                              [(value)]="selectedOwner"
+                              (selectionChange)="getOwnerSelected($event)"
+                              [disabled]="!allowedActors"
+                            >
+                              <mat-select-trigger>{{ selectedOwner?.actorName }}</mat-select-trigger>
+                              <mat-option *ngFor="let actor of allowedActors" [value]="actor">
                                 <span>{{ actor.actorName }}</span>
                               </mat-option>
                             </mat-select>
