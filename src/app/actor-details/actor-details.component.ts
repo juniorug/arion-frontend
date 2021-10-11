@@ -6,7 +6,6 @@ import { Actor } from 'app/models/actor';
 import { Asset } from 'app/models/asset';
 import { ActorService } from 'app/services/actor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-actor-details',

@@ -13,7 +13,6 @@ import { NotificationService } from 'app/services/notification.service';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 @Component({
   selector: 'app-move-asset-item',
   templateUrl: './move-asset-item.component.html',

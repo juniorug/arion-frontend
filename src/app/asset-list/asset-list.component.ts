@@ -3,10 +3,10 @@ import { Observable } from "rxjs";
 import { AssetService } from "../services/asset.service";
 import { Asset } from "../models/asset";
 import { Router } from '@angular/router';
-import * as assetsJson from "../../assets/mock/assets.json";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NotificationService } from 'app/services/notification.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DataService } from '@app/services/data.service';
 
 //declare var $: any;
 @Component({
@@ -26,6 +26,7 @@ export class AssetListComponent implements OnInit {
   constructor(
     private assetService: AssetService,
     private modalService: BsModalService,
+    private dataService: DataService,
     private notificationServiceService: NotificationService,
     private router: Router,
     private spinner: NgxSpinnerService
@@ -60,12 +61,12 @@ export class AssetListComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-confirm'});
   }
  
-  confirm(): void {
+  confirmDeletion(): void {
     this.message = 'Confirmed!';
     this.assetService.deleteAsset(this.selectedAsset.assetID)
         .subscribe(
           data => {
-            console.log(data);
+            console.log("deleteAsset called. data: ", data);
             this.reloadData();
             this.notificationServiceService.showNotification('success', 'Asset succesfully deleted')
           },
@@ -89,6 +90,7 @@ export class AssetListComponent implements OnInit {
   }
 
   assetDetails(id: string){
+    this.dataService.set('activeTab', 'asset-items');
     this.router.navigate(['asset-details', id]);
   }
 

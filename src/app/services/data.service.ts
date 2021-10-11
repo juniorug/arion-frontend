@@ -28,8 +28,19 @@ export class DataService {
     return false;
   }
 
-  set(key: string, value: string) {
-    this.storage.setItem(key, value);
+  get(key: string) {
+    if (this.storage) {
+      return this.storage.getItem(key);
+    }
+    return null;
+  }
+
+  set(key: string, value: string): boolean {
+    if (this.storage) {
+      this.storage.setItem(key, JSON.stringify(value));
+      return true;
+    }
+    return false;
   }
 
   remove(): boolean {

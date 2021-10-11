@@ -19,9 +19,10 @@ type="ball-spin-clockwise"
                       <a
                         mat-button
                         class="nav-link active"
+                        [ngClass]='{ "active":activeTab==="asset-items"}' 
                         href="#asset-items"
                         data-toggle="tab"
-                        (click)="mustShowCreateAssetItemButton()"
+                        (click)="mustShowCreateAssetItemButton($event)"
                       >
                         <i class="material-icons">list</i> Asset Items
                         <div class="ripple-container"></div>
@@ -31,9 +32,10 @@ type="ball-spin-clockwise"
                       <a
                         mat-button
                         class="nav-link"
+                        [ngClass]='{ "active":activeTab==="actors"}'
                         href="#actors"
                         data-toggle="tab"
-                        (click)="mustHideCreateAssetItemButton()"
+                        (click)="mustHideCreateAssetItemButton('actors', $event)"
                       >
                         <i class="material-icons">person</i> Actors
                         <div class="ripple-container"></div>
@@ -43,9 +45,10 @@ type="ball-spin-clockwise"
                       <a
                         mat-button
                         class="nav-link"
+                        [ngClass]='{ "active":activeTab==="steps"}'
                         href="#steps"
                         data-toggle="tab"
-                        (click)="mustHideCreateAssetItemButton()"
+                        (click)="mustHideCreateAssetItemButton('steps', $event)"
                       >
                         <i class="material-icons">double_arrow</i> Steps
                         <div class="ripple-container"></div>
@@ -56,7 +59,7 @@ type="ball-spin-clockwise"
               </div>
 
               <div class="nav-tabs-navigation col-md-2">
-                <div class="nav-tabs-wrapper float-right" *ngIf="showCreateAssetItemButton">
+                <div class="nav-tabs-wrapper float-right" *ngIf="activeTab==='asset-items'">
                   <ul class="nav nav-tabs">
                     <li class="nav-item fake-primary-button">
                       <a
@@ -77,7 +80,7 @@ type="ball-spin-clockwise"
           </div>
           <div class="card-body">
             <div class="tab-content">
-              <div class="tab-pane active" id="asset-items">
+              <div class="tab-pane active" id="asset-items"  [ngClass]="{ 'active':activeTab==='asset-items'}">
                 <div class="table-responsive" *ngIf="asset.assetItems.length > 0">
                   <table class="table">
                     <thead class="text-primary">
@@ -166,8 +169,8 @@ type="ball-spin-clockwise"
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="actors">
-                <div class="row">
+              <div class="tab-pane" id="actors" [ngClass]="{ 'active':activeTab==='actors'}">
+                <div class="row" *ngIf="asset.actors.length > 0">
                   <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let actor of asset.actors">
                     <div class="card card-stats">
                       <div class="card-header card-header-primary card-header-icon">
@@ -203,9 +206,14 @@ type="ball-spin-clockwise"
                     </div>
                   </div>
                 </div>
+                <div *ngIf="asset.actors.length == 0" class="row">
+                  <div class="col-md-12 text-center">
+                    <span>No Actors found.</span>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane" id="steps">
-                <div class="row">
+              <div class="tab-pane" id="steps" [ngClass]="{ 'active':activeTab==='steps'}">
+                <div class="row"  *ngIf="asset.steps.length > 0">
                   <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let step of asset.steps">
                     <div class="card card-stats">
                       <div class="card-header card-header-primary card-header-icon">
@@ -242,6 +250,11 @@ type="ball-spin-clockwise"
                         </button>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div *ngIf="asset.steps.length == 0" class="row">
+                  <div class="col-md-12 text-center">
+                    <span>No Steps found.</span>
                   </div>
                 </div>
               </div>

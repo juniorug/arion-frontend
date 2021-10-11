@@ -8,7 +8,6 @@ import { AssetItem } from 'app/models/asset-item';
 import { Step } from 'app/models/step';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { NotificationService } from 'app/services/notification.service';
-import * as assetsJson from "../../assets/mock/assets.json";
 import { AssetService } from '@app/services/asset.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AditionalInfo } from '@app/models/aditional-info';
@@ -23,6 +22,7 @@ export class CreateAssetItemComponent implements OnInit {
   asset: Asset;
   assetId: string;
   assetItem: AssetItem = new AssetItem();
+  firstStep: Step;
   allowedActors: Actor[];
   assetItemFormGroup: FormGroup;
   aditionalInfoMapFormGroup: FormGroup;
@@ -39,10 +39,11 @@ export class CreateAssetItemComponent implements OnInit {
     private assetService: AssetService
   ) { 
     this.assetItemFormGroup = this._formBuilder.group({
-      assetItemID: [''],
+      assetItemID: '',
       parentID: new FormControl({ value: '0', disabled: true }),
-      actorID: [''],
-      stepID: new FormControl({ value: '1', disabled: true }),
+      actorID: '',
+      stepID: '',
+      stepOrder: new FormControl({ value: '1', disabled: true }),
       deliveryDate: [''],
       processDate: new FormControl({ value: new Date().toLocaleString(), disabled: true }),
       orderPrice: [''],
@@ -110,22 +111,21 @@ export class CreateAssetItemComponent implements OnInit {
       data => {
         this.asset = data['data'];
         console.log("asset: ", this.asset);
-        let firstStep: Step = this.asset.steps.find(step => step.stepOrder === 1);
-        this.allowedActors = this.asset.actors.filter( actor => actor.actorType ===  firstStep.actorType);
+        this.firstStep = this.asset.steps.find(step => step.stepOrder === 1);
+        this.allowedActors = this.asset.actors.filter( actor => actor.actorType ===  this.firstStep.actorType);
         console.log("allowedActors= ", this.allowedActors);
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'Get Asset Item failed. Please try again.');
       }
     );
     this.assetItemFormGroup.setValue({
-      assetItemID: [''],
+      assetItemID: '',
       parentID: "0",
       actorID: [''],
-      stepID: "1",
+      stepID: [''],
+      stepOrder: "1",
       deliveryDate: [''],
       processDate:  new Date().toLocaleString(),
       orderPrice: [''],
@@ -142,24 +142,32 @@ export class CreateAssetItemComponent implements OnInit {
   
 
   createAssetItem() {
-    /* this.assetItemService.createAssetItem(this.assetItem).subscribe(
-      data => {
-        console.log(data)
-        this.assetItem = new AssetItem();
-        this.notificationServiceService.showNotification('success', 'AssetItem succesfully created');
-        history.back();
-      }, 
-      error =>{
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'Asset item not created. Please try again.')
-      }
-    ); */  
+    this.spinner.show();
     console.log("assetItemFormGroup", this.assetItemFormGroup.getRawValue());
     console.log("aditionalInfoMapFormGroup", this.aditionalInfoMapFormGroup.value);
     this.transformFormsToAssetItem();
     console.log("assetItem sent: ", this.assetItem);
-    this.notificationServiceService.showNotification('success', 'Asset Item succesfully created');
-    history.back();
+    this.asset.assetItems.push(this.assetItem);
+    console.log("Submitted! Updated asset: ", this.asset);
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
+        console.log(data);
+        this.asset = new Asset();
+        this.notificationServiceService.showNotification('success', 'Asset Item succesfully created');
+        this.spinner.hide();
+        //this.gotoAssetItemList()
+
+      }, 
+      error =>  {
+        this.handleError(error, 'Create Asset Item failed. Please try again.');
+      }
+    );
+  }
+  
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
   }
 
   transformFormsToAssetItem() {
@@ -168,7 +176,7 @@ export class CreateAssetItemComponent implements OnInit {
     console.log("aditionalInfoFormRawValue: ", aditionalInfoFormRawValue);
     
     this.assetItem.assetItemID = assetItemFormRawValue.assetItemID;
-    this.assetItem.stepID = "1";
+    this.assetItem.stepID = this.firstStep.stepID;
     this.assetItem.ownerID = assetItemFormRawValue.actorID;
     this.assetItem.parentID = "0";
     this.assetItem.children = [];

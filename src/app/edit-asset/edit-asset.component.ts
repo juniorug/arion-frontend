@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Actor } from 'app/models/actor';
+import { ActivatedRoute } from '@angular/router';
 import { Asset } from 'app/models/asset';
 import { AssetService } from 'app/services/asset.service';
 import { NotificationService } from 'app/services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-edit-asset',
@@ -20,7 +18,6 @@ export class EditAssetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private spinner: NgxSpinnerService,
     private assetService: AssetService,
     private notificationServiceService: NotificationService,
@@ -46,23 +43,31 @@ export class EditAssetComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'Get Asset failed. Please try again.');
       }
     );
   }
 
   onSubmit() {
-    /* this.assetService.updateAsset(this.assetId, this.asset)
-      .subscribe(data => {
+    this.spinner.show();
+    console.log("Submitted! Updated asset: ", this.asset);
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
         console.log(data);
         this.asset = new Asset();
-        this.gotoList();
-      }, error => console.log(error)); */
-      this.notificationServiceService.showNotification('success', 'Asset succesfully edited');
-      this.gotoAssetList();
+        this.notificationServiceService.showNotification('success', 'Asset succesfully edited');
+        this.gotoAssetList();
+      }, 
+      error =>  {
+        this.handleError(error, 'Update Asset failed. Please try again.');
+      }
+    );
+  }
 
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
   }
 
   gotoAssetList() {

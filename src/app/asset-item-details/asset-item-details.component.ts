@@ -7,7 +7,6 @@ import { Step } from 'app/models/step';
 import { AssetItemService } from 'app/services/asset-item.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AssetService } from "../services/asset.service";
-import * as assetsJson from "../../assets/mock/assets.json";
 import { NotificationService } from '@app/services/notification.service';
 @Component({
   selector: 'app-asset-item-details',

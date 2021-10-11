@@ -6,7 +6,6 @@ import { Asset } from 'app/models/asset';
 import { Step } from 'app/models/step';
 import { StepService } from 'app/services/step.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-step-details',

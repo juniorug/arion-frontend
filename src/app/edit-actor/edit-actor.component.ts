@@ -6,7 +6,6 @@ import { Asset } from 'app/models/asset';
 import { ActorService } from 'app/services/actor.service';
 import { NotificationService } from 'app/services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-edit-actor',
@@ -19,6 +18,7 @@ export class EditActorComponent implements OnInit {
   id: string;
   actor: Actor;
   asset: Asset;
+  selectedItemIndex: number
 
   constructor(
     private route: ActivatedRoute,
@@ -50,29 +50,38 @@ export class EditActorComponent implements OnInit {
         this.asset = data['data'];
         console.log("asset: ", this.asset);
         this.actor =  this.asset.actors.find(actor => actor.actorID === this.id);
+        this.selectedItemIndex = this.asset.actors.findIndex(actor => actor.actorID === this.id);
         console.log("actor: ", this.actor);
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'get Actor failed. Please try again.');
       }
     );
   }
 
   onSubmit() {
-    /* this.actorService.updateActor(this.id, this.actor)
-      .subscribe(data => {
+    this.spinner.show();
+    this.asset.actors[this.selectedItemIndex] = this.actor;
+    console.log("Submitted! Updated asset: ", this.asset);
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
         console.log(data);
-        this.actor = new Actor();
-        this.gotoList();
-      }, error => console.log(error)); */
-      this.notificationServiceService.showNotification('success', 'Actor succesfully edited');
-      this.gotoActorList();
-
+        this.asset = new Asset();
+        this.notificationServiceService.showNotification('success', 'Actor succesfully edited');
+        this.gotoActorList();
+      }, 
+      error =>  {
+        this.handleError(error, 'Update Actor failed. Please try again.');
+      }
+    );
   }
 
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
+  }
 
   gotoActorList() {
     history.back();

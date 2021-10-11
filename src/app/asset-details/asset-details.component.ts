@@ -11,7 +11,6 @@ import { NotificationService } from 'app/services/notification.service';
 import { StepService } from 'app/services/step.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-asset-details',
@@ -27,6 +26,7 @@ export class AssetDetailsComponent implements OnInit {
   selectedObjectID: string;
   selectedObjectType: string;
   showCreateAssetItemButton: boolean;
+  activeTab: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,10 +42,12 @@ export class AssetDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //TODO: verificar chamada aos services!!!
     $(window).ready(()=>{
       document.getElementsByClassName("asset-menu")[0].classList.add("active");
     });
+    this.activeTab = this.dataService.get('activeTab') ? this.dataService.get('activeTab') : 'asset-items';
+    this.activeTab = this.activeTab.replace("\"", '').replace("\"", '');
+    
     this.showCreateAssetItemButton = true;
     this.asset = new Asset();
     this.id = this.route.snapshot.params['id'];
@@ -200,10 +202,16 @@ export class AssetDetailsComponent implements OnInit {
     this.router.navigate(['edit-step', assetId, id]);
   }
 
-  mustShowCreateAssetItemButton() {
+  mustShowCreateAssetItemButton($event: MouseEvent) {
+    $event.preventDefault();
+    this.activeTab = 'asset-items';
+    this.dataService.set('activeTab', 'asset-items');
     this.showCreateAssetItemButton = true;
   }
-  mustHideCreateAssetItemButton() {
+  mustHideCreateAssetItemButton(activeTab: string, $event: MouseEvent) {
+    $event.preventDefault();
+    this.activeTab = activeTab;
+    this.dataService.set('activeTab', activeTab);
     this.showCreateAssetItemButton = false;
   }
 

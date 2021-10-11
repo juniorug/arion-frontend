@@ -6,7 +6,6 @@ import { Asset } from 'app/models/asset';
 import { Step } from 'app/models/step';
 import { StepService } from 'app/services/step.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import * as assetsJson from "../../assets/mock/assets.json";
 
 @Component({
   selector: 'app-edit-step',
@@ -19,6 +18,7 @@ export class EditStepComponent implements OnInit {
   id: string;
   step: Step;
   asset: Asset;
+  selectedItemIndex: number
 
   constructor(
     private route: ActivatedRoute,
@@ -49,15 +49,41 @@ export class EditStepComponent implements OnInit {
         this.asset = data['data'];
         console.log("asset: ", this.asset);
         this.step =  this.asset.steps.find(step => step.stepID === this.id);
+        this.selectedItemIndex = this.asset.steps.findIndex(step => step.stepID === this.id);
         console.log("step: ", this.step);
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.notificationServiceService.showNotification('danger', 'get Asset failed. Please try again.');
-        this.spinner.hide();
+        this.handleError(error, 'get Step failed. Please try again.');
       }
     );
+  }
+
+  onSubmit() {
+    this.spinner.show();
+    this.asset.steps[this.selectedItemIndex] = this.step;
+    console.log("Submitted! Updated asset: ", this.asset);
+    this.assetService.updateAsset(this.assetId, this.asset).subscribe(
+      data => {
+        console.log(data);
+        this.asset = new Asset();
+        this.notificationServiceService.showNotification('success', 'Step succesfully edited');
+        this.gotoStepList();
+      }, 
+      error =>  {
+        this.handleError(error, 'Update Step failed. Please try again.');
+      }
+    );
+  }
+
+  handleError(error: any, message: string) {
+    console.log(error);
+    this.notificationServiceService.showNotification('danger', message);
+    this.spinner.hide();
+  }
+
+  gotoStepList() {
+    history.back();
   }
 
   ngOnDestroy(): void {
