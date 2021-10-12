@@ -81,19 +81,22 @@ export class AuditComponent implements OnInit {
         this.records = data['data'].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
         console.log("records: ", this.records);
 
-        let recordAux = this.records.filter(recordItem =>
+        let recordWithSearchedList = this.records.filter(recordItem =>
           recordItem.record.assetItems.some(assetItem => assetItem.assetItemID === this.searchId)
-        )[0];
+        );
         /* .map(recordItem =>
           recordItem.record.assetItems.findIndex(assetItem => assetItem.assetItemID === this.searchId)
         )[0]; */
-        console.log("record: ", recordAux);
-        let assetItemAux = recordAux.record.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
-        console.log("assetItemAux: ", assetItemAux);
-        
-        if (!recordMap.has(assetItemAux)) {
-          recordMap.set(assetItemAux, recordAux);
-        }
+        console.log("recordWithSearchedList: ", recordWithSearchedList);
+        recordWithSearchedList.forEach( recordAux => {
+          let assetItemAux = recordAux.record.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
+          console.log("assetItemAux: ", assetItemAux);
+          
+          if (!recordMap.has(JSON.stringify(assetItemAux))) {
+            console.log("NOT in map. will add assetItemAux: ", assetItemAux);
+            recordMap.set(JSON.stringify(assetItemAux), recordAux);
+          }
+        });
         console.log("recordMap: ", recordMap);
 
 
