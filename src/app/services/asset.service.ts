@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class AssetService {
 
   private baseUrl = 'http://localhost:8080/api/assets';
+  private auditUrl = 'http://localhost:8080/api/audit/assets';
 
   constructor(private http: HttpClient) { }
 
@@ -30,4 +31,9 @@ export class AssetService {
   getAssetList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
+
+  getAudit(id: string): Observable<any> {
+    return this.http.get(`${this.auditUrl}/${id}`);
+  }
+
 }
