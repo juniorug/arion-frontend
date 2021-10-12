@@ -35,6 +35,8 @@ import { DiagramComponent } from './diagram/diagram.component';
 import { InspectorComponent } from './inspector/inspector.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+
 
 //LOGIN MODULES
 import { BrowserModule } from '@angular/platform-browser';
@@ -80,6 +82,7 @@ import { AuditComponent } from './audit/audit.component';
     NgxSpinnerModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatRadioModule,
   ],
   declarations: [
     AppComponent,
@@ -105,7 +108,7 @@ import { AuditComponent } from './audit/audit.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+    { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'accent' }},
     // provider used to create fake backend
     fakeBackendProvider
   ],

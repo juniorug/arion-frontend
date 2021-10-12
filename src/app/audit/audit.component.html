@@ -1,24 +1,43 @@
 <ngx-spinner
-bdColor="rgba(51,51,51,0.5)"
-size="medium"
-color="#673ab7"
-type="ball-spin-clockwise"
+    bdColor="rgba(51,51,51,0.5)"
+    size="medium"
+    color="#673ab7"
+    type="ball-spin-clockwise"
 ></ngx-spinner>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-info">
+          <!-- <div class="card-header card-header-primary">
             <div class="row">
               <div class="col-md-10">
                 <h4 class="card-title">Track Asset Item</h4>
               </div>
               <div class="col-md-2 float-right"></div>
-            </div>
-          </div>
+              </div> 
+            
+          </div>-->
           <div class="card-body">
-              <p>content here</p>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+              <form class="form-inline" [formGroup]="auditForm" (ngSubmit)="onSubmit()">
+                <div class="form-group has-white bmd-form-group">
+                  <input class="form-control" placeholder="Provide an ID to search" type="text"  formControlName="searchId">
+                </div>
+                <button class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round" type="submit">
+                  <i class="material-icons">search</i>
+                </button>
+              </form>
+              <div class="radioclass">
+                <mat-radio-group aria-label="Select an option">
+                  <mat-radio-button value="1" (change)="radioChange($event)" checked >Asset</mat-radio-button>
+                  <mat-radio-button value="2" (change)="radioChange($event)">Actor</mat-radio-button>
+                  <mat-radio-button value="3" (change)="radioChange($event)" >Step</mat-radio-button>
+                  <mat-radio-button value="4" (change)="radioChange($event)">Asset Item</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </nav>
+            
           </div>
         </div>
       </div>
@@ -28,7 +47,7 @@ type="ball-spin-clockwise"
     <div class="row">
       <div class="col-md-12">
         <button class="btn btn-primary float-right" onclick="history.back()">
-          <i class="material-icons">arrow_back_ios</i>Back
+        <i class="material-icons">arrow_back_ios</i>Back
         </button>
       </div>
     </div>

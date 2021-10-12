@@ -62,3 +62,24 @@ input:-webkit-autofill:active {
 .mat-form-field-ripple {
   background-color: #6731b7 !important;
 }
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color:#fff; 
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+  color:#fff;
+  background-color:#fff ;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:#fff;
+}
+
+.mat-radio-button label {
+  color:#fff;
+}
+
+.mat-radio-outer-circle {
+  border-color: rgba(255, 255, 255, 0.54);
+}
