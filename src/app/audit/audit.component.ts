@@ -6,7 +6,6 @@ import { Asset } from '@app/models/asset';
 import { AssetItem } from '@app/models/asset-item';
 import { Step } from '@app/models/step';
 import { AssetService } from '@app/services/asset.service';
-import { DataService } from '@app/services/data.service';
 import { NotificationService } from '@app/services/notification.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -25,19 +24,17 @@ export class AuditComponent implements OnInit {
   panelOpenState = false;
   recordMap = new Map();
   convertedMap = new Map();
-  myjson:any=JSON;
+  auditForm: FormGroup;
 
   /**items to rearch */
   asset: Asset;
   actor: Actor;
   step: Step;
   assetItem: AssetItem;
-  auditForm: FormGroup;
 
   constructor(
     private spinner: NgxSpinnerService,
     private assetService: AssetService,
-    private dataService: DataService,
     private notificationServiceService: NotificationService,
     private formBuilder: FormBuilder,
   ) { }
@@ -47,15 +44,13 @@ export class AuditComponent implements OnInit {
       document.getElementsByClassName("asset-menu")[0].classList.remove("active");
       document.getElementsByClassName("audit")[0].classList.add("active");
     });
-    //TODO: remover o valor do searchId e do entitySelector
     this.auditForm = this.formBuilder.group({
       searchId: '',
     });
     this.asset = new Asset();
-    this.assetId = "cb7497f0-47d7-435b-96e2-8d4258517b7a";
-    this.searchId = "a544bb43-61c6-48e9-9908-3edc17837dc3";
+    this.assetId = "";
+    this.searchId = "";
     this.entitySelector = 1;
-    console.log("previous asset id : ", this.assetId);
   }
 
   getAssetFromSearchId() {
@@ -107,8 +102,6 @@ export class AuditComponent implements OnInit {
       data => {
         this.records = data['data'].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
         console.log("records: ", this.records);
-
-
         let recordWithSearchedList: any[];
         if (this.entitySelector == 1) {
           recordWithSearchedList = this.records;
@@ -191,7 +184,7 @@ export class AuditComponent implements OnInit {
   onSubmit(): void {
     console.log('Your order has been submitted', this.auditForm.value.searchId);
     this.searchId = this.auditForm.value.searchId;
-    //this.auditForm.reset();
+    this.auditForm.reset();
     this.getAssetFromSearchId();
   }
 
