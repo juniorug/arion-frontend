@@ -19,25 +19,67 @@
             
           </div>-->
           <div class="card-body">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-              <form class="form-inline" [formGroup]="auditForm" (ngSubmit)="onSubmit()">
-                <div class="form-group has-white bmd-form-group">
-                  <input class="form-control" placeholder="Provide an ID to search" type="text"  formControlName="searchId">
-                </div>
-                <button class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round" type="submit">
-                  <i class="material-icons">search</i>
-                </button>
-              </form>
-              <div class="radioclass">
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" (change)="radioChange($event)" checked >Asset</mat-radio-button>
-                  <mat-radio-button value="2" (change)="radioChange($event)">Actor</mat-radio-button>
-                  <mat-radio-button value="3" (change)="radioChange($event)" >Step</mat-radio-button>
-                  <mat-radio-button value="4" (change)="radioChange($event)">Asset Item</mat-radio-button>
-                </mat-radio-group>
+            <div class="row">
+              <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                  <form class="form-inline" [formGroup]="auditForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group has-white bmd-form-group">
+                      <input class="form-control" placeholder="Provide an ID to search" type="text"  formControlName="searchId">
+                    </div>
+                    <button class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round" type="submit">
+                      <i class="material-icons">search</i>
+                    </button>
+                  </form>
+                  <div class="radioclass">
+                    <mat-radio-group aria-label="Select an option">
+                      <mat-radio-button value="1" (change)="radioChange($event)" >Asset</mat-radio-button>
+                      <mat-radio-button value="2" (change)="radioChange($event)">Actor</mat-radio-button>
+                      <mat-radio-button value="3" (change)="radioChange($event)" >Step</mat-radio-button>
+                      <mat-radio-button value="4" (change)="radioChange($event)" checked >Asset Item</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </nav>
               </div>
-            </nav>
-            
+            </div>
+            <div class="row">
+              <div class="col-md-12" *ngIf="recordMap.size > 0">
+                <mat-accordion multi="true">
+                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of convertedMap | keyvalue">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <span class="black-text">TxId:</span> 
+                        <span class="simple-text">{{item.value.txId}}</span> 
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        {{item.value.txId}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <pre>{{item.key | json}}</pre><br/>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+<!--             <div class="row">
+              <div class="col-md-12">
+                <pre> 
+                  <code>
+                    recordMap: {{ recordMap | json}}
+                    recordMap.size: {{ recordMap.size}}
+                  </code>
+                </pre>
+                <pre> 
+                  <code>
+                    convertedMap: {{ convertedMap | json}}
+                    convertedMap.size: {{ convertedMap.size}}
+                  </code>
+                </pre>
+                <div *ngFor="let item of convertedMap | keyvalue">
+                  <pre>{{item.key | json}}</pre><br />
+                  <p>{{item.value.txId}}</p>
+                </div>
+                
+              </div>
+            </div> -->
           </div>
         </div>
       </div>

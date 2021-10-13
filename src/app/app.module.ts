@@ -36,6 +36,7 @@ import { InspectorComponent } from './inspector/inspector.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 //LOGIN MODULES
@@ -83,6 +84,7 @@ import { AuditComponent } from './audit/audit.component';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatRadioModule,
+    MatExpansionModule,
   ],
   declarations: [
     AppComponent,

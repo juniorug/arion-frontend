@@ -22,6 +22,10 @@ export class AuditComponent implements OnInit {
   records: any[];
   searchId: string;
   entitySelector: number;
+  panelOpenState = false;
+  recordMap = new Map();
+  convertedMap = new Map();
+  myjson:any=JSON;
 
   /**items to rearch */
   asset: Asset;
@@ -43,23 +47,28 @@ export class AuditComponent implements OnInit {
       document.getElementsByClassName("asset-menu")[0].classList.remove("active");
       document.getElementsByClassName("audit")[0].classList.add("active");
     });
+    //TODO: remover o valor do searchId e do entitySelector
     this.auditForm = this.formBuilder.group({
-      searchId: '',
+      searchId: 'a544bb43-61c6-48e9-9908-3edc17837dc3',
     });
     this.asset = new Asset();
     this.assetId = "cb7497f0-47d7-435b-96e2-8d4258517b7a";
     this.searchId = "a544bb43-61c6-48e9-9908-3edc17837dc3";
-    this.entitySelector = 1;
+    this.entitySelector = 4;
     console.log("previous asset id : ", this.assetId);
     //this.getAssetFromSearchId();
   }
 
   getAssetFromSearchId() {
+    this.spinner.show();
     this.assetService.getAssetList().subscribe(
       data => {
         this.assets = data['data'];
         console.log("assets: ", this.assets);
-        if (this.entitySelector == 2) {
+        if (this.entitySelector == 1) {
+          this.assetId = this.searchId;
+          this.asset = this.assets.find(asset => asset.assetID === this.assetId);
+        } else if (this.entitySelector == 2) {
           this.assetId = this.getAssetIdFromActor();
           this.asset = this.assets.find(asset => asset.assetID === this.assetId);
           this.actor = this.asset.actors.find(actor => actor.actorID === this.searchId);
@@ -69,16 +78,20 @@ export class AuditComponent implements OnInit {
           this.step = this.asset.steps.find(step => step.stepID === this.searchId);
         } else if (this.entitySelector == 4) {
           this.assetId = this.getAssetIdFromAssetItem();
+          console.log("FOUND ASSET ID : ", this.assetId);
           this.asset =  this.assets.find(asset => asset.assetID === this.assetId);
+          console.log("FOUND ASSET : ", this.asset);
           this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
         }
-        this.asset =  this.assets.find(asset => asset.assetID === this.assetId);
-        this.assetItem =  this.asset.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
         console.log("FOUND ASSET ID : ", this.assetId);
-        console.log("FOUND assetItem : ", this.assetItem);
         console.log("FOUND ASSET : ", this.asset);
-        console.log("will call searchaudit");
-        this.searchAudit();
+        if (!this.asset) {
+          this.notificationServiceService.showNotification('danger', "Get Audit info failed. Please try again.");
+          this.spinner.hide();
+        } else {
+          console.log("will call searchaudit");
+          this.searchAudit();
+        }
       },
       error => {
         this.handleError(error,'Get Audit info failed. Please try again.');
@@ -87,7 +100,7 @@ export class AuditComponent implements OnInit {
   }
 
   searchAudit() {
-    let recordMap = new Map();
+    //this.recordMap = new Map();
     console.log("searchaudit called with asset id : ", this.assetId);
     this.spinner.show();
     this.assetService.getAudit(this.assetId).subscribe(
@@ -97,7 +110,19 @@ export class AuditComponent implements OnInit {
 
 
         let recordWithSearchedList: any[];
-        if (this.entitySelector == 2) {
+        if (this.entitySelector == 1) {
+          recordWithSearchedList = this.records;
+          console.log("recordWithSearchedList: ", recordWithSearchedList);
+          recordWithSearchedList.forEach( recordAux => {
+            let assetAux = recordAux.record;
+            console.log("assetAux: ", assetAux);
+            if (!this.recordMap.has(JSON.stringify(assetAux))) {
+              console.log("NOT in map. will add assetAux: ", assetAux);
+              this.recordMap.set(JSON.stringify(assetAux), recordAux);
+              this.convertedMap.set(assetAux, recordAux);
+            }
+          });
+        } else if (this.entitySelector == 2) {
           recordWithSearchedList = this.records.filter(recordItem =>
             recordItem.record.actors.some(actor => actor.actorID === this.searchId)
           );
@@ -106,9 +131,10 @@ export class AuditComponent implements OnInit {
             let actorAux = recordAux.record.actors.find(actor => actor.actorID === this.searchId);
             console.log("actorAux: ", actorAux);
             
-            if (!recordMap.has(JSON.stringify(actorAux))) {
+            if (!this.recordMap.has(JSON.stringify(actorAux))) {
               console.log("NOT in map. will add actorAux: ", actorAux);
-              recordMap.set(JSON.stringify(actorAux), recordAux);
+              this.recordMap.set(JSON.stringify(actorAux), recordAux);
+              this.convertedMap.set(actorAux, recordAux);
             }
           });
         } else if (this.entitySelector == 3) {
@@ -120,9 +146,10 @@ export class AuditComponent implements OnInit {
             let stepAux = recordAux.record.steps.find(step => step.stepID === this.searchId);
             console.log("stepAux: ", stepAux);
             
-            if (!recordMap.has(JSON.stringify(stepAux))) {
+            if (!this.recordMap.has(JSON.stringify(stepAux))) {
               console.log("NOT in map. will add stepAux: ", stepAux);
-              recordMap.set(JSON.stringify(stepAux), recordAux);
+              this.recordMap.set(JSON.stringify(stepAux), recordAux);
+              this.convertedMap.set(stepAux, recordAux);
             }
           });
         } else if (this.entitySelector == 4) {
@@ -134,9 +161,10 @@ export class AuditComponent implements OnInit {
             let assetItemAux = recordAux.record.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
             console.log("assetItemAux: ", assetItemAux);
             
-            if (!recordMap.has(JSON.stringify(assetItemAux))) {
+            if (!this.recordMap.has(JSON.stringify(assetItemAux))) {
               console.log("NOT in map. will add assetItemAux: ", assetItemAux);
-              recordMap.set(JSON.stringify(assetItemAux), recordAux);
+              this.recordMap.set(JSON.stringify(assetItemAux), recordAux);
+              this.convertedMap.set(assetItemAux, recordAux);
             }
           });
         }
@@ -159,13 +187,41 @@ export class AuditComponent implements OnInit {
         }); */
 
 
-        console.log("recordMap: ", recordMap);
+        //this.convertRecordMapIntoEntity();
+        console.log("recordMap: ", this.convertedMap);
         this.spinner.hide();
       },
       error => {
         this.handleError(error, 'Get Audit info failed. Please try again.');
       }
     );
+  }
+
+
+  convertRecordMapIntoEntity() {
+    this.convertedMap = new Map();
+    this.recordMap.forEach((value: boolean, key: string) => {
+      console.log(key, value);
+
+      if (this.entitySelector == 1) {
+        let assetTemp = new Asset();
+        assetTemp = JSON.parse(key);
+        this.convertedMap.set(assetTemp, value);
+      } else if (this.entitySelector == 2) {
+        let actorTemp = new Actor();
+        actorTemp = JSON.parse(key);
+        this.convertedMap.set(actorTemp, value);
+      } else if (this.entitySelector == 3) {
+        let stepTemp = new Step();
+        stepTemp = JSON.parse(key);
+        this.convertedMap.set(stepTemp, value);
+      } else if (this.entitySelector == 4) {
+        let assetItemTemp = new AssetItem();
+        assetItemTemp = JSON.parse(key);
+        this.convertedMap.set(assetItemTemp, value);
+      }
+      //this.convertedMap.set(JSON.parse(key), value);
+  });
   }
 
   handleError(error: any, message: string) {
@@ -182,7 +238,7 @@ export class AuditComponent implements OnInit {
   onSubmit(): void {
     console.log('Your order has been submitted', this.auditForm.value.searchId);
     this.searchId = this.auditForm.value.searchId;
-    this.auditForm.reset();
+    //this.auditForm.reset();
     this.getAssetFromSearchId();
   }
 
