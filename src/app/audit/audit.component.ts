@@ -49,14 +49,13 @@ export class AuditComponent implements OnInit {
     });
     //TODO: remover o valor do searchId e do entitySelector
     this.auditForm = this.formBuilder.group({
-      searchId: 'a544bb43-61c6-48e9-9908-3edc17837dc3',
+      searchId: '',
     });
     this.asset = new Asset();
     this.assetId = "cb7497f0-47d7-435b-96e2-8d4258517b7a";
     this.searchId = "a544bb43-61c6-48e9-9908-3edc17837dc3";
-    this.entitySelector = 4;
+    this.entitySelector = 1;
     console.log("previous asset id : ", this.assetId);
-    //this.getAssetFromSearchId();
   }
 
   getAssetFromSearchId() {
@@ -100,7 +99,8 @@ export class AuditComponent implements OnInit {
   }
 
   searchAudit() {
-    //this.recordMap = new Map();
+    this.recordMap = new Map();
+    this.convertedMap = new Map();
     console.log("searchaudit called with asset id : ", this.assetId);
     this.spinner.show();
     this.assetService.getAudit(this.assetId).subscribe(
@@ -168,26 +168,6 @@ export class AuditComponent implements OnInit {
             }
           });
         }
-
-
-
-
-       /*  let recordWithSearchedList = this.records.filter(recordItem =>
-          recordItem.record.assetItems.some(assetItem => assetItem.assetItemID === this.searchId)
-        );
-        console.log("recordWithSearchedList: ", recordWithSearchedList);
-        recordWithSearchedList.forEach( recordAux => {
-          let assetItemAux = recordAux.record.assetItems.find(assetItem => assetItem.assetItemID === this.searchId);
-          console.log("assetItemAux: ", assetItemAux);
-          
-          if (!recordMap.has(JSON.stringify(assetItemAux))) {
-            console.log("NOT in map. will add assetItemAux: ", assetItemAux);
-            recordMap.set(JSON.stringify(assetItemAux), recordAux);
-          }
-        }); */
-
-
-        //this.convertRecordMapIntoEntity();
         console.log("recordMap: ", this.convertedMap);
         this.spinner.hide();
       },
@@ -195,33 +175,6 @@ export class AuditComponent implements OnInit {
         this.handleError(error, 'Get Audit info failed. Please try again.');
       }
     );
-  }
-
-
-  convertRecordMapIntoEntity() {
-    this.convertedMap = new Map();
-    this.recordMap.forEach((value: boolean, key: string) => {
-      console.log(key, value);
-
-      if (this.entitySelector == 1) {
-        let assetTemp = new Asset();
-        assetTemp = JSON.parse(key);
-        this.convertedMap.set(assetTemp, value);
-      } else if (this.entitySelector == 2) {
-        let actorTemp = new Actor();
-        actorTemp = JSON.parse(key);
-        this.convertedMap.set(actorTemp, value);
-      } else if (this.entitySelector == 3) {
-        let stepTemp = new Step();
-        stepTemp = JSON.parse(key);
-        this.convertedMap.set(stepTemp, value);
-      } else if (this.entitySelector == 4) {
-        let assetItemTemp = new AssetItem();
-        assetItemTemp = JSON.parse(key);
-        this.convertedMap.set(assetItemTemp, value);
-      }
-      //this.convertedMap.set(JSON.parse(key), value);
-  });
   }
 
   handleError(error: any, message: string) {

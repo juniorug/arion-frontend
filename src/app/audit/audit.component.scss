@@ -27,3 +27,33 @@ label {
     color: #fff !important;
 }
 
+.mt-30 {
+    margin-top: 30px;
+}
+.simple-text {
+    color: rgba(0, 0, 0, 0.54);
+    margin-left: 15px;
+}
+.mat-expansion-panel-header {
+    background-color: rgba(245, 245, 220, 0.5);
+}
+.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+    background-color: rgba(245, 245, 220, 0.5);
+}
+
+.col-md-12.text-center {
+    height: 185px;
+
+    span {
+        color: rgb(184, 184, 184);
+        letter-spacing: 0.49px;
+        line-height: 1.4;
+        display: block;
+        margin-block-start: 75px;
+        margin-block-end: 75px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;
+        font-size: 30px;
+    }
+}
